@@ -27,6 +27,7 @@ namespace StarterKit
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
+            GL.Enable(EnableCap.Texture2D);
 
             Cell = LoadTexture(Path.Combine(".", "cell.png"));
 
@@ -69,15 +70,24 @@ namespace StarterKit
             GL.LoadMatrix(ref modelview);
             GL.BindTexture(TextureTarget.Texture2D, Cell);
 
-            GL.Begin(BeginMode.Triangles);
+            GL.Begin(BeginMode.Quads);
 
-            /*GL.Color3(1.0f, 1.0f, 0.0f);*/ GL.Vertex3(-1.0f, -1.0f, 4.0f);
-            /*GL.Color3(1.0f, 0.0f, 0.0f);*/ GL.Vertex3(1.0f, -1.0f, 4.0f);
-            /*GL.Color3(0.2f, 0.9f, 1.0f);*/ GL.Vertex3(-1.0f, 1.0f, 4.0f);
+            RenderCube(-1f,0,0);
+            RenderCube(1f,0,0);
+            RenderCube(-1f,1f,0);
+            RenderCube(1f,-1f,0);
 
             GL.End();
 
             SwapBuffers();
+        }
+
+      void RenderCube(float x, float y, float z)
+        {
+            GL.TexCoord2(0.0f, 1.0f); GL.Vertex3(-.5f+x, .5f+y, 4f+z);
+            GL.TexCoord2(1.0f, 1.0f); GL.Vertex3(.5f+x, .5f+y, 4f+z);
+            GL.TexCoord2(1.0f, 0.0f); GL.Vertex3(.5f+x, -.5f+y, 4f+z);
+            GL.TexCoord2(0.0f, 0.0f); GL.Vertex3(-.5f+x, -.5f+y, 4f+z);
         }
 
         static Texture LoadTexture(string filename)
