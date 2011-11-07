@@ -10,7 +10,7 @@ namespace StarterKit
 {
     class Game : GameWindow
     {
-        public Game() : base(800, 600, GraphicsMode.Default, "OpenTK Quick Start Sample")
+        public Game() : base(800, 600, GraphicsMode.Default, "tk-tetris")
         {
             VSync = VSyncMode.On;
         }

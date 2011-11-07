@@ -1,0 +1,3 @@
+#!/bin/bash
+gmcs -r:System.Drawing.dll Program.cs
+#-pkg:webkit-sharp-1.0
