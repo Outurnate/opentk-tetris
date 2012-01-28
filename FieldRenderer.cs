@@ -14,7 +14,7 @@ using Texture = System.Int32;
 
 namespace Tetris
 {
-  class FieldRenderer : IGameComponent
+  class FieldRenderer : GameComponent
   {
     public struct Cell
     {
@@ -72,9 +72,9 @@ namespace Tetris
       this.height = height;
     }
 
-    public void Update(FrameEventArgs e) {}
+    protected override sealed void DoUpdate(FrameEventArgs e) {}
 
-    public void Draw(FrameEventArgs e)
+    protected override sealed void DoDraw(FrameEventArgs e)
     {
       for (int x = 0; x < width; x++)
         for (int y = 0; y < height; y++)

@@ -20,7 +20,7 @@ namespace Tetris
     public Game() : base(800, 600, GraphicsMode.Default, "tk-tetris")
     {
       VSync = VSyncMode.On;
-      field = new FieldRenderer(new Vector3(0.0f, 0.0f, 25.0f), 10, 20);
+      field = new FieldRenderer(new Vector3(0.0f, 0.0f, 25.0f), 10, 20) { Enabled = true, Visible = true };
     }
 
     protected override void OnLoad(EventArgs e)
