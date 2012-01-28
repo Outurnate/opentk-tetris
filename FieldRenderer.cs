@@ -33,8 +33,8 @@ namespace Tetris
     {
       new Vector3( .5f,  .5f, 0f),
       new Vector3(-.5f,  .5f, 0f),
-      new Vector3( .5f, -.5f, 0f),
-      new Vector3(-.5f, -.5f, 0f)
+      new Vector3(-.5f, -.5f, 0f),
+      new Vector3( .5f, -.5f, 0f)
     };
     float[][] texCoords = new float[][]
     {
