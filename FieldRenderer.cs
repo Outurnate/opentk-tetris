@@ -70,6 +70,9 @@ namespace Tetris
       committedCells = new Cell[width, height];
       this.width = width;
       this.height = height;
+      for (int x = 0; x < width; x++)
+        for (int y = 0; y < height; y++)
+          committedCells[x, y] = shownCells[x, y] = new Cell();
     }
 
     protected override void DoUpdate(FrameEventArgs e) { }
@@ -84,10 +87,19 @@ namespace Tetris
           RenderCube(Vector3.Add(new Vector3((float)x, (float)y, 0), position));
           GL.End();
 	}
+      GL.BindTexture(TextureTarget.Texture2D, ResourceCommons.Block);
+      for (int x = 0; x < width; x++)
+        for (int y = 0; y < height; y++)
+          if (committedCells[x, y].inUse)
+	  {
+            GL.Begin(BeginMode.Quads);
+            RenderCube(Vector3.Add(new Vector3((float)x, (float)y, -1f), position));
+            GL.End();
+	  }
     }
 
     void RenderCube(Vector3 cubePos)
-    {
+    { //TODO:Use VBO
       for (int i = 0; i < 4; i++)
       {
         GL.TexCoord2(texCoords[i]);
