@@ -14,20 +14,35 @@ using Texture = System.Int32;
 
 namespace Tetris
 {
-  enum TetraminoColor { Cyan, Yellow, Purple, Green, Red, Blue, Orange };
-  enum TetraminoType { I, O, T, S, Z, L, J };
-  enum TetraminoRotation { Up, Left, Down, Right };
+  enum TetraminoColor : ushort { Cyan, Yellow, Purple, Green, Red, Blue, Orange };
+  enum TetraminoType : ushort { I, O, T, S, Z, L, J };
+  enum TetraminoRotation : ushort { Up, Left, Down, Right };
 
   struct Tetramino
   {
-    public TetraminoType type { get; set; }
-    public TetraminoColor color { get; set; }
-    public TetraminoRotation rotation { get; set; }
+    public TetraminoType type;
+    public TetraminoColor color;
+    public TetraminoRotation rotation;
+    public int x;
+    public int y;
+  }
+
+  class TetraminoIgnoreColorPosition : EqualityComparer<Tetramino>
+  {
+    public override bool Equals(Tetramino t1, Tetramino t2)
+    {
+      return t1.type == t2.type && t1.rotation == t2.rotation;
+    }
+
+    public override int GetHashCode(Tetramino tx)
+    {
+      return ((ushort)tx.type ^ (ushort)tx.rotation).GetHashCode();
+    }
   }
 
   class TetraminoManager
   {
-    static Dictionary<Tetramino, bool[,]> Definitions = new Dictionary<Tetramino, bool[,]>()
+    static Dictionary<Tetramino, bool[,]> Definitions = new Dictionary<Tetramino, bool[,]>(new TetraminoIgnoreColorPosition())
       {
         {
           new Tetramino()

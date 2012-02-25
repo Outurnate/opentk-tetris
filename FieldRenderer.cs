@@ -16,16 +16,10 @@ namespace Tetris
 {
   class FieldRenderer : GameComponent
   {
-    public struct Cell
+    public class Cell
     {
-      public bool inUse;
-      public Color color;
-
-      public Cell(Color color)
-      {
-	inUse = false;
-        this.color = color;
-      }
+      public bool inUse = false;
+      public TetraminoColor color;
     }
 
     Vector3 position;
@@ -63,7 +57,7 @@ namespace Tetris
       }
     }
 
-    public FieldRenderer(Vector3 position, int width, int height)
+    public FieldRenderer(GameWindow window, Vector3 position, int width, int height) : base(window)
     {
       this.position = Vector3.Add(position, new Vector3(-(width / 2) + .5f, -(height / 2) + .5f, 0.0f));
       shownCells = new Cell[width, height];
@@ -73,6 +67,13 @@ namespace Tetris
       for (int x = 0; x < width; x++)
         for (int y = 0; y < height; y++)
           committedCells[x, y] = shownCells[x, y] = new Cell();
+    }
+
+    public void Clear()
+    {
+      for (int x = 0; x < width; x++)
+        for (int y = 0; y < height; y++)
+          shownCells[x, y].inUse = false;
     }
 
     protected override void DoUpdate(FrameEventArgs e) { }

@@ -16,6 +16,17 @@ namespace Tetris
       set;
     }
 
+    public GameWindow Window
+    {
+      get;
+      private set;
+    }
+
+    public GameComponent(GameWindow window)
+    {
+      this.Window = window;
+    }
+
     public void Update(FrameEventArgs e)
     {
       if (Enabled)
