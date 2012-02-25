@@ -18,22 +18,25 @@ namespace Tetris
   static class ResourceCommons
   {
     public static Texture Cell;
+    public static Texture Block;
 
     public static void Load()
     {
-      Cell = LoadTexture(Path.Combine(".", "cell.png"));
+      LoadTexture(Path.Combine(".", "cell.png"), out Cell);
+      LoadTexture(Path.Combine(".", "block.png"), out Block);
     }
 
     public static void Unload()
     {
       GL.DeleteTextures(1, ref Cell);
+      GL.DeleteTextures(1, ref Block);
     }
 
-    public static Texture LoadTexture(string filename)
+    public static void LoadTexture(string filename, out Texture id)
     {
       if (String.IsNullOrEmpty(filename))
         throw new ArgumentException(filename);
-      Texture id = GL.GenTexture();
+      id = GL.GenTexture();
       GL.BindTexture(TextureTarget.Texture2D, id);
       Bitmap bmp = new Bitmap(filename);
       BitmapData bmp_data = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
@@ -41,7 +44,6 @@ namespace Tetris
       bmp.UnlockBits(bmp_data);
       GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Linear);
       GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Linear);
-      return id;
     }
   }
 }

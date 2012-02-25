@@ -72,20 +72,22 @@ namespace Tetris
       this.height = height;
     }
 
-    protected override sealed void DoUpdate(FrameEventArgs e) {}
+    protected override void DoUpdate(FrameEventArgs e) { }
 
-    protected override sealed void DoDraw(FrameEventArgs e)
+    protected override void DoDraw(FrameEventArgs e)
     {
+      GL.BindTexture(TextureTarget.Texture2D, ResourceCommons.Cell);
       for (int x = 0; x < width; x++)
         for (int y = 0; y < height; y++)
 	{
+          GL.Begin(BeginMode.Quads);
           RenderCube(Vector3.Add(new Vector3((float)x, (float)y, 0), position));
+          GL.End();
 	}
     }
 
     void RenderCube(Vector3 cubePos)
     {
-      GL.BindTexture(TextureTarget.Texture2D, ResourceCommons.Cell);
       for (int i = 0; i < 4; i++)
       {
         GL.TexCoord2(texCoords[i]);

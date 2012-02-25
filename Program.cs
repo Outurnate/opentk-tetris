@@ -16,11 +16,12 @@ namespace Tetris
   class Game : GameWindow
   {
     FieldRenderer field;
+    Vector3 pos_field;
 
     public Game() : base(800, 600, GraphicsMode.Default, "tk-tetris")
     {
       VSync = VSyncMode.On;
-      field = new FieldRenderer(new Vector3(0.0f, 0.0f, 25.0f), 10, 20) { Enabled = true, Visible = true };
+      field = new FieldRenderer(pos_field = new Vector3(0.0f, 0.0f, 25.0f), 10, 20) { Enabled = true, Visible = true };
     }
 
     protected override void OnLoad(EventArgs e)
@@ -66,15 +67,11 @@ namespace Tetris
 
       GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
-      Matrix4 modelview = Matrix4.LookAt(new Vector3(0f, 0f, 0f), new Vector3(0f, 0f, 1f), Vector3.UnitY);
+      Matrix4 modelview = Matrix4.LookAt(new Vector3(-25f, 0f, 0f), pos_field, Vector3.UnitY);
       GL.MatrixMode(MatrixMode.Modelview);
       GL.LoadMatrix(ref modelview);
 
-      GL.Begin(BeginMode.Quads);
-
       field.Draw(e);
-
-      GL.End();
 
       SwapBuffers();
     }
