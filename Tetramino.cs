@@ -27,11 +27,7 @@ namespace Tetris
 
   class TetraminoManager
   {
-    Dictionary<Tetramino, bool[,]> Definitions;
-
-    public TetraminoManager()
-    {
-      Definitions = new Dictionary<Tetramino, bool[,]>()
+    static Dictionary<Tetramino, bool[,]> Definitions = new Dictionary<Tetramino, bool[,]>()
       {
         {
           new Tetramino()
@@ -426,6 +422,13 @@ namespace Tetris
           }
         }
       };
+
+    public bool[,] this[Tetramino tetramino]
+    {
+      get
+      {
+        return Definitions[tetramino];
+      }
     }
   }
 }
