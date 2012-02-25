@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<project name="Tetris" default="build" basedir=".">
+  <description>Tetris compiler.</description>
+  <property name="debug" value="true" />
+  <target name="clean" description="remove all generated files">
+    <delete file="bin/tetris.exe" failonerror="false" />
+    <delete file="bin/tetris.exe.pdb" failonerror="false" />
+    <delete file="bin/tetris.exe.mdb" failonerror="false" />
+  </target>
+  <target name="build" description="compiles the source code">
+    <csc target="exe" output="bin/tetris.exe" debug="${debug}">
+      <references>
+        <include name="System.Drawing.dll" />
+        <include name="bin/OpenTK.dll" />
+      </references>
+      <sources>
+        <include name="*.cs" />
+      </sources>
+    </csc>
+  </target>
+</project>
