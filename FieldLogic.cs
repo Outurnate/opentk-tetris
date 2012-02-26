@@ -27,6 +27,8 @@ namespace Tetris
     bool prev_right = false;
     bool prev_left = false;
 
+    bool deferredLock = false;
+
     public FieldLogic(GameWindow window, FieldRenderer field) : base(window)
     {
       this.field = field;
@@ -61,13 +63,35 @@ namespace Tetris
       return true;
     }
 
+    bool IsOnFieldYComponent(Tetramino tetramino)
+    {
+      bool[,] map = manager[currentTetramino];
+      for(int x = 0; x < map.GetLength(0); x++)
+        for(int y = 0; y < map.GetLength(1); y++)
+	  if (!(tetramino.y + y >= 0 && tetramino.y + y <= 19 && map[x, y]))
+	    return false;
+      return true;
+    }
+
     void TryMove(int x, int y)
     {
       Tetramino newTetramino = currentTetramino;
       newTetramino.x += x;
       newTetramino.y += y;
+      if (!IsOnFieldYComponent(newTetramino))
+      {
+	deferredLock = true;
+	newTetramino = currentTetramino;
+      }
       if (IsOnFieldXComponent(newTetramino))
-        currentTetramino = newTetramino;
+	currentTetramino = newTetramino;
+    }
+
+    void LockTetramino()
+    {
+      field.CopyCommit();
+      SpawnTetramino();
+      deferredLock = false;
     }
 
     protected override void DoUpdate(FrameEventArgs e)
@@ -86,7 +110,9 @@ namespace Tetris
       bool[,] map = manager[currentTetramino];
       for(int x = 0; x < map.GetLength(0); x++)
         for(int y = 0; y < map.GetLength(1); y++)
-	  field[false, currentTetramino.x + x, currentTetramino.y + y].inUse = map[x, y];
+	  field[currentTetramino.x + x, currentTetramino.y + y].inUse = map[x, y];
+      if (deferredLock)
+	LockTetramino();
       prev_right = Window.Keyboard[Key.D];
       prev_left = Window.Keyboard[Key.A];
     }

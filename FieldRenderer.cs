@@ -42,18 +42,15 @@ namespace Tetris
     int width;
     int height;
 
-    public Cell this[bool commit, int x, int y]
+    public Cell this[int x, int y]
     {
       get
       {
-	return commit ? committedCells[x, y] : shownCells[x, y];
+	return shownCells[x, y];
       }
       set
       {
-	if (commit)
-          committedCells[x, y] = value;
-        else
-          shownCells[x, y] = value;
+        shownCells[x, y] = value;
       }
     }
 
@@ -66,7 +63,10 @@ namespace Tetris
       this.height = height;
       for (int x = 0; x < width; x++)
         for (int y = 0; y < height; y++)
-          committedCells[x, y] = shownCells[x, y] = new Cell();
+	{
+          committedCells[x, y] = new Cell();
+	  shownCells[x, y] = new Cell();
+	}
     }
 
     public void Clear()
@@ -74,6 +74,17 @@ namespace Tetris
       for (int x = 0; x < width; x++)
         for (int y = 0; y < height; y++)
           shownCells[x, y].inUse = false;
+    }
+
+    public void CopyCommit()
+    {
+      for (int x = 0; x < width; x++)
+        for (int y = 0; y < height; y++)
+	  if (shownCells[x, y].inUse)
+	  {
+	    committedCells[x, y].inUse = shownCells[x, y].inUse;
+	    committedCells[x, y].color = shownCells[x, y].color;
+	  }
     }
 
     protected override void DoUpdate(FrameEventArgs e) { }
@@ -91,12 +102,20 @@ namespace Tetris
       GL.BindTexture(TextureTarget.Texture2D, ResourceCommons.Block);
       for (int x = 0; x < width; x++)
         for (int y = 0; y < height; y++)
+	{
           if (committedCells[x, y].inUse)
 	  {
             GL.Begin(BeginMode.Quads);
             RenderCube(Vector3.Add(new Vector3((float)x, (float)y, -1f), position));
             GL.End();
 	  }
+          if (shownCells[x, y].inUse)
+	  {
+            GL.Begin(BeginMode.Quads);
+            RenderCube(Vector3.Add(new Vector3((float)x, (float)y, -1f), position));
+            GL.End();
+	  }
+	}
     }
 
     void RenderCube(Vector3 cubePos)
