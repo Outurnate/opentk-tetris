@@ -42,11 +42,14 @@ namespace Tetris
     int width;
     int height;
 
-    public Cell this[int x, int y]
+    public Cell this[int x, int y, bool commit]
     {
       get
       {
-	return shownCells[x, y];
+	if (commit)
+	  return committedCells[x, y];
+	else
+	  return shownCells[x, y];
       }
       set
       {

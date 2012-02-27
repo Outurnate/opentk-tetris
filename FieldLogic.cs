@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Linq;
 using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
@@ -20,7 +21,7 @@ namespace Tetris
     TetraminoManager manager;
     Tetramino currentTetramino;
 
-    double dropSpeed = 1;
+    double dropSpeed = .25;
 
     double dropTimer;
 
@@ -56,8 +57,8 @@ namespace Tetris
     bool IsOnFieldXComponent(Tetramino tetramino)
     {
       bool[,] map = manager[currentTetramino];
-      for(int x = 0; x < map.GetLength(0); x++)
-        for(int y = 0; y < map.GetLength(1); y++)
+      for (int x = 0; x < map.GetLength(0); x++)
+        for (int y = 0; y < map.GetLength(1); y++)
 	  if (!(tetramino.x + x >= 0 && tetramino.x + x <= 9 && map[x, y]))
 	    return false;
       return true;
@@ -66,10 +67,15 @@ namespace Tetris
     bool IsOnFieldYComponent(Tetramino tetramino)
     {
       bool[,] map = manager[currentTetramino];
-      for(int x = 0; x < map.GetLength(0); x++)
-        for(int y = 0; y < map.GetLength(1); y++)
-	  if (!(tetramino.y + y >= 0 && tetramino.y + y <= 19 && map[x, y]))
+      for (int x = 0; x < map.GetLength(0); x++)
+      {
+	FieldRenderer.Cell[] column = new FieldRenderer.Cell[20];
+        for (int y = 0; y < 20; y++)
+	  column[y] = field[tetramino.x + x, y, true];
+        for (int y = 0; y < map.GetLength(1); y++)
+	  if (!(tetramino.y + y >= 0 && tetramino.y + y <= 19 && !column[tetramino.y + y].inUse && map[x, y]))
 	    return false;
+      }
       return true;
     }
 
@@ -110,7 +116,7 @@ namespace Tetris
       bool[,] map = manager[currentTetramino];
       for(int x = 0; x < map.GetLength(0); x++)
         for(int y = 0; y < map.GetLength(1); y++)
-	  field[currentTetramino.x + x, currentTetramino.y + y].inUse = map[x, y];
+	  field[currentTetramino.x + x, currentTetramino.y + y, false].inUse = map[x, y];
       if (deferredLock)
 	LockTetramino();
       prev_right = Window.Keyboard[Key.D];
