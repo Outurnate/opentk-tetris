@@ -84,12 +84,13 @@ namespace Tetris
       Tetramino newTetramino = currentTetramino;
       newTetramino.x += x;
       newTetramino.y += y;
-      if (!IsOnFieldYComponent(newTetramino))
+      bool xComponent = IsOnFieldXComponent(newTetramino);
+      if (!IsOnFieldYComponent(newTetramino) && y != 0 && xComponent)
       {
 	deferredLock = true;
 	newTetramino = currentTetramino;
       }
-      if (IsOnFieldXComponent(newTetramino))
+      if (xComponent)
 	currentTetramino = newTetramino;
     }
 
