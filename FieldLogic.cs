@@ -48,7 +48,7 @@ namespace Tetris
       currentTetramino = new Tetramino()
       {
 	type = TetraminoType.O,
-	color = TetraminoColor.Cyan,
+	color = TetraminoColor.Purple,
         rotation = TetraminoRotation.Up,
         x = 8,
         y = 18
@@ -130,7 +130,10 @@ namespace Tetris
       bool[,] map = manager[currentTetramino];
       for(int x = 0; x < map.GetLength(0); x++)
         for(int y = 0; y < map.GetLength(1); y++)
+	{
 	  field[currentTetramino.x + x, currentTetramino.y + y, false].inUse = map[x, y];
+	  field[currentTetramino.x + x, currentTetramino.y + y, false].color = manager.ColorDictionary[currentTetramino.color];
+	}
       if (deferredLock)
 	LockTetramino();
       prev_right = Window.Keyboard[Key.D];

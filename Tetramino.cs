@@ -42,6 +42,54 @@ namespace Tetris
 
   class TetraminoManager
   {
+    public bool[,] this[Tetramino tetramino]
+    {
+      get
+      {
+        return Definitions[tetramino];
+      }
+    }
+
+    public Dictionary<TetraminoColor, Color> ColorDictionary
+    {
+      get
+      {
+	return colorDictionary;
+      }
+    }
+
+    public static readonly Dictionary<TetraminoColor, Color> colorDictionary = new Dictionary<TetraminoColor, Color>()
+    {
+      {
+	TetraminoColor.Cyan,
+	Color.Cyan
+      },
+      {
+	TetraminoColor.Yellow,
+	Color.Yellow
+      },
+      {
+	TetraminoColor.Purple,
+	Color.Purple
+      },
+      {
+	TetraminoColor.Green,
+	Color.Green
+      },
+      {
+	TetraminoColor.Red,
+	Color.Red
+      },
+      {
+	TetraminoColor.Blue,
+	Color.Blue
+      },
+      {
+	TetraminoColor.Orange,
+	Color.Orange
+      }
+    };
+
     static Dictionary<Tetramino, bool[,]> Definitions = new Dictionary<Tetramino, bool[,]>(new TetraminoIgnoreColorPosition())
       {
         {
@@ -437,13 +485,5 @@ namespace Tetris
           }
         }
       };
-
-    public bool[,] this[Tetramino tetramino]
-    {
-      get
-      {
-        return Definitions[tetramino];
-      }
-    }
   }
 }

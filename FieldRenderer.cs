@@ -20,7 +20,7 @@ namespace Tetris
     public class Cell
     {
       public bool inUse = false;
-      public TetraminoColor color;
+      public Color color = Color.Transparent;
     }
 
     Vector3 position;
@@ -100,7 +100,7 @@ namespace Tetris
         for (int y = 0; y < height; y++)
 	{
           GL.Begin(BeginMode.Quads);
-          RenderCube(Vector3.Add(new Vector3((float)x, (float)y, 0), position));
+          RenderCube(Vector3.Add(new Vector3((float)x, (float)y, 0), position), Color.White);
           GL.End();
 	}
       GL.BindTexture(TextureTarget.Texture2D, ResourceCommons.Block);
@@ -110,22 +110,23 @@ namespace Tetris
           if (committedCells[x, y].inUse)
 	  {
             GL.Begin(BeginMode.Quads);
-            RenderCube(Vector3.Add(new Vector3((float)x, (float)y, -1f), position));
+            RenderCube(Vector3.Add(new Vector3((float)x, (float)y, -1f), position), committedCells[x, y].color);
             GL.End();
 	  }
           if (shownCells[x, y].inUse)
 	  {
             GL.Begin(BeginMode.Quads);
-            RenderCube(Vector3.Add(new Vector3((float)x, (float)y, -1f), position));
+            RenderCube(Vector3.Add(new Vector3((float)x, (float)y, -1f), position), shownCells[x, y].color);
             GL.End();
 	  }
 	}
     }
 
-    void RenderCube(Vector3 cubePos)
+    void RenderCube(Vector3 cubePos, Color color)
     { //TODO:Use VBO
       for (int i = 0; i < 4; i++)
       {
+	GL.Color3(color.R, color.G, color.B);
         GL.TexCoord2(texCoords[i]);
         GL.Vertex3(Vector3.Add(corners[i], cubePos));
       }
