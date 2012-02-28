@@ -8,9 +8,18 @@
     <delete file="bin/tetris.exe.mdb" failonerror="false" />
   </target>
   <target name="build" description="compiles the source code">
+    <csc target="library" output="bin/GameFramework.dll" debug="${debug}">
+      <references>
+        <include name="bin/OpenTK.dll" />
+      </references>
+      <sources>
+        <include name="GameFramework/*.cs" />
+      </sources>
+    </csc>
     <csc target="exe" output="bin/tetris.exe" debug="${debug}">
       <references>
         <include name="System.Drawing.dll" />
+	<include name="bin/GameFramework.dll" />
         <include name="bin/OpenTK.dll" />
       </references>
       <sources>
