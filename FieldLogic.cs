@@ -60,8 +60,8 @@ namespace Tetris
       bool[,] map = manager[currentTetramino];
       for (int x = 0; x < map.GetLength(0); x++)
         for (int y = 0; y < map.GetLength(1); y++)
-	  if (!(tetramino.x + x >= 0 && tetramino.x + x <= 9 && map[x, y]))
-	    return false;
+	    if (!(tetramino.x + x >= 0 && tetramino.x + x <= 9 && map[x, y]))
+	      return false;
       return true;
     }
 
@@ -80,19 +80,31 @@ namespace Tetris
       return true;
     }
 
+    bool VerifyNoOverlap(Tetramino tetramino)
+    {
+      bool[,] map = manager[currentTetramino];
+      for (int x = 0; x < map.GetLength(0); x++)
+        for (int y = 0; y < map.GetLength(1); y++)
+	  if (field[tetramino.x + x, tetramino.y + y, true].inUse && map[x, y])
+	    return false;
+      return true;
+    }
+
     void TryMove(int x, int y)
     {
       Tetramino newTetramino = currentTetramino;
       newTetramino.x += x;
       newTetramino.y += y;
-      bool xComponent = IsOnFieldXComponent(newTetramino);
-      if (!IsOnFieldYComponent(newTetramino) && y != 0 && xComponent)
+      if (IsOnFieldXComponent(newTetramino)) // prevents IsOnFieldYComponent from crashing
       {
-	deferredLock = true;
-	newTetramino = currentTetramino;
+	if (!IsOnFieldYComponent(newTetramino) && y != 0)
+	{
+	  deferredLock = true;
+	  newTetramino = currentTetramino;
+	}
+	if (VerifyNoOverlap(newTetramino))
+	  currentTetramino = newTetramino;
       }
-      if (xComponent)
-	currentTetramino = newTetramino;
     }
 
     void LockTetramino()
