@@ -14,9 +14,9 @@ using Texture = System.Int32;
 
 namespace Tetris
 {
-  enum TetraminoColor : ushort { Cyan, Yellow, Purple, Green, Red, Blue, Orange };
-  enum TetraminoType : ushort { I, O, T, S, Z, L, J };
-  enum TetraminoRotation : ushort { Up, Left, Down, Right };
+  enum TetraminoColor : ushort { Cyan = 0, Yellow = 1, Purple = 2, Green = 3, Red = 4, Blue = 5, Orange = 6 };
+  enum TetraminoType : ushort { I = 0, O = 1, T = 2, S = 3, Z = 4, L = 5, J = 6 };
+  enum TetraminoRotation : ushort { Up = 0, Left = 1, Down = 2, Right = 3 };
 
   struct Tetramino
   {

@@ -28,6 +28,8 @@ namespace Tetris
 
     bool prev_right = false;
     bool prev_left = false;
+    bool prev_up = false;
+    bool prev_down = false;
 
     bool deferredLock = false;
 
@@ -47,25 +49,25 @@ namespace Tetris
     {
       currentTetramino = new Tetramino()
       {
-	type = TetraminoType.O,
+	type = (TetraminoType)new Random().Next(0, 6),
 	color = TetraminoColor.Purple,
         rotation = TetraminoRotation.Up,
-        x = 8,
-        y = 18
+        x = 6,
+        y = 16
       };
     }
 
-    bool IsOnFieldXComponent(Tetramino tetramino)
+    bool IsOnFieldXComponent(ref Tetramino tetramino)
     {
       bool[,] map = manager[currentTetramino];
       for (int x = 0; x < map.GetLength(0); x++)
         for (int y = 0; y < map.GetLength(1); y++)
-	    if (!(tetramino.x + x >= 0 && tetramino.x + x <= 9 && map[x, y]))
-	      return false;
+	  if (!(tetramino.x + x >= 0 && tetramino.x + x <= 9) && map[x, y])
+	    return false;
       return true;
     }
 
-    bool IsOnFieldYComponent(Tetramino tetramino)
+    bool IsOnFieldYComponent(ref Tetramino tetramino)
     {
       bool[,] map = manager[currentTetramino];
       for (int x = 0; x < map.GetLength(0); x++)
@@ -74,13 +76,13 @@ namespace Tetris
         for (int y = 0; y < 20; y++)
 	  column[y] = field[tetramino.x + x, y, true];
         for (int y = 0; y < map.GetLength(1); y++)
-	  if (!(tetramino.y + y >= 0 && tetramino.y + y <= 19 && !column[tetramino.y + y].inUse && map[x, y]))
+	  if (!(tetramino.y + y >= 1 && tetramino.y + y <= 19 && !column[tetramino.y + y].inUse) && map[x, y])
 	    return false;
       }
       return true;
     }
 
-    bool VerifyNoOverlap(Tetramino tetramino)
+    bool VerifyNoOverlap(ref Tetramino tetramino)
     {
       bool[,] map = manager[currentTetramino];
       for (int x = 0; x < map.GetLength(0); x++)
@@ -95,16 +97,22 @@ namespace Tetris
       Tetramino newTetramino = currentTetramino;
       newTetramino.x += x;
       newTetramino.y += y;
-      if (IsOnFieldXComponent(newTetramino)) // prevents IsOnFieldYComponent from crashing
+      if (IsOnFieldXComponent(ref newTetramino)) // prevents IsOnFieldYComponent from crashing
       {
-	if (!IsOnFieldYComponent(newTetramino) && y != 0)
-	{
+	if (!IsOnFieldYComponent(ref newTetramino) && y != 0)
 	  deferredLock = true;
-	  newTetramino = currentTetramino;
-	}
-	if (VerifyNoOverlap(newTetramino))
+	if (VerifyNoOverlap(ref newTetramino))
 	  currentTetramino = newTetramino;
       }
+      else
+	Console.WriteLine("x");
+    }
+
+    void TryRotate()
+    {
+      Tetramino newTetramino = currentTetramino;
+      newTetramino.rotation = (TetraminoRotation)(((ushort)newTetramino.rotation + 1) % 4) - 0;
+      currentTetramino = newTetramino;
     }
 
     void LockTetramino()
@@ -123,6 +131,8 @@ namespace Tetris
 	TryMove(0, -1);
         dropTimer += dropSpeed;
       }
+      if (Window.Keyboard[Key.W] && !prev_up)
+	TryRotate();
       if (Window.Keyboard[Key.D] && !prev_right)
         TryMove(-1, 0);
       if (Window.Keyboard[Key.A] && !prev_left)
@@ -136,8 +146,10 @@ namespace Tetris
 	}
       if (deferredLock)
 	LockTetramino();
-      prev_right = Window.Keyboard[Key.D];
+      prev_up = Window.Keyboard[Key.W];
       prev_left = Window.Keyboard[Key.A];
+      prev_down = Window.Keyboard[Key.S];
+      prev_right = Window.Keyboard[Key.D];
     }
 
     protected override void DoDraw(FrameEventArgs e) { }

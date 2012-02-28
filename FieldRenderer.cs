@@ -47,14 +47,31 @@ namespace Tetris
     {
       get
       {
-	if (commit)
-	  return committedCells[x, y];
-	else
-	  return shownCells[x, y];
+	try
+	{
+	  if (commit)
+	    return committedCells[x, y];
+	  else
+	    return shownCells[x, y];
+	}
+	catch (IndexOutOfRangeException)
+	{
+	  Console.WriteLine(string.Format("x: {0}, y: {1}, out of bounds, get", x, y));
+	  return new Cell();
+	}
       }
       set
       {
-        shownCells[x, y] = value;
+	try
+	{
+	  shownCells[x, y] = value;
+	}
+	catch (IndexOutOfRangeException e)
+	{
+	  Console.WriteLine(string.Format("x: {0}, y: {1}, out of bounds, set", x, y));
+	  if (value.inUse)
+	    throw e;
+	}
       }
     }
 
