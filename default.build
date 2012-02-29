@@ -20,6 +20,7 @@
       <references>
         <include name="System.Drawing.dll" />
 	<include name="bin/GameFramework.dll" />
+        <include name="bin/Jint.dll" />
         <include name="bin/OpenTK.dll" />
       </references>
       <sources>
