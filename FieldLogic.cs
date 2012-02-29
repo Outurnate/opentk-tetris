@@ -112,6 +112,13 @@ namespace Tetris
     {
       Tetramino newTetramino = currentTetramino;
       newTetramino.rotation = (TetraminoRotation)(((ushort)newTetramino.rotation + 1) % 4) - 0;
+      bool[,] map = manager[currentTetramino];
+      for (int x = 0; x < map.GetLength(0); x++)
+        for (int y = 0; y < map.GetLength(1); y++)
+	{
+	  if ((newTetramino.x + x > 9 || newTetramino.x + x < 0) /*&& map[x, y]*/)
+	    Console.WriteLine(string.Format("x: {0}, y: {1}, x: {3}, y: {4}, map: {2}, offscreen", newTetramino.x + x, newTetramino.y + y, map[x, y], x, y));
+	}
       currentTetramino = newTetramino;
     }
 
