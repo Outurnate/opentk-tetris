@@ -18,14 +18,16 @@ namespace Tetris
   static class ResourceCommons
   {
     const string RESOURCE_DIR = "assets";
+    const string TEXTURES_DIR = "textures";
+    const string GENERATORS_DIR = "generators";
 
     public static Texture Cell;
     public static Texture Block;
 
     public static void Load()
     {
-      LoadTexture(Path.Combine(RESOURCE_DIR, "cell.png"), out Cell);
-      LoadTexture(Path.Combine(RESOURCE_DIR, "block.png"), out Block);
+      LoadTexture(Path.Combine(Path.Combine(RESOURCE_DIR, TEXTURES_DIR), "cell.png"), out Cell);
+      LoadTexture(Path.Combine(Path.Combine(RESOURCE_DIR, TEXTURES_DIR), "block.png"), out Block);
     }
 
     public static void Unload()
