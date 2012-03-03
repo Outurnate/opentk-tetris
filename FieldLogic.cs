@@ -95,9 +95,9 @@ namespace Tetris
       return true;
     }
 
-    void TryMove(int x, int y, bool rotate)
+    bool TryMove(int x, int y, bool rotate, ref Tetramino tetramino)
     {
-      Tetramino newTetramino = currentTetramino;
+      Tetramino newTetramino = tetramino;
       newTetramino.x += x;
       newTetramino.y += y;
       if (rotate)
@@ -108,10 +108,16 @@ namespace Tetris
 	if (!yCheck && y != 0)
 	  deferredLock = true;
 	if (VerifyNoOverlap(ref newTetramino) && yCheck)
-	  currentTetramino = newTetramino;
+	{
+	  tetramino = newTetramino;
+	  return true;
+	}
       }
       else if (rotate)
-	Console.WriteLine("x");
+      {
+	//TODO: Wallkick
+      }
+      return false;
     }
 
     void LockTetramino()
@@ -127,17 +133,17 @@ namespace Tetris
       dropTimer -= e.Time;
       if (dropTimer <= 0)
       {
-	TryMove(0, -1, false);
+	TryMove(0, -1, false, ref currentTetramino);
         dropTimer += dropSpeed;
       }
       if (Window.Keyboard[Key.W] && !prev_up)
-	TryMove(0, 0, true);
+	TryMove(0, 0, true, ref currentTetramino);
       if (Window.Keyboard[Key.D] && !prev_right)
-        TryMove(-1, 0, false);
+        TryMove(-1, 0, false, ref currentTetramino);
       if (Window.Keyboard[Key.A] && !prev_left)
-        TryMove(1, 0, false);
+        TryMove(1, 0, false, ref currentTetramino);
       if (Window.Keyboard[Key.S] && !prev_down)
-	TryMove(0, -1, false);
+	TryMove(0, -1, false, ref currentTetramino);
       bool[,] map = manager[currentTetramino];
       for (int x = 0; x < map.GetLength(0); x++)
 	if (currentTetramino.x + x >= 0 && currentTetramino.x + x <= 9)
