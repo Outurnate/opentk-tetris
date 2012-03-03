@@ -26,8 +26,8 @@ namespace Tetris
 
     public static void Load()
     {
-      LoadTexture(Path.Combine(Path.Combine(RESOURCE_DIR, TEXTURES_DIR), "cell.png"), out Cell);
-      LoadTexture(Path.Combine(Path.Combine(RESOURCE_DIR, TEXTURES_DIR), "block.png"), out Block);
+      LoadTexture(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "cell.png"), out Cell);
+      LoadTexture(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "block.png"), out Block);
     }
 
     public static void Unload()
