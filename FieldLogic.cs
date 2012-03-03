@@ -77,7 +77,7 @@ namespace Tetris
 	  for (int y = 0; y < 20; y++)
 	    column[y] = field[tetramino.x + x, y, true];
 	  for (int y = 0; y < map.GetLength(1); y++)
-	    if (!(tetramino.y + y >= 1 && tetramino.y + y <= 19 && !column[tetramino.y + y].inUse) && map[x, y])
+	    if (!(tetramino.y + y >= 0 && tetramino.y + y <= 19 && !column[tetramino.y + y].inUse) && map[x, y])
 	      return false;
 	}
       return true;
@@ -89,8 +89,9 @@ namespace Tetris
       for (int x = 0; x < map.GetLength(0); x++)
 	if (tetramino.x + x >= 0 && tetramino.x + x <= 9)
 	  for (int y = 0; y < map.GetLength(1); y++)
-	    if (field[tetramino.x + x, tetramino.y + y, true].inUse && map[x, y])
-	      return false;
+	    if (field[tetramino.x + x, tetramino.y + y, true] != default(FieldRenderer.Cell))
+	      if (field[tetramino.x + x, tetramino.y + y, true].inUse && map[x, y])
+		return false;
       return true;
     }
 
@@ -103,9 +104,10 @@ namespace Tetris
 	newTetramino.rotation = (TetraminoRotation)(((ushort)newTetramino.rotation + 1) % 4) - 0;
       if (IsOnFieldXComponent(ref newTetramino)) // prevents IsOnFieldYComponent from crashing
       {
-	if (!IsOnFieldYComponent(ref newTetramino) && y != 0)
+	bool yCheck = IsOnFieldYComponent(ref newTetramino);
+	if (!yCheck && y != 0)
 	  deferredLock = true;
-	if (VerifyNoOverlap(ref newTetramino))
+	if (VerifyNoOverlap(ref newTetramino) && yCheck)
 	  currentTetramino = newTetramino;
       }
       else if (rotate)
@@ -134,14 +136,17 @@ namespace Tetris
         TryMove(-1, 0, false);
       if (Window.Keyboard[Key.A] && !prev_left)
         TryMove(1, 0, false);
+      if (Window.Keyboard[Key.S] && !prev_down)
+	TryMove(0, -1, false);
       bool[,] map = manager[currentTetramino];
-      for(int x = 0; x < map.GetLength(0); x++)
+      for (int x = 0; x < map.GetLength(0); x++)
 	if (currentTetramino.x + x >= 0 && currentTetramino.x + x <= 9)
-	  for(int y = 0; y < map.GetLength(1); y++)
-	  {
-	    field[currentTetramino.x + x, currentTetramino.y + y, false].inUse = map[x, y];
-	    field[currentTetramino.x + x, currentTetramino.y + y, false].color = manager.ColorDictionary[currentTetramino.color];
-	  }
+	  for (int y = 0; y < map.GetLength(1); y++)
+	    if (field[currentTetramino.x + x, currentTetramino.y + y, false] != default(FieldRenderer.Cell))
+	    {
+	      field[currentTetramino.x + x, currentTetramino.y + y, false].inUse = map[x, y];
+	      field[currentTetramino.x + x, currentTetramino.y + y, false].color = manager.ColorDictionary[currentTetramino.color];
+	    }
       if (deferredLock)
 	LockTetramino();
       prev_up = Window.Keyboard[Key.W];
