@@ -18,6 +18,7 @@ namespace Tetris
 {
   class FieldLogic : GameComponent
   {
+    RandomGenerator rand;
     FieldRenderer field;
     TetraminoManager manager;
     Tetramino currentTetramino;
@@ -38,6 +39,7 @@ namespace Tetris
       this.field = field;
       this.manager = new TetraminoManager();
       dropTimer = dropSpeed;
+      rand = new RandomGenerator();
     }
 
     public void Start()
@@ -47,7 +49,7 @@ namespace Tetris
 
     void SpawnTetramino()
     {
-      currentTetramino = manager.SpawnDictionary[(TetraminoType)6];
+      currentTetramino = manager.SpawnDictionary[(TetraminoType)rand.Generate()];
     }
 
     bool IsOnFieldXComponent(ref Tetramino tetramino)
