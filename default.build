@@ -7,6 +7,9 @@
     <delete file="bin/tetris.exe.pdb" failonerror="false" />
     <delete file="bin/tetris.exe.mdb" failonerror="false" />
   </target>
+  <target name="lib_build" description="downloads and builds all external libraries">
+    <exec program="./lib/download.sh" workingdir="./lib" />
+  </target>
   <target name="build" description="compiles the source code">
     <csc target="library" output="bin/GameFramework.dll" debug="${debug}">
       <references>
@@ -20,8 +23,8 @@
       <references>
         <include name="System.Drawing.dll" />
 	<include name="bin/GameFramework.dll" />
-        <include name="bin/Jint.dll" />
         <include name="bin/OpenTK.dll" />
+        <include name="bin/EJ Random.Org Consumer.dll" />
       </references>
       <sources>
         <include name="*.cs" />
