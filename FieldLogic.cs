@@ -47,14 +47,7 @@ namespace Tetris
 
     void SpawnTetramino()
     {
-      currentTetramino = new Tetramino()
-      {
-	type = (TetraminoType)new Random().Next(0, 6),
-	color = TetraminoColor.Purple,
-        rotation = TetraminoRotation.Up,
-        x = 6,
-        y = 16
-      };
+      currentTetramino = manager.SpawnDictionary[(TetraminoType)6];
     }
 
     bool IsOnFieldXComponent(ref Tetramino tetramino)

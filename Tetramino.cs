@@ -58,7 +58,96 @@ namespace Tetris
       }
     }
 
-    public static readonly Dictionary<TetraminoColor, Color> colorDictionary = new Dictionary<TetraminoColor, Color>()
+    public Dictionary<TetraminoType, Tetramino> SpawnDictionary
+    {
+      get
+      {
+	return spawnDictionary;
+      }
+    }
+
+    static readonly Dictionary<TetraminoType, Tetramino> spawnDictionary = new Dictionary<TetraminoType, Tetramino>()
+    {
+      {
+	TetraminoType.I,
+	new Tetramino()
+	{
+	  type = TetraminoType.I,
+	  color = TetraminoColor.Cyan,
+	  rotation = TetraminoRotation.Left,
+	  x = 3,
+	  y = 18
+	}
+      },
+      {
+	TetraminoType.O,
+	new Tetramino()
+	{
+	  type = TetraminoType.O,
+	  color = TetraminoColor.Yellow,
+	  rotation = TetraminoRotation.Up,
+	  x = 4,
+	  y = 18
+	}
+      },
+      {
+	TetraminoType.T,
+	new Tetramino()
+	{
+	  type = TetraminoType.T,
+	  color = TetraminoColor.Purple,
+	  rotation = TetraminoRotation.Right,
+	  x = 4,
+	  y = 18
+	}
+      },
+      {
+	TetraminoType.S,
+	new Tetramino()
+	{
+	  type = TetraminoType.S,
+	  color = TetraminoColor.Green,
+	  rotation = TetraminoRotation.Right,
+	  x = 4,
+	  y = 17
+	}
+      },
+      {
+	TetraminoType.Z,
+	new Tetramino()
+	{
+	  type = TetraminoType.Z,
+	  color = TetraminoColor.Red,
+	  rotation = TetraminoRotation.Right,
+	  x = 4,
+	  y = 17
+	}
+      },
+      {
+	TetraminoType.L,
+	new Tetramino()
+	{
+	  type = TetraminoType.L,
+	  color = TetraminoColor.Orange,
+	  rotation = TetraminoRotation.Right,
+	  x = 4,
+	  y = 17
+	}
+      },
+      {
+	TetraminoType.J,
+	new Tetramino()
+	{
+	  type = TetraminoType.J,
+	  color = TetraminoColor.Blue,
+	  rotation = TetraminoRotation.Right,
+	  x = 4,
+	  y = 17
+	}
+      }
+    };
+
+    static readonly Dictionary<TetraminoColor, Color> colorDictionary = new Dictionary<TetraminoColor, Color>()
     {
       {
 	TetraminoColor.Cyan,
