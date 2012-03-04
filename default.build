@@ -24,7 +24,6 @@
         <include name="System.Drawing.dll" />
 	<include name="bin/GameFramework.dll" />
         <include name="bin/OpenTK.dll" />
-        <include name="bin/EJ Random.Org Consumer.dll" />
       </references>
       <sources>
         <include name="*.cs" />
