@@ -126,6 +126,10 @@ namespace Tetris
     {
       field.Clear();
       dropTimer -= e.Time;
+      if (Window.Keyboard[Key.S])
+	dropTimer = 0;
+      if (Window.Keyboard[Key.S] && !prev_down)
+	dropTimer = dropSpeed;
       if (dropTimer <= 0)
       {
 	TryMove(0, -1, false, ref currentTetramino);
@@ -137,8 +141,6 @@ namespace Tetris
         TryMove(-1, 0, false, ref currentTetramino);
       if (Window.Keyboard[Key.A] && !prev_left)
         TryMove(1, 0, false, ref currentTetramino);
-      if (Window.Keyboard[Key.S] && !prev_down)
-	TryMove(0, -1, false, ref currentTetramino);
       bool[,] map = manager[currentTetramino];
       for (int x = 0; x < map.GetLength(0); x++)
 	if (currentTetramino.x + x >= 0 && currentTetramino.x + x <= 9)
