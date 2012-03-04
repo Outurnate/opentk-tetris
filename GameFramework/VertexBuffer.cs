@@ -10,7 +10,7 @@ using OpenTK.Audio;
 using OpenTK.Audio.OpenAL;
 using OpenTK.Input;
 
-namespace Tetris
+namespace GameFramework
 {
   sealed class VertexBuffer
   {

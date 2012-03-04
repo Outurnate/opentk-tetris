@@ -13,6 +13,7 @@
   <target name="build" description="compiles the source code">
     <csc target="library" output="bin/GameFramework.dll" debug="${debug}">
       <references>
+        <include name="System.Drawing.dll" />
         <include name="bin/OpenTK.dll" />
       </references>
       <sources>
