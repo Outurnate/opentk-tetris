@@ -56,7 +56,6 @@ namespace Tetris
 	}
 	catch (IndexOutOfRangeException)
 	{
-	  Console.WriteLine(string.Format("x: {0}, y: {1}, out of bounds, get", x, y));
 	  return default(Cell);
 	}
       }
@@ -68,7 +67,6 @@ namespace Tetris
 	}
 	catch (IndexOutOfRangeException e)
 	{
-	  Console.WriteLine(string.Format("x: {0}, y: {1}, out of bounds, set", x, y));
 	  if (value.inUse)
 	    throw e;
 	}
