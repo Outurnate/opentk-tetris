@@ -51,7 +51,6 @@ namespace Tetris
     public static void Unload()
     {
       GL.DeleteTextures(1, ref Cell);
-      GL.DeleteTextures(1, ref Block);
     }
 
     public static void LoadTexture(string filename, out Texture id)

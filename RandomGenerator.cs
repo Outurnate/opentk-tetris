@@ -17,16 +17,36 @@ namespace Tetris
 {
   class RandomGenerator
   {
+    public struct TetraminoData
+    {
+      public ushort newTetramino;
+      public ushort nextTetramino;
+    }
+
     static Random random = new Random();
     int[] currentSequence;
     int c = 0;
+    Queue<ushort> next = new Queue<ushort>();
 
     public RandomGenerator()
     {
       FillBag();
+      for (int i = 0; i < 2; i++)
+	next.Enqueue(GenerateU());
     }
 
-    public ushort Generate()
+    public TetraminoData Generate()
+    {
+      TetraminoData n = new TetraminoData()
+      {
+        newTetramino = next.Dequeue(),
+	nextTetramino = next.Peek()
+      };
+      next.Enqueue(GenerateU());
+      return n;
+    }
+
+    ushort GenerateU()
     {
       int result = currentSequence[c++];
       if (c > 6)
