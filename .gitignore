@@ -1,0 +1,12 @@
+*.dll
+*.exe
+*.zip
+*.mdb
+*.pdb
+*.dll.config
+*.exe.config
+.DS_Store*
+ehthumbs.db
+Icon?
+Thumbs.db
+*~
