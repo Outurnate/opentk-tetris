@@ -20,14 +20,14 @@ namespace Tetris
     public class Cell
     {
       public bool inUse = false;
-      public Color color = Color.Transparent;
+      public TetraminoColor color = TetraminoColor.Cyan;
     }
 
     Vector3 position;
     Vector3[] corners = new Vector3[]
     {
-      new Vector3( .5f,  .5f, 0f),
-      new Vector3(-.5f,  .5f, 0f),
+      new Vector3( .5f, .5f, 0f),
+      new Vector3(-.5f, .5f, 0f),
       new Vector3(-.5f, -.5f, 0f),
       new Vector3( .5f, -.5f, 0f)
     };
@@ -118,21 +118,23 @@ namespace Tetris
           RenderCube(Vector3.Add(new Vector3((float)x, (float)y, 0), position), Color.White);
           GL.End();
 	}
-      GL.BindTexture(TextureTarget.Texture2D, ResourceCommons.Block);
+      GL.BindTexture(TextureTarget.Texture2D, 0);
       for (int x = 0; x < width; x++)
         for (int y = 0; y < height; y++)
 	{
           if (committedCells[x, y].inUse)
 	  {
-            GL.Begin(BeginMode.Quads);
-            RenderCube(Vector3.Add(new Vector3((float)x, (float)y, -1f), position), committedCells[x, y].color);
-            GL.End();
+	    Vector3 point = Vector3.Add(new Vector3((float)x, (float)y, -1f), position);
+            GL.Translate(point);
+	    ResourceCommons.Blocks[committedCells[x, y].color].Draw();
+	    GL.Translate(-point);
 	  }
           if (shownCells[x, y].inUse)
 	  {
-            GL.Begin(BeginMode.Quads);
-            RenderCube(Vector3.Add(new Vector3((float)x, (float)y, -1f), position), shownCells[x, y].color);
-            GL.End();
+            Vector3 point = Vector3.Add(new Vector3((float)x, (float)y, -1f), position);
+            GL.Translate(point);
+	    ResourceCommons.Blocks[shownCells[x, y].color].Draw();
+            GL.Translate(-point);
 	  }
 	}
     }

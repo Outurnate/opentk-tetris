@@ -6,6 +6,11 @@
     <delete file="bin/tetris.exe" failonerror="false" />
     <delete file="bin/tetris.exe.pdb" failonerror="false" />
     <delete file="bin/tetris.exe.mdb" failonerror="false" />
+    <delete file="bin/GameFramework.dll" failonerror="false" />
+    <delete file="bin/GameFramework.dll.pdb" failonerror="false" />
+    <delete file="bin/GameFramework.dll.mdb" failonerror="false" />
+    <delete file="bin/OpenTK.dll" failonerror="false" />
+    <delete file="bin/OpenTK.dll.config" failonerror="false" />
   </target>
   <target name="lib_build" description="downloads and builds all external libraries">
     <exec program="./lib/download.sh" workingdir="./lib" />

@@ -50,14 +50,6 @@ namespace Tetris
       }
     }
 
-    public Dictionary<TetraminoColor, Color> ColorDictionary
-    {
-      get
-      {
-	return colorDictionary;
-      }
-    }
-
     public Dictionary<TetraminoType, Tetramino> SpawnDictionary
     {
       get
@@ -144,38 +136,6 @@ namespace Tetris
 	  x = 4,
 	  y = 17
 	}
-      }
-    };
-
-    static readonly Dictionary<TetraminoColor, Color> colorDictionary = new Dictionary<TetraminoColor, Color>()
-    {
-      {
-	TetraminoColor.Cyan,
-	Color.Cyan
-      },
-      {
-	TetraminoColor.Yellow,
-	Color.Yellow
-      },
-      {
-	TetraminoColor.Purple,
-	Color.Purple
-      },
-      {
-	TetraminoColor.Green,
-	Color.Green
-      },
-      {
-	TetraminoColor.Red,
-	Color.Red
-      },
-      {
-	TetraminoColor.Blue,
-	Color.Blue
-      },
-      {
-	TetraminoColor.Orange,
-	Color.Orange
       }
     };
 

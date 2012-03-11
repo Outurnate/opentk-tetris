@@ -148,7 +148,7 @@ namespace Tetris
 	    if (field[currentTetramino.x + x, currentTetramino.y + y, false] != default(FieldRenderer.Cell))
 	    {
 	      field[currentTetramino.x + x, currentTetramino.y + y, false].inUse = map[x, y];
-	      field[currentTetramino.x + x, currentTetramino.y + y, false].color = manager.ColorDictionary[currentTetramino.color];
+	      field[currentTetramino.x + x, currentTetramino.y + y, false].color = currentTetramino.color;
 	    }
       if (deferredLock)
 	LockTetramino();

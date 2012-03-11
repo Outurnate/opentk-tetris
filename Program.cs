@@ -1,3 +1,4 @@
+using GameFramework;
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -22,7 +23,7 @@ namespace Tetris
     public Game() : base(800, 600, GraphicsMode.Default, "tk-tetris")
     {
       VSync = VSyncMode.On;
-      field = new FieldRenderer(this, pos_field = new Vector3(0.0f, 0.0f, 25.0f), 10, 20) { Enabled = true, Visible = true };
+      field = new FieldRenderer(this, pos_field = new Vector3(0.0f, 0.0f, 0.0f), 10, 20) { Enabled = true, Visible = true };
       field_logic = new FieldLogic(this, field) { Enabled = true, Visible = true };
     }
 
@@ -30,11 +31,11 @@ namespace Tetris
     {
       base.OnLoad(e);
       GL.Enable(EnableCap.Texture2D);
+      GL.Enable(EnableCap.DepthTest);
 
       ResourceCommons.Load();
 
       GL.ClearColor(0.1f, 0.2f, 0.5f, 0.0f);
-      GL.Enable(EnableCap.DepthTest);
 
       field_logic.Start();
     }
@@ -72,12 +73,14 @@ namespace Tetris
 
       GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
-      Matrix4 modelview = Matrix4.LookAt(new Vector3(0f, 0f, 0f), pos_field, Vector3.UnitY);
+      Matrix4 modelview = Matrix4.LookAt(new Vector3(0.0f, 0.0f, -25.0f), pos_field, Vector3.UnitY);
       GL.MatrixMode(MatrixMode.Modelview);
       GL.LoadMatrix(ref modelview);
 
       field_logic.Draw(e);
       field.Draw(e);
+
+      GL.BindTexture(TextureTarget.Texture2D, 0);
 
       SwapBuffers();
     }

@@ -1,7 +1,10 @@
+using GameFramework;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Xml.Serialization;
 using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
@@ -19,15 +22,30 @@ namespace Tetris
   {
     const string RESOURCE_DIR = "assets";
     const string TEXTURES_DIR = "textures";
-    const string GENERATORS_DIR = "generators";
+    const string MODELS_DIR = "models";
 
     public static Texture Cell;
-    public static Texture Block;
+    public static Dictionary<TetraminoColor, MeshRenderer> Blocks = new Dictionary<TetraminoColor, MeshRenderer>();
+
+    static XmlSerializer modelSerializer = new XmlSerializer(typeof(Mesh));
 
     public static void Load()
     {
       LoadTexture(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "cell.png"), out Cell);
-      LoadTexture(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "block.png"), out Block);
+      using (Stream tmp = File.Open(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), MODELS_DIR), "blockCyan.xml"), FileMode.Open))
+	Blocks.Add(TetraminoColor.Cyan, new MeshRenderer((Mesh)modelSerializer.Deserialize(tmp)));
+      using (Stream tmp = File.Open(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), MODELS_DIR), "blockYellow.xml"), FileMode.Open))
+	Blocks.Add(TetraminoColor.Yellow, new MeshRenderer((Mesh)modelSerializer.Deserialize(tmp)));
+      using (Stream tmp = File.Open(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), MODELS_DIR), "blockPurple.xml"), FileMode.Open))
+	Blocks.Add(TetraminoColor.Purple, new MeshRenderer((Mesh)modelSerializer.Deserialize(tmp)));
+      using (Stream tmp = File.Open(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), MODELS_DIR), "blockGreen.xml"), FileMode.Open))
+	Blocks.Add(TetraminoColor.Green, new MeshRenderer((Mesh)modelSerializer.Deserialize(tmp)));
+      using (Stream tmp = File.Open(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), MODELS_DIR), "blockRed.xml"), FileMode.Open))
+	Blocks.Add(TetraminoColor.Red, new MeshRenderer((Mesh)modelSerializer.Deserialize(tmp)));
+      using (Stream tmp = File.Open(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), MODELS_DIR), "blockBlue.xml"), FileMode.Open))
+	Blocks.Add(TetraminoColor.Blue, new MeshRenderer((Mesh)modelSerializer.Deserialize(tmp)));
+      using (Stream tmp = File.Open(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), MODELS_DIR), "blockOrange.xml"), FileMode.Open))
+	Blocks.Add(TetraminoColor.Orange, new MeshRenderer((Mesh)modelSerializer.Deserialize(tmp)));
     }
 
     public static void Unload()
