@@ -22,10 +22,16 @@ namespace Tetris
   {
     const string RESOURCE_DIR = "assets";
     const string TEXTURES_DIR = "textures";
-    const string MODELS_DIR = "models";
+    const string MODELS_DIR   = "models";
+    const string SHADERS_DIR  = "shaders";
 
     public static Texture Cell;
     public static Dictionary<TetraminoColor, MeshRenderer> Blocks = new Dictionary<TetraminoColor, MeshRenderer>();
+    public static MeshRenderer Tetrion;
+    public static int Simple_Shader;
+
+    static int Simple_vs;
+    static int Simple_fs;
 
     static XmlSerializer modelSerializer = new XmlSerializer(typeof(Mesh));
 
@@ -46,14 +52,50 @@ namespace Tetris
 	Blocks.Add(TetraminoColor.Blue, new MeshRenderer((Mesh)modelSerializer.Deserialize(tmp)));
       using (Stream tmp = File.Open(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), MODELS_DIR), "blockOrange.xml"), FileMode.Open))
 	Blocks.Add(TetraminoColor.Orange, new MeshRenderer((Mesh)modelSerializer.Deserialize(tmp)));
+      using (Stream tmp = File.Open(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), MODELS_DIR), "tetrion.xml"), FileMode.Open))
+	Tetrion = new MeshRenderer((Mesh)modelSerializer.Deserialize(tmp));
+      using (StreamReader vs = new StreamReader(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), SHADERS_DIR), "vs_simple.glsl")))
+	using (StreamReader fs = new StreamReader(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), SHADERS_DIR), "fs_simple.glsl")))
+	  LoadShader(vs.ReadToEnd(), fs.ReadToEnd(), out Simple_vs, out Simple_fs, out Simple_Shader);
     }
 
     public static void Unload()
     {
       GL.DeleteTextures(1, ref Cell);
+      foreach (KeyValuePair<TetraminoColor, MeshRenderer> block in Blocks)
+	block.Value.Free();
+      Tetrion.Free(); // RELEASE THE TETRION!! (sorry, no kraken)
+      GL.DeleteShader(Simple_vs);
+      GL.DeleteShader(Simple_fs);
+      GL.DeleteProgram(Simple_Shader);
     }
 
-    public static void LoadTexture(string filename, out Texture id)
+    static void LoadShader(string vs, string fs, out int vertexObject, out int fragmentObject, out int program)
+    {
+      int status_code;
+      string info;
+      vertexObject = GL.CreateShader(ShaderType.VertexShader);
+      fragmentObject = GL.CreateShader(ShaderType.FragmentShader);
+      GL.ShaderSource(vertexObject, vs);
+      GL.CompileShader(vertexObject);
+      GL.GetShaderInfoLog(vertexObject, out info);
+      GL.GetShader(vertexObject, ShaderParameter.CompileStatus, out status_code);
+      if (status_code != 1)
+	throw new ApplicationException(info);
+      GL.ShaderSource(fragmentObject, fs);
+      GL.CompileShader(fragmentObject);
+      GL.GetShaderInfoLog(fragmentObject, out info);
+      GL.GetShader(fragmentObject, ShaderParameter.CompileStatus, out status_code);
+      if (status_code != 1)
+	throw new ApplicationException(info);
+      program = GL.CreateProgram();
+      GL.AttachShader(program, fragmentObject);
+      GL.AttachShader(program, vertexObject);
+      GL.LinkProgram(program);
+      GL.UseProgram(program);
+    }
+
+    static void LoadTexture(string filename, out Texture id)
     {
       if (String.IsNullOrEmpty(filename))
         throw new ArgumentException(filename);

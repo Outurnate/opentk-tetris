@@ -79,5 +79,11 @@ namespace GameFramework
       GL.TexCoordPointer(4, TexCoordPointerType.Float, BlittableValueType.StrideOf(verticies), new IntPtr(BlittableValueType.StrideOf(default(Vector3))));
       GL.DrawElements(BeginMode.Triangles, handle.NumElements, DrawElementsType.UnsignedShort, IntPtr.Zero);
     }
+
+    public void Free()
+    {
+      GL.DeleteBuffers(1, ref handle.VboID);
+      GL.DeleteBuffers(1, ref handle.EboID);
+    }
   }
 }

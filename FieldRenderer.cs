@@ -24,20 +24,6 @@ namespace Tetris
     }
 
     Vector3 position;
-    Vector3[] corners = new Vector3[]
-    {
-      new Vector3( .5f, .5f, 0f),
-      new Vector3(-.5f, .5f, 0f),
-      new Vector3(-.5f, -.5f, 0f),
-      new Vector3( .5f, -.5f, 0f)
-    };
-    float[][] texCoords = new float[][]
-    {
-      new float[] { 0.0f, 0.0f },
-      new float[] { 1.0f, 0.0f },
-      new float[] { 1.0f, 1.0f },
-      new float[] { 0.0f, 1.0f }
-    };
     Cell[,] shownCells;
     Cell[,] committedCells;
     int width;
@@ -110,14 +96,7 @@ namespace Tetris
 
     protected override void DoDraw(FrameEventArgs e)
     {
-      GL.BindTexture(TextureTarget.Texture2D, ResourceCommons.Cell);
-      for (int x = 0; x < width; x++)
-        for (int y = 0; y < height; y++)
-	{
-          GL.Begin(BeginMode.Quads);
-          RenderCube(Vector3.Add(new Vector3((float)x, (float)y, 0), position), Color.White);
-          GL.End();
-	}
+      ResourceCommons.Tetrion.Draw();
       GL.BindTexture(TextureTarget.Texture2D, 0);
       for (int x = 0; x < width; x++)
         for (int y = 0; y < height; y++)
@@ -137,16 +116,6 @@ namespace Tetris
             GL.Translate(-point);
 	  }
 	}
-    }
-
-    void RenderCube(Vector3 cubePos, Color color)
-    { //TODO:Use VBO
-      for (int i = 0; i < 4; i++)
-      {
-	GL.Color3(color.R, color.G, color.B);
-        GL.TexCoord2(texCoords[i]);
-        GL.Vertex3(Vector3.Add(corners[i], cubePos));
-      }
     }
   }
 }
