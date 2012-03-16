@@ -45,7 +45,6 @@ namespace Tetris
     FieldRenderer field;
     TetraminoManager manager;
     Tetramino currentTetramino;
-    Tetramino nextTetramino;
 
     double dropSpeed = .25;
 
@@ -75,7 +74,8 @@ namespace Tetris
     {
       RandomGenerator.TetraminoData d = rand.Generate();
       currentTetramino = manager.SpawnDictionary[(TetraminoType)d.newTetramino];
-      nextTetramino = manager.SpawnDictionary[(TetraminoType)d.nextTetramino];
+      field.NextTetramino = (TetraminoType)d.nextTetramino;
+      field.UpdateUI = true;
     }
 
     bool IsOnFieldXComponent(ref Tetramino tetramino)
@@ -147,6 +147,8 @@ namespace Tetris
       SpawnTetramino();
       deferredLock = false;
     }
+
+    protected override void DoUnLoad() { }
 
     protected override void DoLoad() { }
 

@@ -50,6 +50,11 @@ namespace GameFramework
       this.Window = window;
     }
 
+    public void UnLoad()
+    {
+      DoUnLoad();
+    }
+
     public void Load()
     {
       DoLoad();
@@ -66,6 +71,8 @@ namespace GameFramework
       if (Visible)
         DoDraw(e);
     }
+
+    protected abstract void DoUnLoad();
 
     protected abstract void DoLoad();
 

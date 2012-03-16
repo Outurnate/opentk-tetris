@@ -34,7 +34,7 @@
         <Z>-2</Z>
       </Position>
       <TexCoord>
-        <X>0</X>
+        <X>1</X>
         <Y>1</Y>
       </TexCoord>
       <Color>4294967295</Color>
@@ -46,7 +46,7 @@
         <Z>-2</Z>
       </Position>
       <TexCoord>
-        <X>1</X>
+        <X>0</X>
         <Y>1</Y>
       </TexCoord>
       <Color>4294967295</Color>
@@ -58,7 +58,7 @@
         <Z>-2</Z>
       </Position>
       <TexCoord>
-        <X>1</X>
+        <X>0</X>
         <Y>0</Y>
       </TexCoord>
       <Color>4294967295</Color>
@@ -70,7 +70,7 @@
         <Z>-2</Z>
       </Position>
       <TexCoord>
-        <X>0</X>
+        <X>1</X>
         <Y>0</Y>
       </TexCoord>
       <Color>4294967295</Color>

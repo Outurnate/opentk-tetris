@@ -46,12 +46,25 @@ namespace Tetris
       public TetraminoColor color = TetraminoColor.Cyan;
     }
 
+    const string UI_FORMAT = "000000";
+
     Vector3 position;
     Cell[,] shownCells;
     Cell[,] committedCells;
     int width;
     int height;
     Texture scoreUI;
+    Bitmap scoreUIBase;
+    Rectangle scoreRect = new Rectangle(134, 256, 144, 32);
+    Rectangle levelRect = new Rectangle(134, 320, 144, 32);
+    Rectangle linesRect = new Rectangle(134, 384, 144, 32);
+    Point overlayPoint = new Point(64, 32);
+    Font font = new Font("Sans", 24);
+    StringFormat strFormat = new StringFormat()
+    {
+      Alignment = StringAlignment.Far,
+      LineAlignment = StringAlignment.Center
+    };
 
     public Cell this[int x, int y, bool commit]
     {
@@ -83,6 +96,36 @@ namespace Tetris
       }
     }
 
+    public ulong Score
+    {
+      get;
+      set;
+    }
+
+    public ulong Level
+    {
+      get;
+      set;
+    }
+
+    public ulong Lines
+    {
+      get;
+      set;
+    }
+
+    public bool UpdateUI
+    {
+      get;
+      set;
+    }
+
+    public TetraminoType NextTetramino
+    {
+      get;
+      set;
+    }
+
     public FieldRenderer(GameWindow window, Vector3 position, int width, int height) : base(window)
     {
       this.position = Vector3.Add(position, new Vector3(-(width / 2) + .5f, -(height / 2) + .5f, 0.0f));
@@ -90,6 +133,8 @@ namespace Tetris
       committedCells = new Cell[width, height];
       this.width = width;
       this.height = height;
+      Score = Level = Lines = 0;
+      UpdateUI = true;
       for (int x = 0; x < width; x++)
         for (int y = 0; y < height; y++)
 	{
@@ -118,23 +163,33 @@ namespace Tetris
 
     protected override void DoLoad()
     {
-      ResourceCommons.LoadTexture(ResourceCommons.PanelBase, out scoreUI);
+      ResourceCommons.LoadTexture(scoreUIBase = ResourceCommons.PanelBase, out scoreUI);
+    }
+
+    protected override void DoUnLoad()
+    {
+      GL.DeleteTextures(1, ref scoreUI);
     }
 
     protected override void DoUpdate(FrameEventArgs e)
     {
+      if (UpdateUI)
+      {
+	Bitmap current = (Bitmap)scoreUIBase.Clone();
+	Graphics g = Graphics.FromImage(current);
+	g.DrawString(Score.ToString(UI_FORMAT), font, Brushes.White, scoreRect, strFormat);
+	g.DrawString(Level.ToString(UI_FORMAT), font, Brushes.White, levelRect, strFormat);
+	g.DrawString(Lines.ToString(UI_FORMAT), font, Brushes.White, linesRect, strFormat);
+	g.DrawImage(ResourceCommons.BlockOverlays[NextTetramino], overlayPoint);
+	ResourceCommons.UpdateTexture(current, scoreUI, 0, 0, current.Width, current.Height);
+	UpdateUI = false;
+      }
     }
 
     protected override void DoDraw(FrameEventArgs e)
     {
       GL.BindTexture(TextureTarget.Texture2D, scoreUI);
       ResourceCommons.Panel.Draw();
-      /*GL.Begin(BeginMode.Quads);
-      GL.Color3(1.0f, 1.0f, 1.0f); GL.TexCoord2(0.0f, 1.0f); GL.Vertex3(-16f, -11f, -2f);
-      GL.Color3(1.0f, 1.0f, 1.0f); GL.TexCoord2(1.0f, 1.0f); GL.Vertex3(-6f, -11f, -2f);
-      GL.Color3(1.0f, 1.0f, 1.0f); GL.TexCoord2(1.0f, 0.0f); GL.Vertex3(-6f, 11f, -2f);
-      GL.Color3(1.0f, 1.0f, 1.0f); GL.TexCoord2(0.0f, 0.0f); GL.Vertex3(-16f, 11f, -2f);
-      GL.End();*/
       GL.BindTexture(TextureTarget.Texture2D, 0);
       ResourceCommons.Tetrion.Draw();
       for (int x = 0; x < width; x++)

@@ -48,8 +48,9 @@ namespace Tetris
     const string MODELS_DIR   = "models";
     const string SHADERS_DIR  = "shaders";
 
-    public static Texture Cell;
+    public static Texture TetrionTexture;
     public static Dictionary<TetraminoColor, MeshRenderer> Blocks = new Dictionary<TetraminoColor, MeshRenderer>();
+    public static Dictionary<TetraminoType, Bitmap> BlockOverlays = new Dictionary<TetraminoType, Bitmap>();
     public static MeshRenderer Tetrion;
     public static MeshRenderer Panel;
     public static int Simple_Shader;
@@ -62,7 +63,14 @@ namespace Tetris
 
     public static void Load()
     {
-      LoadTexture(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "cell.png"), out Cell);
+      BlockOverlays.Add(TetraminoType.I, new Bitmap(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "I.png")));
+      BlockOverlays.Add(TetraminoType.O, new Bitmap(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "O.png")));
+      BlockOverlays.Add(TetraminoType.J, new Bitmap(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "J.png")));
+      BlockOverlays.Add(TetraminoType.L, new Bitmap(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "L.png")));
+      BlockOverlays.Add(TetraminoType.S, new Bitmap(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "S.png")));
+      BlockOverlays.Add(TetraminoType.Z, new Bitmap(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "Z.png")));
+      BlockOverlays.Add(TetraminoType.T, new Bitmap(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "T.png")));
+      LoadTexture(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "tetrion.png"), out TetrionTexture);
       PanelBase = new Bitmap(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "panel.png"));
       using (Stream tmp = File.Open(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), MODELS_DIR), "blockCyan.xml"), FileMode.Open))
 	Blocks.Add(TetraminoColor.Cyan, new MeshRenderer((Mesh)modelSerializer.Deserialize(tmp)));
@@ -89,7 +97,7 @@ namespace Tetris
 
     public static void Unload()
     {
-      GL.DeleteTextures(1, ref Cell);
+      GL.DeleteTextures(1, ref TetrionTexture);
       foreach (KeyValuePair<TetraminoColor, MeshRenderer> block in Blocks)
 	block.Value.Free();
       Panel.Free();
@@ -140,6 +148,14 @@ namespace Tetris
       bmp.UnlockBits(bmp_data);
       GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Linear);
       GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Linear);
+    }
+
+    public static void UpdateTexture(Bitmap bmp, Texture id, int x, int y, int w, int h)
+    {
+      GL.BindTexture(TextureTarget.Texture2D, id);
+      BitmapData bmp_data = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+      GL.TexSubImage2D(TextureTarget.Texture2D, 0, x, y, w, h, GLPixelFormat.Bgra, PixelType.UnsignedByte, bmp_data.Scan0);
+      bmp.UnlockBits(bmp_data);
     }
   }
 }
