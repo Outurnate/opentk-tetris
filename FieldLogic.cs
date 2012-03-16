@@ -125,6 +125,8 @@ namespace Tetris
       deferredLock = false;
     }
 
+    protected override void DoLoad() { }
+
     protected override void DoUpdate(FrameEventArgs e)
     {
       field.Clear();

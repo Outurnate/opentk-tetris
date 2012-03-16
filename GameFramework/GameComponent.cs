@@ -27,6 +27,11 @@ namespace GameFramework
       this.Window = window;
     }
 
+    public void Load()
+    {
+      DoLoad();
+    }
+
     public void Update(FrameEventArgs e)
     {
       if (Enabled)
@@ -38,6 +43,8 @@ namespace GameFramework
       if (Visible)
         DoDraw(e);
     }
+
+    protected abstract void DoLoad();
 
     protected abstract void DoUpdate(FrameEventArgs e);
 

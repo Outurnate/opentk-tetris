@@ -28,7 +28,9 @@ namespace Tetris
     public static Texture Cell;
     public static Dictionary<TetraminoColor, MeshRenderer> Blocks = new Dictionary<TetraminoColor, MeshRenderer>();
     public static MeshRenderer Tetrion;
+    public static MeshRenderer Panel;
     public static int Simple_Shader;
+    public static Bitmap PanelBase;
 
     static int Simple_vs;
     static int Simple_fs;
@@ -38,6 +40,7 @@ namespace Tetris
     public static void Load()
     {
       LoadTexture(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "cell.png"), out Cell);
+      PanelBase = new Bitmap(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "panel.png"));
       using (Stream tmp = File.Open(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), MODELS_DIR), "blockCyan.xml"), FileMode.Open))
 	Blocks.Add(TetraminoColor.Cyan, new MeshRenderer((Mesh)modelSerializer.Deserialize(tmp)));
       using (Stream tmp = File.Open(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), MODELS_DIR), "blockYellow.xml"), FileMode.Open))
@@ -54,6 +57,8 @@ namespace Tetris
 	Blocks.Add(TetraminoColor.Orange, new MeshRenderer((Mesh)modelSerializer.Deserialize(tmp)));
       using (Stream tmp = File.Open(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), MODELS_DIR), "tetrion.xml"), FileMode.Open))
 	Tetrion = new MeshRenderer((Mesh)modelSerializer.Deserialize(tmp));
+      using (Stream tmp = File.Open(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), MODELS_DIR), "panel.xml"), FileMode.Open))
+	Panel = new MeshRenderer((Mesh)modelSerializer.Deserialize(tmp));
       using (StreamReader vs = new StreamReader(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), SHADERS_DIR), "vs_simple.glsl")))
 	using (StreamReader fs = new StreamReader(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), SHADERS_DIR), "fs_simple.glsl")))
 	  LoadShader(vs.ReadToEnd(), fs.ReadToEnd(), out Simple_vs, out Simple_fs, out Simple_Shader);
@@ -64,13 +69,14 @@ namespace Tetris
       GL.DeleteTextures(1, ref Cell);
       foreach (KeyValuePair<TetraminoColor, MeshRenderer> block in Blocks)
 	block.Value.Free();
+      Panel.Free();
       Tetrion.Free(); // RELEASE THE TETRION!! (sorry, no kraken)
       GL.DeleteShader(Simple_vs);
       GL.DeleteShader(Simple_fs);
       GL.DeleteProgram(Simple_Shader);
     }
 
-    static void LoadShader(string vs, string fs, out int vertexObject, out int fragmentObject, out int program)
+    public static void LoadShader(string vs, string fs, out int vertexObject, out int fragmentObject, out int program)
     {
       int status_code;
       string info;
@@ -95,13 +101,17 @@ namespace Tetris
       GL.UseProgram(program);
     }
 
-    static void LoadTexture(string filename, out Texture id)
+    public static void LoadTexture(string filename, out Texture id)
     {
       if (String.IsNullOrEmpty(filename))
         throw new ArgumentException(filename);
+      LoadTexture(new Bitmap(filename), out id);
+    }
+
+    public static void LoadTexture(Bitmap bmp, out Texture id)
+    {
       id = GL.GenTexture();
       GL.BindTexture(TextureTarget.Texture2D, id);
-      Bitmap bmp = new Bitmap(filename);
       BitmapData bmp_data = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
       GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, bmp_data.Width, bmp_data.Height, 0, GLPixelFormat.Bgra, PixelType.UnsignedByte, bmp_data.Scan0);
       bmp.UnlockBits(bmp_data);

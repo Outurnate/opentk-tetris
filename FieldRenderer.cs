@@ -28,6 +28,7 @@ namespace Tetris
     Cell[,] committedCells;
     int width;
     int height;
+    Texture scoreUI;
 
     public Cell this[int x, int y, bool commit]
     {
@@ -92,12 +93,21 @@ namespace Tetris
 	  }
     }
 
-    protected override void DoUpdate(FrameEventArgs e) { }
+    protected override void DoLoad()
+    {
+      ResourceCommons.LoadTexture(ResourceCommons.PanelBase, out scoreUI);
+    }
+
+    protected override void DoUpdate(FrameEventArgs e)
+    {
+    }
 
     protected override void DoDraw(FrameEventArgs e)
     {
-      ResourceCommons.Tetrion.Draw();
+      GL.BindTexture(TextureTarget.Texture2D, scoreUI);
+      ResourceCommons.Panel.Draw();
       GL.BindTexture(TextureTarget.Texture2D, 0);
+      ResourceCommons.Tetrion.Draw();
       for (int x = 0; x < width; x++)
         for (int y = 0; y < height; y++)
 	{

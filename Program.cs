@@ -39,6 +39,8 @@ namespace Tetris
 
       GL.ClearColor(0.1f, 0.2f, 0.5f, 0.0f);
 
+      field.Load();
+      field_logic.Load();
       field_logic.Start();
     }
 
@@ -75,7 +77,7 @@ namespace Tetris
 
       GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
-      GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Fill);
+      GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line);
 
       Matrix4 modelview = Matrix4.LookAt(new Vector3(0.0f, 0.0f, -50.0f), pos_field, Vector3.UnitY);
       GL.MatrixMode(MatrixMode.Modelview);
