@@ -128,10 +128,11 @@ namespace Tetris
       {
 	bool yCheck = IsOnFieldYComponent(ref newTetramino);
 	if (!yCheck && y != 0)
-	{
-	  lockTimer = dropSpeed / 2;
-	  deferredLock = true;
-	}
+	  if (!deferredLock)
+	  {
+	    lockTimer = dropSpeed / 2;
+	    deferredLock = true;
+	  }
 	if (VerifyNoOverlap(ref newTetramino) && yCheck)
 	{
 	  tetramino = newTetramino;
@@ -150,6 +151,32 @@ namespace Tetris
       field.CopyCommit();
       SpawnTetramino();
       deferredLock = false;
+    }
+
+    void CalculateClears()
+    {
+      for (int y = 0; y < 20; y++)
+      {
+	bool clear = true;
+	for (int x = 0; x < 10; x++)
+	  if (!field[x, y, true].inUse)
+	  {
+	    clear = false;
+	    break;
+	  }
+	if (clear)
+	{
+	  for (int x = 0; x < 10; x++)
+	    field[x, y, true].inUse = false;
+	  for (int ny = y; ny < 20; ny++)
+	    for (int x = 0; x < 10; x++)
+	      if (field[x, ny + 1, true] != default(FieldRenderer.Cell))
+	      {
+		field[x, ny, true].inUse = field[x, ny + 1, true].inUse;
+		field[x, ny, true].color = field[x, ny + 1, true].color;
+	      }
+	}
+      }
     }
 
     protected override void DoUnLoad() { }
@@ -190,6 +217,7 @@ namespace Tetris
 	if (lockTimer <= 0)
 	  LockTetramino();
       }
+      CalculateClears();
       prev_up = Window.Keyboard[Key.W];
       prev_left = Window.Keyboard[Key.A];
       prev_down = Window.Keyboard[Key.S];
