@@ -129,6 +129,12 @@ namespace Tetris
     {
       GL.BindTexture(TextureTarget.Texture2D, scoreUI);
       ResourceCommons.Panel.Draw();
+      /*GL.Begin(BeginMode.Quads);
+      GL.Color3(1.0f, 1.0f, 1.0f); GL.TexCoord2(0.0f, 1.0f); GL.Vertex3(-16f, -11f, -2f);
+      GL.Color3(1.0f, 1.0f, 1.0f); GL.TexCoord2(1.0f, 1.0f); GL.Vertex3(-6f, -11f, -2f);
+      GL.Color3(1.0f, 1.0f, 1.0f); GL.TexCoord2(1.0f, 0.0f); GL.Vertex3(-6f, 11f, -2f);
+      GL.Color3(1.0f, 1.0f, 1.0f); GL.TexCoord2(0.0f, 0.0f); GL.Vertex3(-16f, 11f, -2f);
+      GL.End();*/
       GL.BindTexture(TextureTarget.Texture2D, 0);
       ResourceCommons.Tetrion.Draw();
       for (int x = 0; x < width; x++)

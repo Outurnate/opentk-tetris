@@ -101,8 +101,8 @@ namespace GameFramework
       GL.BindBuffer(BufferTarget.ArrayBuffer, handle.VboID);
       GL.BindBuffer(BufferTarget.ElementArrayBuffer, handle.EboID);
       GL.VertexPointer(3, VertexPointerType.Float, BlittableValueType.StrideOf(verticies), new IntPtr(0));
+      GL.TexCoordPointer(2, TexCoordPointerType.Float, BlittableValueType.StrideOf(verticies), new IntPtr(BlittableValueType.StrideOf(default(Vector3))));
       GL.ColorPointer(4, ColorPointerType.UnsignedByte, BlittableValueType.StrideOf(verticies), new IntPtr(BlittableValueType.StrideOf(default(Vector3)) + BlittableValueType.StrideOf(default(Vector2))));
-      GL.TexCoordPointer(4, TexCoordPointerType.Float, BlittableValueType.StrideOf(verticies), new IntPtr(BlittableValueType.StrideOf(default(Vector3))));
       GL.DrawElements(mode, handle.NumElements, DrawElementsType.UnsignedShort, IntPtr.Zero);
     }
 

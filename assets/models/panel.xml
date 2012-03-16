@@ -29,8 +29,20 @@
   <Verticies>
     <VertexPositionColorCoordNormal>
       <Position>
+        <X>-16</X>
+        <Y>-11</Y>
+        <Z>-2</Z>
+      </Position>
+      <TexCoord>
+        <X>0</X>
+        <Y>1</Y>
+      </TexCoord>
+      <Color>4294967295</Color>
+    </VertexPositionColorCoordNormal>
+    <VertexPositionColorCoordNormal>
+      <Position>
         <X>-6</X>
-        <Y>11</Y>
+        <Y>-11</Y>
         <Z>-2</Z>
       </Position>
       <TexCoord>
@@ -42,7 +54,7 @@
     <VertexPositionColorCoordNormal>
       <Position>
         <X>-6</X>
-        <Y>-11</Y>
+        <Y>11</Y>
         <Z>-2</Z>
       </Position>
       <TexCoord>
@@ -55,18 +67,6 @@
       <Position>
         <X>-16</X>
         <Y>11</Y>
-        <Z>-2</Z>
-      </Position>
-      <TexCoord>
-        <X>0</X>
-        <Y>1</Y>
-      </TexCoord>
-      <Color>4294967295</Color>
-    </VertexPositionColorCoordNormal>
-    <VertexPositionColorCoordNormal>
-      <Position>
-        <X>-16</X>
-        <Y>-11</Y>
         <Z>-2</Z>
       </Position>
       <TexCoord>
