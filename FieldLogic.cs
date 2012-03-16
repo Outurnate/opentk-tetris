@@ -46,9 +46,10 @@ namespace Tetris
     TetraminoManager manager;
     Tetramino currentTetramino;
 
-    double dropSpeed = .25;
+    double dropSpeed = 1;
 
     double dropTimer;
+    double lockTimer;
 
     bool prev_right = false;
     bool prev_left = false;
@@ -127,7 +128,10 @@ namespace Tetris
       {
 	bool yCheck = IsOnFieldYComponent(ref newTetramino);
 	if (!yCheck && y != 0)
+	{
+	  lockTimer = dropSpeed / 2;
 	  deferredLock = true;
+	}
 	if (VerifyNoOverlap(ref newTetramino) && yCheck)
 	{
 	  tetramino = newTetramino;
@@ -181,7 +185,11 @@ namespace Tetris
 	      field[currentTetramino.x + x, currentTetramino.y + y, false].color = currentTetramino.color;
 	    }
       if (deferredLock)
-	LockTetramino();
+      {
+	lockTimer -= e.Time;
+	if (lockTimer <= 0)
+	  LockTetramino();
+      }
       prev_up = Window.Keyboard[Key.W];
       prev_left = Window.Keyboard[Key.A];
       prev_down = Window.Keyboard[Key.S];
