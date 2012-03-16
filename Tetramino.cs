@@ -90,7 +90,7 @@ namespace Tetris
 	  color = TetraminoColor.Purple,
 	  rotation = TetraminoRotation.Right,
 	  x = 4,
-	  y = 18
+	  y = 17
 	}
       },
       {
