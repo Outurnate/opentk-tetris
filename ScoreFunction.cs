@@ -41,9 +41,20 @@ namespace Tetris
 {
   static class ScoreFunction
   {
-    public static ulong Calculate(int rowsCleared, ref ulong level, ref ulong lines)
+    const double minSpeed = 1;
+    const double maxSpeed = 1 / 500;
+    const byte minLevel = 1;
+    const byte maxLevel = 50;
+
+    public static ulong Calculate(int rowsCleared, ref byte level, ref ulong lines, ref double speed)
     {
-      
+      speed = 1 / (double)((level = (byte)(lines += (ulong)rowsCleared)) * 10);
+      ulong score = ((ulong)rowsCleared) * (ulong)((long)Math.Floor(speed) ^ -1L);
+      if (speed < minSpeed) speed = minSpeed;
+      if (speed > maxSpeed) speed = maxSpeed;
+      if (level < minLevel) level = minLevel;
+      if (level > maxLevel) level = maxLevel;
+      return score;
     }
   }
 }
