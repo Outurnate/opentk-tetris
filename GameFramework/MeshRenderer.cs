@@ -61,6 +61,7 @@ namespace GameFramework
   {
     public VertexPositionColorCoordNormal[] Verticies;
     public short[] Indicies;
+    public BeginMode Mode;
   }
 
   public class MeshRenderer
@@ -69,6 +70,7 @@ namespace GameFramework
 
     VertexPositionColorCoordNormal[] verticies;
     VBO handle;
+    BeginMode mode;
 
     public MeshRenderer(Mesh m)
     {
@@ -88,6 +90,7 @@ namespace GameFramework
       if (m.Indicies.Length * sizeof(short) != size)
 	throw new ApplicationException("Element data not uploaded correctly");
       handle.NumElements = m.Indicies.Length;
+      mode = m.Mode;
     }
 
     public void Draw()
@@ -100,7 +103,7 @@ namespace GameFramework
       GL.VertexPointer(3, VertexPointerType.Float, BlittableValueType.StrideOf(verticies), new IntPtr(0));
       GL.ColorPointer(4, ColorPointerType.UnsignedByte, BlittableValueType.StrideOf(verticies), new IntPtr(BlittableValueType.StrideOf(default(Vector3)) + BlittableValueType.StrideOf(default(Vector2))));
       GL.TexCoordPointer(4, TexCoordPointerType.Float, BlittableValueType.StrideOf(verticies), new IntPtr(BlittableValueType.StrideOf(default(Vector3))));
-      GL.DrawElements(BeginMode.Triangles, handle.NumElements, DrawElementsType.UnsignedShort, IntPtr.Zero);
+      GL.DrawElements(mode, handle.NumElements, DrawElementsType.UnsignedShort, IntPtr.Zero);
     }
 
     public void Free()

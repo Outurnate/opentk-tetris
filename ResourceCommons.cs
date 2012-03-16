@@ -121,7 +121,7 @@ namespace Tetris
       GL.AttachShader(program, fragmentObject);
       GL.AttachShader(program, vertexObject);
       GL.LinkProgram(program);
-      GL.UseProgram(program);
+      //GL.UseProgram(program);
     }
 
     public static void LoadTexture(string filename, out Texture id)
@@ -140,6 +140,8 @@ namespace Tetris
       bmp.UnlockBits(bmp_data);
       GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Linear);
       GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Linear);
+      GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)TextureWrapMode.ClampToEdge);
+      GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)TextureWrapMode.ClampToEdge);
     }
   }
 }

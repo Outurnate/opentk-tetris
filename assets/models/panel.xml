@@ -25,6 +25,7 @@
 -->
 
 <Mesh xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Mode>Quads</Mode>
   <Verticies>
     <VertexPositionColorCoordNormal>
       <Position>
@@ -77,8 +78,6 @@
   </Verticies>
   <Indicies>
     <short>0</short>
-    <short>1</short>
-    <short>2</short>
     <short>1</short>
     <short>2</short>
     <short>3</short>

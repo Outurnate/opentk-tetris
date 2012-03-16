@@ -100,11 +100,13 @@ namespace Tetris
 
       GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
-      GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line);
+      GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Fill);
 
       Matrix4 modelview = Matrix4.LookAt(new Vector3(0.0f, 0.0f, -50.0f), pos_field, Vector3.UnitY);
       GL.MatrixMode(MatrixMode.Modelview);
       GL.LoadMatrix(ref modelview);
+
+      GL.Rotate(0f, 0, 1f, 0);
 
       field_logic.Draw(e);
       field.Draw(e);
