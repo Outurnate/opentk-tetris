@@ -96,23 +96,11 @@ namespace Tetris
       }
     }
 
-    public ulong Score
-    {
-      get;
-      set;
-    }
+    public ulong Score = 0;
 
-    public ulong Level
-    {
-      get;
-      set;
-    }
+    public byte Level = 1;
 
-    public ulong Lines
-    {
-      get;
-      set;
-    }
+    public ulong Lines = 0;
 
     public bool UpdateUI
     {
@@ -133,7 +121,6 @@ namespace Tetris
       committedCells = new Cell[width, height];
       this.width = width;
       this.height = height;
-      Score = Level = Lines = 0;
       UpdateUI = true;
       for (int x = 0; x < width; x++)
         for (int y = 0; y < height; y++)

@@ -68,6 +68,7 @@ namespace Tetris
 
     public void Start()
     {
+      field.Score += ScoreFunction.Calculate(0, ref field.Level, ref field.Lines, ref dropSpeed);
       SpawnTetramino();
     }
 
@@ -155,6 +156,7 @@ namespace Tetris
 
     void CalculateClears()
     {
+      uint rows = 0;
       for (int y = 0; y < 20; y++)
       {
 	bool clear = true;
@@ -175,8 +177,11 @@ namespace Tetris
 		field[x, ny, true].inUse = field[x, ny + 1, true].inUse;
 		field[x, ny, true].color = field[x, ny + 1, true].color;
 	      }
+	  rows++;
 	}
       }
+      if (rows != 0)
+	field.Score += ScoreFunction.Calculate(rows, ref field.Level, ref field.Lines, ref dropSpeed);
     }
 
     protected override void DoUnLoad() { }
@@ -185,6 +190,7 @@ namespace Tetris
 
     protected override void DoUpdate(FrameEventArgs e)
     {
+      Console.WriteLine(string.Format("level:{0}\tlines:{1}\tspeed:{2}\tscore:{3}", field.Level, field.Lines, dropSpeed, field.Score));
       field.Clear();
       dropTimer -= e.Time;
       if (Window.Keyboard[Key.S])
