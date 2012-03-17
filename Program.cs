@@ -43,7 +43,7 @@ namespace Tetris
     FieldLogic field_logic;
     Vector3 pos_field;
 
-    public Game() : base(800, 600, GraphicsMode.Default, "tk-tetris")
+    public Game() : base(800, 600, GraphicsMode.Default, "opentk-tetris")
     {
       VSync = VSyncMode.On;
       field = new FieldRenderer(this, pos_field = new Vector3(0.0f, 0.0f, 0.0f), 10, 20) { Enabled = true, Visible = true };
@@ -121,7 +121,7 @@ namespace Tetris
     {
       using (Game game = new Game())
       {
-        game.Run(30.0);
+        game.Run(30.0, 60.0);
       }
     }
   }
