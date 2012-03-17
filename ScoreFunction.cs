@@ -48,15 +48,12 @@ namespace Tetris
 
     public static ulong Calculate(uint rowsCleared, ref byte level, ref ulong lines, ref double speed)
     {
-      lines += (ulong)rowsCleared;
-      level = (byte)Math.Floor(lines / 5d);
-      speed = 1 / ((double)level);
-      ulong score = (ulong)Math.Ceiling((double)rowsCleared * 1d / speed);
+      speed = 1 / ((double)(level = (byte)Math.Floor((lines += (ulong)rowsCleared) / 5d)));
       if (speed > minSpeed) speed = minSpeed;
       if (speed < maxSpeed) speed = maxSpeed;
       if (level < minLevel) level = minLevel;
       if (level > maxLevel) level = maxLevel;
-      return score;
+      return (ulong)Math.Ceiling((double)rowsCleared * 1d / speed);
     }
   }
 }

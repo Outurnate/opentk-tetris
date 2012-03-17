@@ -178,6 +178,7 @@ namespace Tetris
 		field[x, ny, true].color = field[x, ny + 1, true].color;
 	      }
 	  rows++;
+	  y--;
 	}
       }
       if (rows != 0)
@@ -190,7 +191,6 @@ namespace Tetris
 
     protected override void DoUpdate(FrameEventArgs e)
     {
-      Console.WriteLine(string.Format("level:{0}\tlines:{1}\tspeed:{2}\tscore:{3}", field.Level, field.Lines, dropSpeed, field.Score));
       field.Clear();
       dropTimer -= e.Time;
       if (Window.Keyboard[Key.S])
