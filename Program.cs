@@ -57,6 +57,7 @@ namespace Tetris
       GL.ShadeModel(ShadingModel.Smooth);
       GL.Enable(EnableCap.Texture2D);
       GL.Enable(EnableCap.DepthTest);
+      GL.Enable(EnableCap.CullFace);
 
       ResourceCommons.Load();
 

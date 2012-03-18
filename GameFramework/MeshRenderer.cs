@@ -42,13 +42,15 @@ namespace GameFramework
   {
     public Vector3 Position;
     public Vector2 TexCoord;
+    public Vector3 Normal;
     public uint Color;
 
-    public VertexPositionColorCoordNormal(float x, float y, float z, float u, float v, Color color)
+    public VertexPositionColorCoordNormal(float x, float y, float z, float u, float v, Color color, float nx, float ny, float nz)
     {
       Position = new Vector3(x, y, z);
       Color = ToRgba(color);
       TexCoord = new Vector2(u, v);
+      Normal = new Vector3(nx, ny, nz);
     }
 
     static uint ToRgba(Color color)
@@ -66,6 +68,11 @@ namespace GameFramework
 
   public class MeshRenderer
   {
+    static readonly IntPtr i_POSITION = new IntPtr(0);
+    static readonly IntPtr i_TEXCOORD = new IntPtr(BlittableValueType.StrideOf(default(Vector3)));
+    static readonly IntPtr i_NORMAL = new IntPtr(BlittableValueType.StrideOf(default(Vector3)) + BlittableValueType.StrideOf(default(Vector2)));
+    static readonly IntPtr i_COLOR = new IntPtr(BlittableValueType.StrideOf(default(Vector3)) + BlittableValueType.StrideOf(default(Vector2)) + BlittableValueType.StrideOf(default(Vector3)));
+
     struct VBO { public int VboID, EboID, NumElements; }
 
     VertexPositionColorCoordNormal[] verticies;
@@ -100,9 +107,10 @@ namespace GameFramework
       GL.EnableClientState(ArrayCap.TextureCoordArray);
       GL.BindBuffer(BufferTarget.ArrayBuffer, handle.VboID);
       GL.BindBuffer(BufferTarget.ElementArrayBuffer, handle.EboID);
-      GL.VertexPointer(3, VertexPointerType.Float, BlittableValueType.StrideOf(verticies), new IntPtr(0));
-      GL.TexCoordPointer(2, TexCoordPointerType.Float, BlittableValueType.StrideOf(verticies), new IntPtr(BlittableValueType.StrideOf(default(Vector3))));
-      GL.ColorPointer(4, ColorPointerType.UnsignedByte, BlittableValueType.StrideOf(verticies), new IntPtr(BlittableValueType.StrideOf(default(Vector3)) + BlittableValueType.StrideOf(default(Vector2))));
+      GL.VertexPointer(3, VertexPointerType.Float, BlittableValueType.StrideOf(verticies), i_POSITION);
+      GL.TexCoordPointer(2, TexCoordPointerType.Float, BlittableValueType.StrideOf(verticies), i_TEXCOORD);
+      GL.NormalPointer(NormalPointerType.Float, BlittableValueType.StrideOf(verticies), i_NORMAL);
+      GL.ColorPointer(4, ColorPointerType.UnsignedByte, BlittableValueType.StrideOf(verticies), i_COLOR);
       GL.DrawElements(mode, handle.NumElements, DrawElementsType.UnsignedShort, IntPtr.Zero);
     }
 

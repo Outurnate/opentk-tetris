@@ -25,7 +25,7 @@
 -->
 
 <Mesh xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Mode>Quads</Mode>
+  <Mode>Triangles</Mode>
   <Verticies>
     <VertexPositionColorCoordNormal>
       <Position>
@@ -37,6 +37,11 @@
         <X>1</X>
         <Y>1</Y>
       </TexCoord>
+      <Normal>
+        <X>0.0</X>
+        <Y>0.0</Y>
+        <Z>-1.0</Z>
+      </Normal>
       <Color>4294967295</Color>
     </VertexPositionColorCoordNormal>
     <VertexPositionColorCoordNormal>
@@ -49,6 +54,11 @@
         <X>0</X>
         <Y>1</Y>
       </TexCoord>
+      <Normal>
+        <X>0.0</X>
+        <Y>0.0</Y>
+        <Z>-1.0</Z>
+      </Normal>
       <Color>4294967295</Color>
     </VertexPositionColorCoordNormal>
     <VertexPositionColorCoordNormal>
@@ -61,6 +71,11 @@
         <X>0</X>
         <Y>0</Y>
       </TexCoord>
+      <Normal>
+        <X>0.0</X>
+        <Y>0.0</Y>
+        <Z>-1.0</Z>
+      </Normal>
       <Color>4294967295</Color>
     </VertexPositionColorCoordNormal>
     <VertexPositionColorCoordNormal>
@@ -73,13 +88,20 @@
         <X>1</X>
         <Y>0</Y>
       </TexCoord>
+      <Normal>
+        <X>0.0</X>
+        <Y>0.0</Y>
+        <Z>-1.0</Z>
+      </Normal>
       <Color>4294967295</Color>
     </VertexPositionColorCoordNormal>
   </Verticies>
   <Indicies>
-    <short>0</short>
-    <short>1</short>
     <short>2</short>
+    <short>1</short>
+    <short>0</short>
+    <short>2</short>
+    <short>0</short>
     <short>3</short>
   </Indicies>
 </Mesh>
