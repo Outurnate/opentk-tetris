@@ -132,7 +132,7 @@ namespace Tetris
       GL.AttachShader(program, fragmentObject);
       GL.AttachShader(program, vertexObject);
       GL.LinkProgram(program);
-      //GL.UseProgram(program);
+      GL.UseProgram(program);
     }
 
     public static void LoadTexture(string filename, out Texture id)

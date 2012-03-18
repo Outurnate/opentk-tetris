@@ -26,6 +26,32 @@
 
 <Mesh xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Mode>Triangles</Mode>
+  <Material>
+    <Ambient>
+      <A>255</A>
+      <R>77</R>
+      <G>0</G>
+      <B>0</B>
+    </Ambient>
+    <Diffuse>
+      <A>255</A>
+      <R>255</R>
+      <G>0</G>
+      <B>0</B>
+    </Diffuse>
+    <Specular>
+      <A>255</A>
+      <R>255</R>
+      <G>0</G>
+      <B>0</B>
+    </Specular>
+    <Emission>
+      <A>255</A>
+      <R>0</R>
+      <G>0</G>
+      <B>0</B>
+    </Emission>
+  </Material>
   <Verticies>
     <VertexPositionColorCoordNormal>
       <Position>

@@ -48,15 +48,19 @@ namespace GameFramework
     public VertexPositionColorCoordNormal(float x, float y, float z, float u, float v, Color color, float nx, float ny, float nz)
     {
       Position = new Vector3(x, y, z);
-      Color = ToRgba(color);
+      Color = MeshRenderer.ToRgba(color);
       TexCoord = new Vector2(u, v);
       Normal = new Vector3(nx, ny, nz);
     }
+  }
 
-    static uint ToRgba(Color color)
-    {
-      return (uint)color.A << 24 | (uint)color.B << 16 | (uint)color.G << 8 | (uint)color.R;
-    }
+  public struct Material
+  {
+    public Color Diffuse;
+    public Color Emission;
+    public Color Ambient;
+    public Color Specular;
+    public float Shininess;
   }
 
   public struct Mesh
@@ -64,6 +68,7 @@ namespace GameFramework
     public VertexPositionColorCoordNormal[] Verticies;
     public short[] Indicies;
     public BeginMode Mode;
+    public Material Material;
   }
 
   public class MeshRenderer
@@ -78,10 +83,12 @@ namespace GameFramework
     VertexPositionColorCoordNormal[] verticies;
     VBO handle;
     BeginMode mode;
+    Material material;
 
     public MeshRenderer(Mesh m)
     {
       this.verticies = m.Verticies;
+      this.material = m.Material;
       handle = new VBO();
       int size;
       GL.GenBuffers(1, out handle.VboID);
@@ -105,6 +112,10 @@ namespace GameFramework
       GL.EnableClientState(ArrayCap.ColorArray);
       GL.EnableClientState(ArrayCap.VertexArray);
       GL.EnableClientState(ArrayCap.TextureCoordArray);
+      GL.Material(MaterialFace.Front, MaterialParameter.Ambient, ColorToFloat(material.Ambient));
+      GL.Material(MaterialFace.Front, MaterialParameter.Diffuse, ColorToFloat(material.Diffuse));
+      GL.Material(MaterialFace.Front, MaterialParameter.Specular, ColorToFloat(material.Specular));
+      GL.Material(MaterialFace.Front, MaterialParameter.Emission, ColorToFloat(material.Emission));
       GL.BindBuffer(BufferTarget.ArrayBuffer, handle.VboID);
       GL.BindBuffer(BufferTarget.ElementArrayBuffer, handle.EboID);
       GL.VertexPointer(3, VertexPointerType.Float, BlittableValueType.StrideOf(verticies), i_POSITION);
@@ -118,6 +129,16 @@ namespace GameFramework
     {
       GL.DeleteBuffers(1, ref handle.VboID);
       GL.DeleteBuffers(1, ref handle.EboID);
+    }
+
+    internal static float[] ColorToFloat(Color c)
+    {
+      return new float[] { c.R / byte.MaxValue, c.G / byte.MaxValue, c.B / byte.MaxValue, c.A / byte.MaxValue };
+    }
+
+    internal static uint ToRgba(Color color)
+    {
+      return (uint)color.A << 24 | (uint)color.B << 16 | (uint)color.G << 8 | (uint)color.R;
     }
   }
 }
