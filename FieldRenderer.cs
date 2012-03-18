@@ -177,8 +177,9 @@ namespace Tetris
     {
       GL.BindTexture(TextureTarget.Texture2D, scoreUI);
       ResourceCommons.Panel.Draw();
-      GL.BindTexture(TextureTarget.Texture2D, 0);
+      GL.BindTexture(TextureTarget.Texture2D, ResourceCommons.TetrionTexture);
       ResourceCommons.Tetrion.Draw();
+      GL.BindTexture(TextureTarget.Texture2D, ResourceCommons.Block);
       for (int x = 0; x < width; x++)
         for (int y = 0; y < height; y++)
 	{

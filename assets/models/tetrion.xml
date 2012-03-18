@@ -34,8 +34,8 @@
         <Z>0</Z>
       </Position>
       <TexCoord>
-        <X>.9</X>
-        <Y>0</Y>
+        <X>0.857142857</X>
+        <Y>0.142857143</Y>
       </TexCoord>
       <Color>4294967295</Color>
     </VertexPositionColorCoordNormal>
@@ -46,8 +46,8 @@
         <Z>0</Z>
       </Position>
       <TexCoord>
-        <X>0</X>
-        <Y>0</Y>
+        <X>0.142857143</X>
+        <Y>0.142857143</Y>
       </TexCoord>
       <Color>4294967295</Color>
     </VertexPositionColorCoordNormal>
@@ -58,8 +58,8 @@
         <Z>0</Z>
       </Position>
       <TexCoord>
-        <X>0</X>
-        <Y>.9</Y>
+        <X>0.142857143</X>
+        <Y>0.857142857</Y>
       </TexCoord>
       <Color>4294967295</Color>
     </VertexPositionColorCoordNormal>
@@ -70,8 +70,8 @@
         <Z>0</Z>
       </Position>
       <TexCoord>
-        <X>.9</X>
-        <Y>.9</Y>
+        <X>0.857142857</X>
+        <Y>0.857142857</Y>
       </TexCoord>
       <Color>4294967295</Color>
     </VertexPositionColorCoordNormal>
@@ -82,8 +82,8 @@
         <Z>-2</Z>
       </Position>
       <TexCoord>
-        <X>.9</X>
-        <Y>0</Y>
+        <X>0.928571429</X>
+        <Y>0.071428571</Y>
       </TexCoord>
       <Color>4294967295</Color>
     </VertexPositionColorCoordNormal>
@@ -94,8 +94,8 @@
         <Z>-2</Z>
       </Position>
       <TexCoord>
-        <X>0</X>
-        <Y>0</Y>
+        <X>0.071428571</X>
+        <Y>0.071428571</Y>
       </TexCoord>
       <Color>4294967295</Color>
     </VertexPositionColorCoordNormal>
@@ -106,8 +106,8 @@
         <Z>-2</Z>
       </Position>
       <TexCoord>
-        <X>0</X>
-        <Y>.9</Y>
+        <X>0.071428571</X>
+        <Y>0.928571429</Y>
       </TexCoord>
       <Color>4294967295</Color>
     </VertexPositionColorCoordNormal>
@@ -118,8 +118,8 @@
         <Z>-2</Z>
       </Position>
       <TexCoord>
-        <X>.9</X>
-        <Y>.9</Y>
+        <X>0.928571429</X>
+        <Y>0.928571429</Y>
       </TexCoord>
       <Color>4294967295</Color>
     </VertexPositionColorCoordNormal>

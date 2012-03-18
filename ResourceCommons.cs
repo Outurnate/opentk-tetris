@@ -49,6 +49,7 @@ namespace Tetris
     const string SHADERS_DIR  = "shaders";
 
     public static Texture TetrionTexture;
+    public static Texture Block;
     public static Dictionary<TetraminoColor, MeshRenderer> Blocks = new Dictionary<TetraminoColor, MeshRenderer>();
     public static Dictionary<TetraminoType, Bitmap> BlockOverlays = new Dictionary<TetraminoType, Bitmap>();
     public static MeshRenderer Tetrion;
@@ -71,6 +72,7 @@ namespace Tetris
       BlockOverlays.Add(TetraminoType.Z, new Bitmap(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "Z.png")));
       BlockOverlays.Add(TetraminoType.T, new Bitmap(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "T.png")));
       LoadTexture(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "tetrion.png"), out TetrionTexture);
+      LoadTexture(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "block.png"), out Block);
       PanelBase = new Bitmap(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "panel.png"));
       using (Stream tmp = File.Open(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), MODELS_DIR), "blockCyan.xml"), FileMode.Open))
 	Blocks.Add(TetraminoColor.Cyan, new MeshRenderer((Mesh)modelSerializer.Deserialize(tmp)));
@@ -98,6 +100,7 @@ namespace Tetris
     public static void Unload()
     {
       GL.DeleteTextures(1, ref TetrionTexture);
+      GL.DeleteTextures(1, ref Block);
       foreach (KeyValuePair<TetraminoColor, MeshRenderer> block in Blocks)
 	block.Value.Free();
       Panel.Free();
@@ -129,7 +132,7 @@ namespace Tetris
       GL.AttachShader(program, fragmentObject);
       GL.AttachShader(program, vertexObject);
       GL.LinkProgram(program);
-      //GL.UseProgram(program);
+      GL.UseProgram(program);
     }
 
     public static void LoadTexture(string filename, out Texture id)
