@@ -29,62 +29,53 @@
   <Verticies>
     <VertexPositionColorCoordNormal>
       <Position>
-        <X>-0.5</X>
-        <Y>-0.5</Y>
-        <Z>0.5</Z>
-      </Position>
-      <TexCoord>
-        <X>0</X>
-        <Y>0</Y>
-      </TexCoord>
-      <Color>4294967040</Color>
-    </VertexPositionColorCoordNormal>
-    <VertexPositionColorCoordNormal>
-      <Position>
         <X>0.5</X>
-        <Y>-0.5</Y>
-        <Z>0.5</Z>
+        <Y>0.5</Y>
+        <Z>-0.5</Z>
       </Position>
       <TexCoord>
         <X>1</X>
-        <Y>0</Y>
+        <Y>1</Y>
       </TexCoord>
+      <Normal>
+        <X>0.0</X>
+        <Y>0.0</Y>
+        <Z>-1.0</Z>
+      </Normal>
       <Color>4294967040</Color>
     </VertexPositionColorCoordNormal>
     <VertexPositionColorCoordNormal>
       <Position>
         <X>0.5</X>
         <Y>0.5</Y>
-        <Z>0.5</Z>
-      </Position>
-      <TexCoord>
-        <X>1</X>
-        <Y>1</Y>
-      </TexCoord>
-      <Color>4294967040</Color>
-    </VertexPositionColorCoordNormal>
-    <VertexPositionColorCoordNormal>
-      <Position>
-        <X>-0.5</X>
-        <Y>0.5</Y>
-        <Z>0.5</Z>
-      </Position>
-      <TexCoord>
-        <X>0</X>
-        <Y>1</Y>
-      </TexCoord>
-      <Color>4294967040</Color>
-    </VertexPositionColorCoordNormal>
-    <VertexPositionColorCoordNormal>
-      <Position>
-        <X>-0.5</X>
-        <Y>-0.5</Y>
         <Z>-0.5</Z>
       </Position>
       <TexCoord>
         <X>0</X>
+        <Y>1</Y>
+      </TexCoord>
+      <Normal>
+        <X>1.0</X>
+        <Y>0.0</Y>
+        <Z>0.0</Z>
+      </Normal>
+      <Color>4294967040</Color>
+    </VertexPositionColorCoordNormal>
+    <VertexPositionColorCoordNormal>
+      <Position>
+        <X>0.5</X>
+        <Y>0.5</Y>
+        <Z>-0.5</Z>
+      </Position>
+      <TexCoord>
+        <X>1</X>
         <Y>0</Y>
       </TexCoord>
+      <Normal>
+        <X>0.0</X>
+        <Y>1.0</Y>
+        <Z>0.0</Z>
+      </Normal>
       <Color>4294967040</Color>
     </VertexPositionColorCoordNormal>
     <VertexPositionColorCoordNormal>
@@ -97,18 +88,96 @@
         <X>1</X>
         <Y>0</Y>
       </TexCoord>
+      <Normal>
+        <X>0.0</X>
+        <Y>0.0</Y>
+        <Z>-1.0</Z>
+      </Normal>
       <Color>4294967040</Color>
     </VertexPositionColorCoordNormal>
     <VertexPositionColorCoordNormal>
       <Position>
         <X>0.5</X>
-        <Y>0.5</Y>
+        <Y>-0.5</Y>
+        <Z>-0.5</Z>
+      </Position>
+      <TexCoord>
+        <X>0</X>
+        <Y>0</Y>
+      </TexCoord>
+      <Normal>
+        <X>1.0</X>
+        <Y>0.0</Y>
+        <Z>0.0</Z>
+      </Normal>
+      <Color>4294967040</Color>
+    </VertexPositionColorCoordNormal>
+    <VertexPositionColorCoordNormal>
+      <Position>
+        <X>0.5</X>
+        <Y>-0.5</Y>
         <Z>-0.5</Z>
       </Position>
       <TexCoord>
         <X>1</X>
-        <Y>1</Y>
+        <Y>0</Y>
       </TexCoord>
+      <Normal>
+        <X>0.0</X>
+        <Y>-1.0</Y>
+        <Z>0.0</Z>
+      </Normal>
+      <Color>4294967040</Color>
+    </VertexPositionColorCoordNormal>
+    <VertexPositionColorCoordNormal>
+      <Position>
+        <X>-0.5</X>
+        <Y>-0.5</Y>
+        <Z>-0.5</Z>
+      </Position>
+      <TexCoord>
+        <X>0</X>
+        <Y>0</Y>
+      </TexCoord>
+      <Normal>
+        <X>0.0</X>
+        <Y>0.0</Y>
+        <Z>-1.0</Z>
+      </Normal>
+      <Color>4294967040</Color>
+    </VertexPositionColorCoordNormal>
+    <VertexPositionColorCoordNormal>
+      <Position>
+        <X>-0.5</X>
+        <Y>-0.5</Y>
+        <Z>-0.5</Z>
+      </Position>
+      <TexCoord>
+        <X>1</X>
+        <Y>0</Y>
+      </TexCoord>
+      <Normal>
+        <X>-1.0</X>
+        <Y>0.0</Y>
+        <Z>0.0</Z>
+      </Normal>
+      <Color>4294967040</Color>
+    </VertexPositionColorCoordNormal>
+    <VertexPositionColorCoordNormal>
+      <Position>
+        <X>-0.5</X>
+        <Y>-0.5</Y>
+        <Z>-0.5</Z>
+      </Position>
+      <TexCoord>
+        <X>0</X>
+        <Y>0</Y>
+      </TexCoord>
+      <Normal>
+        <X>0.0</X>
+        <Y>-1.0</Y>
+        <Z>0.0</Z>
+      </Normal>
       <Color>4294967040</Color>
     </VertexPositionColorCoordNormal>
     <VertexPositionColorCoordNormal>
@@ -121,45 +190,286 @@
         <X>0</X>
         <Y>1</Y>
       </TexCoord>
+      <Normal>
+        <X>0.0</X>
+        <Y>0.0</Y>
+        <Z>-1.0</Z>
+      </Normal>
+      <Color>4294967040</Color>
+    </VertexPositionColorCoordNormal>
+    <VertexPositionColorCoordNormal>
+      <Position>
+        <X>-0.5</X>
+        <Y>0.5</Y>
+        <Z>-0.5</Z>
+      </Position>
+      <TexCoord>
+        <X>1</X>
+        <Y>1</Y>
+      </TexCoord>
+      <Normal>
+        <X>-1.0</X>
+        <Y>0.0</Y>
+        <Z>0.0</Z>
+      </Normal>
+      <Color>4294967040</Color>
+    </VertexPositionColorCoordNormal>
+    <VertexPositionColorCoordNormal>
+      <Position>
+        <X>-0.5</X>
+        <Y>0.5</Y>
+        <Z>-0.5</Z>
+      </Position>
+      <TexCoord>
+        <X>0</X>
+        <Y>0</Y>
+      </TexCoord>
+      <Normal>
+        <X>0.0</X>
+        <Y>1.0</Y>
+        <Z>0.0</Z>
+      </Normal>
+      <Color>4294967040</Color>
+    </VertexPositionColorCoordNormal>
+    <VertexPositionColorCoordNormal>
+      <Position>
+        <X>0.5</X>
+        <Y>-0.5</Y>
+        <Z>0.5</Z>
+      </Position>
+      <TexCoord>
+        <X>1</X>
+        <Y>0</Y>
+      </TexCoord>
+      <Normal>
+        <X>1.0</X>
+        <Y>0.0</Y>
+        <Z>0.0</Z>
+      </Normal>
+      <Color>4294967040</Color>
+    </VertexPositionColorCoordNormal>
+    <VertexPositionColorCoordNormal>
+      <Position>
+        <X>0.5</X>
+        <Y>-0.5</Y>
+        <Z>0.5</Z>
+      </Position>
+      <TexCoord>
+        <X>0</X>
+        <Y>0</Y>
+      </TexCoord>
+      <Normal>
+        <X>0.0</X>
+        <Y>0.0</Y>
+        <Z>1.0</Z>
+      </Normal>
+      <Color>4294967040</Color>
+    </VertexPositionColorCoordNormal>
+    <VertexPositionColorCoordNormal>
+      <Position>
+        <X>0.5</X>
+        <Y>-0.5</Y>
+        <Z>0.5</Z>
+      </Position>
+      <TexCoord>
+        <X>1</X>
+        <Y>1</Y>
+      </TexCoord>
+      <Normal>
+        <X>0.0</X>
+        <Y>-1.0</Y>
+        <Z>0.0</Z>
+      </Normal>
+      <Color>4294967040</Color>
+    </VertexPositionColorCoordNormal>
+    <VertexPositionColorCoordNormal>
+      <Position>
+        <X>-0.5</X>
+        <Y>-0.5</Y>
+        <Z>-0.5</Z>
+      </Position>
+      <TexCoord>
+        <X>1</X>
+        <Y>0</Y>
+      </TexCoord>
+      <Normal>
+        <X>0.0</X>
+        <Y>0.0</Y>
+        <Z>1.0</Z>
+      </Normal>
+      <Color>4294967040</Color>
+    </VertexPositionColorCoordNormal>
+    <VertexPositionColorCoordNormal>
+      <Position>
+        <X>-0.5</X>
+        <Y>-0.5</Y>
+        <Z>-0.5</Z>
+      </Position>
+      <TexCoord>
+        <X>0</X>
+        <Y>0</Y>
+      </TexCoord>
+      <Normal>
+        <X>-1.0</X>
+        <Y>0.0</Y>
+        <Z>0.0</Z>
+      </Normal>
+      <Color>4294967040</Color>
+    </VertexPositionColorCoordNormal>
+    <VertexPositionColorCoordNormal>
+      <Position>
+        <X>-0.5</X>
+        <Y>-0.5</Y>
+        <Z>-0.5</Z>
+      </Position>
+      <TexCoord>
+        <X>0</X>
+        <Y>1</Y>
+      </TexCoord>
+      <Normal>
+        <X>0.0</X>
+        <Y>-1.0</Y>
+        <Z>0.0</Z>
+      </Normal>
+      <Color>4294967040</Color>
+    </VertexPositionColorCoordNormal>
+    <VertexPositionColorCoordNormal>
+      <Position>
+        <X>-0.5</X>
+        <Y>0.5</Y>
+        <Z>0.5</Z>
+      </Position>
+      <TexCoord>
+        <X>1</X>
+        <Y>1</Y>
+      </TexCoord>
+      <Normal>
+        <X>0.0</X>
+        <Y>0.0</Y>
+        <Z>1.0</Z>
+      </Normal>
+      <Color>4294967040</Color>
+    </VertexPositionColorCoordNormal>
+    <VertexPositionColorCoordNormal>
+      <Position>
+        <X>-0.5</X>
+        <Y>0.5</Y>
+        <Z>0.5</Z>
+      </Position>
+      <TexCoord>
+        <X>0</X>
+        <Y>1</Y>
+      </TexCoord>
+      <Normal>
+        <X>-1.0</X>
+        <Y>0.0</Y>
+        <Z>0.0</Z>
+      </Normal>
+      <Color>4294967040</Color>
+    </VertexPositionColorCoordNormal>
+    <VertexPositionColorCoordNormal>
+      <Position>
+        <X>-0.5</X>
+        <Y>0.5</Y>
+        <Z>0.5</Z>
+      </Position>
+      <TexCoord>
+        <X>0</X>
+        <Y>1</Y>
+      </TexCoord>
+      <Normal>
+        <X>0.0</X>
+        <Y>1.0</Y>
+        <Z>0.0</Z>
+      </Normal>
+      <Color>4294967040</Color>
+    </VertexPositionColorCoordNormal>
+    <VertexPositionColorCoordNormal>
+      <Position>
+        <X>0.5</X>
+        <Y>0.5</Y>
+        <Z>0.5</Z>
+      </Position>
+      <TexCoord>
+        <X>1</X>
+        <Y>1</Y>
+      </TexCoord>
+      <Normal>
+        <X>1.0</X>
+        <Y>0.0</Y>
+        <Z>0.0</Z>
+      </Normal>
+      <Color>4294967040</Color>
+    </VertexPositionColorCoordNormal>
+    <VertexPositionColorCoordNormal>
+      <Position>
+        <X>0.5</X>
+        <Y>0.5</Y>
+        <Z>0.5</Z>
+      </Position>
+      <TexCoord>
+        <X>0</X>
+        <Y>1</Y>
+      </TexCoord>
+      <Normal>
+        <X>0.0</X>
+        <Y>0.0</Y>
+        <Z>1.0</Z>
+      </Normal>
+      <Color>4294967040</Color>
+    </VertexPositionColorCoordNormal>
+    <VertexPositionColorCoordNormal>
+      <Position>
+        <X>0.5</X>
+        <Y>0.5</Y>
+        <Z>0.5</Z>
+      </Position>
+      <TexCoord>
+        <X>1</X>
+        <Y>1</Y>
+      </TexCoord>
+      <Normal>
+        <X>0.0</X>
+        <Y>1.0</Y>
+        <Z>0.0</Z>
+      </Normal>
       <Color>4294967040</Color>
     </VertexPositionColorCoordNormal>
   </Verticies>
   <Indicies>
     <short>0</short>
-    <short>1</short>
-    <short>2</short>
-    <short>2</short>
-    <short>3</short>
+    <short>9</short>
+    <short>6</short>
     <short>0</short>
+    <short>6</short>
     <short>3</short>
+    <short>1</short>
+    <short>4</short>
+    <short>12</short>
+    <short>1</short>
+    <short>12</short>
+    <short>21</short>
+    <short>22</short>
+    <short>13</short>
+    <short>15</short>
+    <short>22</short>
+    <short>15</short>
+    <short>18</short>
+    <short>19</short>
+    <short>16</short>
+    <short>7</short>
+    <short>10</short>
+    <short>20</short>
+    <short>11</short>
     <short>2</short>
-    <short>6</short>
-    <short>6</short>
-    <short>7</short>
-    <short>3</short>
-    <short>7</short>
-    <short>6</short>
-    <short>5</short>
-    <short>5</short>
-    <short>4</short>
-    <short>7</short>
-    <short>4</short>
-    <short>0</short>
-    <short>3</short>
-    <short>3</short>
-    <short>7</short>
-    <short>4</short>
-    <short>0</short>
-    <short>1</short>
-    <short>5</short>
-    <short>5</short>
-    <short>4</short>
-    <short>0</short>
-    <short>1</short>
-    <short>5</short>
-    <short>6</short>
-    <short>6</short>
+    <short>20</short>
     <short>2</short>
-    <short>1</short>
+    <short>23</short>
+    <short>17</short>
+    <short>8</short>
+    <short>5</short>
+    <short>17</short>
+    <short>5</short>
+    <short>14</short>
   </Indicies>
 </Mesh>
