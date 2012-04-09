@@ -114,13 +114,13 @@ namespace Tetris
       set;
     }
 
-    public FieldRenderer(GameWindow window, Vector3 position, int width, int height) : base(window)
+    public FieldRenderer(GameWindow window, Vector3 position) : base(window)
     {
+      this.width = 10;
+      this.height = 20;
       this.position = Vector3.Add(position, new Vector3(-(width / 2) + .5f, -(height / 2) + .5f, 0.0f));
       shownCells = new Cell[width, height];
       committedCells = new Cell[width, height];
-      this.width = width;
-      this.height = height;
       UpdateUI = true;
       for (int x = 0; x < width; x++)
         for (int y = 0; y < height; y++)
@@ -175,11 +175,29 @@ namespace Tetris
 
     protected override void DoDraw(FrameEventArgs e)
     {
+      DrawScoreUI();
+      GL.BindTexture(TextureTarget.Texture2D, ResourceCommons.TetrionTexture);
+      DrawTetrion();
+      GL.BindTexture(TextureTarget.Texture2D, ResourceCommons.Block);
+      DrawBlock();
+    }
+
+    internal void DrawScoreUI()
+    {
       GL.BindTexture(TextureTarget.Texture2D, scoreUI);
       ResourceCommons.Panel.Draw();
-      GL.BindTexture(TextureTarget.Texture2D, ResourceCommons.TetrionTexture);
+    }
+
+    internal void DrawTetrion()
+    {
+      GL.Translate(position);
       ResourceCommons.Tetrion.Draw();
-      GL.BindTexture(TextureTarget.Texture2D, ResourceCommons.Block);
+      GL.Translate(-position);
+    }
+
+    internal void DrawBlock()
+    {
+      GL.Translate(position);
       for (int x = 0; x < width; x++)
         for (int y = 0; y < height; y++)
 	{
@@ -198,6 +216,7 @@ namespace Tetris
             GL.Translate(-point);
 	  }
 	}
+      GL.Translate(-position);
     }
   }
 }

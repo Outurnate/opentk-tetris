@@ -46,7 +46,7 @@ namespace Tetris
     public Game() : base(800, 600, GraphicsMode.Default, "opentk-tetris")
     {
       VSync = VSyncMode.On;
-      field = new FieldRenderer(this, pos_field = new Vector3(0.0f, 0.0f, 0.0f), 10, 20) { Enabled = true, Visible = true };
+      field = new FieldRenderer(this, pos_field = new Vector3(0.0f, 0.0f, 0.0f)) { Enabled = true, Visible = true };
       field_logic = new FieldLogic(this, field) { Enabled = true, Visible = true };
     }
 
