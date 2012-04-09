@@ -21,83 +21,47 @@
 //| along with this program.  If not, see <http://www.gnu.org/licenses/>. |\\
 //|-----------------------------------------------------------------------|\\
 
-using OpenTK;
+using System;
 using System.Collections.Generic;
+using OpenTK;
 
 namespace GameFramework
 {
-  public abstract class GameComponent
+  public class GameComponentWindow : GameWindow
   {
-    public bool Visible
-    {
-      get;
-      set;
-    }
-
-    public bool Enabled
-    {
-      get;
-      set;
-    }
-
     public List<GameComponent> Components
     {
       get;
       private set;
     }
 
-    public GameWindow Window
+    public GameComponentWindow()
     {
-      get;
-      private set;
-    }
-
-    public GameComponent(GameWindow window)
-    {
-      this.Window = window;
       this.Components = new List<GameComponent>();
     }
 
-    public void UnLoad()
+    protected override void OnUnload(EventArgs e)
     {
       foreach(GameComponent g in this.Components)
 	g.UnLoad();
-      DoUnLoad();
     }
 
-    public void Load()
+    protected override void OnLoad(EventArgs e)
     {
       foreach(GameComponent g in this.Components)
 	g.Load();
-      DoLoad();
     }
 
-    public void Update(FrameEventArgs e)
+    protected override void OnUpdateFrame(FrameEventArgs e)
     {
-      if (Enabled)
-      {
-	foreach(GameComponent g in this.Components)
-	  g.Update(e);
-        DoUpdate(e);
-      }
+      foreach(GameComponent g in this.Components)
+	g.Update(e);
     }
 
-    public void Draw(FrameEventArgs e)
+    protected override void OnRenderFrame(FrameEventArgs e)
     {
-      if (Visible)
-      {
-	foreach(GameComponent g in this.Components)
-	  g.Draw(e);
-        DoDraw(e);
-      }
+      foreach(GameComponent g in this.Components)
+	g.Draw(e);
     }
-
-    protected abstract void DoUnLoad();
-
-    protected abstract void DoLoad();
-
-    protected abstract void DoUpdate(FrameEventArgs e);
-
-    protected abstract void DoDraw(FrameEventArgs e);
   }
 }

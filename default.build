@@ -10,10 +10,48 @@
     <delete file="bin/GameFramework.dll.pdb" failonerror="false" />
     <delete file="bin/GameFramework.dll.mdb" failonerror="false" />
     <delete file="bin/OpenTK.dll" failonerror="false" />
+    <delete file="bin/OpenTK.dll.pdb" failonerror="false" />
+    <delete file="bin/OpenTK.dll.mdb" failonerror="false" />
     <delete file="bin/OpenTK.dll.config" failonerror="false" />
   </target>
   <target name="lib_build" description="downloads and builds all external libraries">
-    <exec program="./lib/download.sh" workingdir="./lib" />
+    <exec program="lib/download.sh" workingdir="./lib" />
+    <csc target="library" output="bin/OpenTK.dll" debug="${debug}" unsafe="true" keyfile="lib/opentk/OpenTK.snk">
+      <sources>
+        <include name="lib/opentk/Source/*.cs" />
+        <include name="lib/opentk/Source/OpenTK/*.cs" />
+        <include name="lib/opentk/Source/OpenTK/Audio/*.cs" />
+        <include name="lib/opentk/Source/OpenTK/Audio/OpenAL/AL/*.cs" />
+        <include name="lib/opentk/Source/OpenTK/Audio/OpenAL/Alc/*.cs" />
+        <include name="lib/opentk/Source/OpenTK/Compute/*.cs" />
+        <include name="lib/opentk/Source/OpenTK/Compute/CL10/*.cs" />
+        <include name="lib/opentk/Source/OpenTK/Graphics/*.cs" />
+        <include name="lib/opentk/Source/OpenTK/Graphics/ES10/*.cs" />
+        <include name="lib/opentk/Source/OpenTK/Graphics/ES11/*.cs" />
+        <include name="lib/opentk/Source/OpenTK/Graphics/ES20/*.cs" />
+        <include name="lib/opentk/Source/OpenTK/Graphics/OpenGL/*.cs" />
+        <include name="lib/opentk/Source/OpenTK/Input/*.cs" />
+        <include name="lib/opentk/Source/OpenTK/Math/*.cs" />
+        <include name="lib/opentk/Source/OpenTK/Platform/*.cs" />
+        <include name="lib/opentk/Source/OpenTK/Platform/Dummy/*.cs" />
+        <include name="lib/opentk/Source/OpenTK/Platform/Egl/*.cs" />
+        <include name="lib/opentk/Source/OpenTK/Platform/MacOS/*.cs" />
+        <include name="lib/opentk/Source/OpenTK/Platform/MacOS/CarbonBindings/*.cs" />
+        <include name="lib/opentk/Source/OpenTK/Platform/Windows/*.cs" />
+        <include name="lib/opentk/Source/OpenTK/Platform/Windows/Bindings/*.cs" />
+        <include name="lib/opentk/Source/OpenTK/Platform/X11/*.cs" />
+        <include name="lib/opentk/Source/OpenTK/Platform/X11/Bindings/*.cs" />
+        <include name="lib/opentk/Source/OpenTK/Properties/*.cs" />
+      </sources>
+      <references>
+        <include name="System.dll" />
+        <include name="System.Data.dll" />
+        <include name="System.Drawing.dll" />
+        <include name="System.Windows.Forms.dll" />
+        <include name="System.Xml.dll" />
+      </references>
+    </csc>
+    <copy file="lib/opentk/Source/OpenTK/OpenTK.dll.config" todir="bin" />
   </target>
   <target name="build" description="compiles the source code">
     <csc target="library" output="bin/GameFramework.dll" debug="${debug}">
