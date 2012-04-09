@@ -161,4 +161,31 @@ namespace Tetris
       bmp.UnlockBits(bmp_data);
     }
   }
+
+  class ResourceCommonsLoader : GameComponent
+  {
+    static bool loaded = false;
+
+    public ResourceCommonsLoader(GameWindow window)
+      : base(window)
+    {
+      
+    }
+
+    protected override void DoUnLoad()
+    {
+      if (loaded)
+	ResourceCommons.Unload();
+    }
+
+    protected override void DoLoad()
+    {
+      if (!loaded)
+	ResourceCommons.Load();
+    }
+
+    protected override void DoUpdate(FrameEventArgs e) { }
+
+    protected override void DoDraw(FrameEventArgs e) { }
+  }
 }

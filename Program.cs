@@ -37,17 +37,17 @@ using Texture = System.Int32;
 
 namespace Tetris
 {
-  class Game : GameWindow
+  class Game : GameComponentWindow
   {
-    FieldRenderer field;
-    FieldLogic field_logic;
     Vector3 pos_field;
+    InterleavedFieldManager manager;
 
     public Game() : base(800, 600, GraphicsMode.Default, "opentk-tetris")
     {
       VSync = VSyncMode.On;
-      field = new FieldRenderer(this, pos_field = new Vector3(0.0f, 0.0f, 0.0f)) { Enabled = true, Visible = true };
-      field_logic = new FieldLogic(this, field) { Enabled = true, Visible = true };
+      pos_field = new Vector3(0.0f, 0.0f, 0.0f);
+      this.Components.Add(new ResourceCommonsLoader(this));
+      this.Components.Add(manager = new InterleavedFieldManager(this, InterleavedFieldManager.NumPlayers.OnePlayer) { Enabled = true, Visible = true });
     }
 
     protected override void OnLoad(EventArgs e)
@@ -59,18 +59,13 @@ namespace Tetris
       GL.Enable(EnableCap.DepthTest);
       GL.Enable(EnableCap.CullFace);
 
-      ResourceCommons.Load();
-
       GL.ClearColor(0.1f, 0.2f, 0.5f, 0.0f);
 
-      field.Load();
-      field_logic.Load();
-      field_logic.Start();
+      manager.StartGame();
     }
 
     protected override void OnUnload(EventArgs e)
     {
-      ResourceCommons.Unload();
     }
 
     protected override void OnResize(EventArgs e)
@@ -88,17 +83,12 @@ namespace Tetris
     {
       base.OnUpdateFrame(e);
 
-      field_logic.Update(e);
-      field.Update(e);
-
       if (Keyboard[Key.Escape])
         Exit();
     }
 
     protected override void OnRenderFrame(FrameEventArgs e)
     {
-      base.OnRenderFrame(e);
-
       GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
       GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Fill);
@@ -107,8 +97,7 @@ namespace Tetris
       GL.MatrixMode(MatrixMode.Modelview);
       GL.LoadMatrix(ref modelview);
 
-      field_logic.Draw(e);
-      field.Draw(e);
+      base.OnRenderFrame(e);
 
       base.SwapBuffers();
     }

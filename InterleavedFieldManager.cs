@@ -70,6 +70,12 @@ namespace Tetris
       }
     }
 
+    public void StartGame()
+    {
+      for (int i = 0; i < (int)players; i++)
+	logic[i].Start();
+    }
+
     protected override void DoUnLoad() { }
 
     protected override void DoLoad() { }

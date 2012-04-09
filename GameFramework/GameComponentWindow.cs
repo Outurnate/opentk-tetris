@@ -24,6 +24,7 @@
 using System;
 using System.Collections.Generic;
 using OpenTK;
+using OpenTK.Graphics;
 
 namespace GameFramework
 {
@@ -35,7 +36,8 @@ namespace GameFramework
       private set;
     }
 
-    public GameComponentWindow()
+    public GameComponentWindow(int width, int height, GraphicsMode mode, string title)
+      : base(width, height, mode, title)
     {
       this.Components = new List<GameComponent>();
     }
