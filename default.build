@@ -13,6 +13,7 @@
     <delete file="bin/OpenTK.dll.pdb" failonerror="false" />
     <delete file="bin/OpenTK.dll.mdb" failonerror="false" />
     <delete file="bin/OpenTK.dll.config" failonerror="false" />
+    <delete dir="lib/opentk" failonerror="false" />
   </target>
   <target name="lib_build" description="downloads and builds all external libraries">
     <exec program="lib/download.sh" workingdir="./lib" />
