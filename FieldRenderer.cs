@@ -49,6 +49,7 @@ namespace Tetris
     const string UI_FORMAT = "000000";
 
     Vector3 position;
+    Vector3 tetrionBlock;
     Cell[,] shownCells;
     Cell[,] committedCells;
     int width;
@@ -118,7 +119,8 @@ namespace Tetris
     {
       this.width = 10;
       this.height = 20;
-      this.position = Vector3.Add(position, new Vector3(-(width / 2) + .5f, -(height / 2) + .5f, 0.0f));
+      this.tetrionBlock = -new Vector3(-(width / 2) + .5f, -(height / 2) + .5f, 0.0f);
+      this.position = Vector3.Add(position, -tetrionBlock);
       shownCells = new Cell[width, height];
       committedCells = new Cell[width, height];
       UpdateUI = true;
@@ -190,14 +192,14 @@ namespace Tetris
 
     internal void DrawTetrion()
     {
-      GL.Translate(position);
+      GL.Translate(Vector3.Add(position, tetrionBlock));
       ResourceCommons.Tetrion.Draw();
-      GL.Translate(-position);
+      GL.Translate(-Vector3.Add(position, tetrionBlock));
     }
 
     internal void DrawBlock()
     {
-      GL.Translate(position);
+      GL.Translate(Vector3.Add(position, tetrionBlock));
       for (int x = 0; x < width; x++)
         for (int y = 0; y < height; y++)
 	{
@@ -216,7 +218,7 @@ namespace Tetris
             GL.Translate(-point);
 	  }
 	}
-      GL.Translate(-position);
+      GL.Translate(-Vector3.Add(position, tetrionBlock));
     }
   }
 }

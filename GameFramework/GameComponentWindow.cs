@@ -1,6 +1,6 @@
 //|-----------------------------------------------------------------------|\\
-//| GameComponent.cs                                                      |\\
-//| Manages a component that mush load resources, update and draw         |\\
+//| GameComponentWindow.cs                                                |\\
+//| Manages a GameWindow that hosts components.                           |\\
 //|                                                                       |\\
 //| Joseph Dillon                                                         |\\
 //|-----------------------------------------------------------------------|\\

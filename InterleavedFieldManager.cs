@@ -1,6 +1,6 @@
 //|-----------------------------------------------------------------------|\\
-//| ResourceCommons.cs                                                    |\\
-//| Stores resources common to all components                             |\\
+//| InterleavedFieldManager.cs                                            |\\
+//| Renders and manages multiple fields.                                  |\\
 //|                                                                       |\\
 //| Joseph Dillon                                                         |\\
 //|-----------------------------------------------------------------------|\\
