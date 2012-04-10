@@ -19,8 +19,7 @@
     <exec program="wget" commandline="https://github.com/mono/opentk/zipball/master -O lib/opentk.zip" />
     <unzip zipfile="lib/opentk.zip" todir="lib" />
     <delete file="lib/opentk.zip" />
-    <move file="lib/mono-opentk-*/OpenTK.snk" tofile="lib/OpenTK.snk" />
-    <csc target="library" output="bin/OpenTK.dll" debug="${debug}" unsafe="true" keyfile="lib/OpenTK.snk">
+    <csc target="library" output="bin/OpenTK.dll" debug="${debug}" unsafe="true">
       <sources>
         <include name="lib/mono-opentk-*/Source/*.cs" />
         <include name="lib/mono-opentk-*/Source/OpenTK/*.cs" />
