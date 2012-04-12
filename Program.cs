@@ -42,15 +42,15 @@ namespace Tetris
   {
     Vector3 pos_field;
     InterleavedFieldManager manager;
-    CursorComponent cursor;
+    MultiBillboardRenderer cursor;
 
     public Game() : base(800, 600, GraphicsMode.Default, "opentk-tetris")
     {
       VSync = VSyncMode.On;
-      pos_field = new Vector3(0.0f, 0.0f, 0.0f);
+      pos_field = new Vector3(-5.0f, 0.0f, 0.0f);
       this.Components.Add(new ResourceCommonsLoader(this));
       this.Components.Add(manager = new InterleavedFieldManager(this, InterleavedFieldManager.NumPlayers.OnePlayer) /*{ Enabled = true, Visible = true }*/);
-      this.Components.Add(cursor = new CursorComponent(this) { Enabled = true, Visible = true });
+      this.Components.Add(cursor = new MultiBillboardRenderer(this, new Vector3[] { new Vector3(-5.0f, 0.0f, -10.0f) }, 100000.0f) { Enabled = true, Visible = true });
     }
 
     protected override void OnLoad(EventArgs e)
@@ -96,7 +96,7 @@ namespace Tetris
 
       GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Fill);
 
-      Matrix4 modelview = Matrix4.LookAt(new Vector3(-5.0f, 0.0f, -30.0f), Vector3.Add(pos_field, new Vector3(-5.0f, 0.0f, 0.0f)), Vector3.UnitY);
+      Matrix4 modelview = Matrix4.LookAt(new Vector3(-5.0f, 0.0f, -30.0f), pos_field, Vector3.UnitY);
       GL.MatrixMode(MatrixMode.Modelview);
       GL.LoadMatrix(ref modelview);
 
