@@ -74,6 +74,12 @@
 	<include name="bin/GameFramework.dll" />
         <include name="bin/OpenTK.dll" />
       </references>
+      <pkg-references>
+        <package name="glade-sharp-2.0" />
+      </pkg-references>
+      <resources>
+        <include name="glade/main.glade" />
+      </resources>
       <sources>
         <include name="*.cs" />
       </sources>

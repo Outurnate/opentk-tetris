@@ -22,7 +22,6 @@
 //|-----------------------------------------------------------------------|\\
 
 using GameFramework;
-using GameFramework.GUI;
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -42,15 +41,13 @@ namespace Tetris
   {
     Vector3 pos_field;
     InterleavedFieldManager manager;
-    MultiBillboardRenderer cursor;
 
     public Game() : base(800, 600, GraphicsMode.Default, "opentk-tetris")
     {
       VSync = VSyncMode.On;
       pos_field = new Vector3(-5.0f, 0.0f, 0.0f);
       this.Components.Add(new ResourceCommonsLoader(this));
-      this.Components.Add(manager = new InterleavedFieldManager(this, InterleavedFieldManager.NumPlayers.OnePlayer) /*{ Enabled = true, Visible = true }*/);
-      this.Components.Add(cursor = new MultiBillboardRenderer(this, new Vector3[] { new Vector3(-5.0f, 0.0f, -10.0f) }, 100000.0f) { Enabled = true, Visible = true });
+      this.Components.Add(manager = new InterleavedFieldManager(this, InterleavedFieldManager.NumPlayers.OnePlayer) { Enabled = true, Visible = true });
     }
 
     protected override void OnLoad(EventArgs e)
@@ -58,9 +55,6 @@ namespace Tetris
       base.OnLoad(e);
 
       GL.ShadeModel(ShadingModel.Smooth);
-      GL.Enable(EnableCap.Texture2D);
-      GL.Enable(EnableCap.DepthTest);
-      GL.Enable(EnableCap.CullFace);
 
       GL.ClearColor(0.1f, 0.2f, 0.5f, 0.0f);
 
@@ -86,12 +80,16 @@ namespace Tetris
     {
       base.OnUpdateFrame(e);
 
-      if (Keyboard[Key.Escape])
+      if (this.Keyboard[Key.Escape])
         Exit();
     }
 
     protected override void OnRenderFrame(FrameEventArgs e)
     {
+      GL.Enable(EnableCap.Texture2D);
+      GL.Enable(EnableCap.DepthTest);
+      GL.Enable(EnableCap.CullFace);
+
       GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
       GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Fill);
@@ -103,15 +101,6 @@ namespace Tetris
       base.OnRenderFrame(e);
 
       base.SwapBuffers();
-    }
-
-    [STAThread]
-    static void Main()
-    {
-      using (Game game = new Game())
-      {
-        game.Run(30.0, 60.0);
-      }
     }
   }
 }
