@@ -49,8 +49,8 @@ namespace Tetris
       VSync = VSyncMode.On;
       pos_field = new Vector3(0.0f, 0.0f, 0.0f);
       this.Components.Add(new ResourceCommonsLoader(this));
-      this.Components.Add(manager = new InterleavedFieldManager(this, InterleavedFieldManager.NumPlayers.OnePlayer) /*{ Enabled = true, Visible = true }*/);
-      this.Components.Add(cursor = new CursorComponent(this) { Enabled = true, Visible = true });
+      this.Components.Add(manager = new InterleavedFieldManager(this, InterleavedFieldManager.NumPlayers.OnePlayer) { Enabled = true, Visible = true });
+      this.Components.Add(cursor = new CursorComponent(this) /*{ Enabled = true, Visible = true }*/);
     }
 
     protected override void OnLoad(EventArgs e)
