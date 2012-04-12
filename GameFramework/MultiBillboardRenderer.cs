@@ -35,6 +35,7 @@ namespace GameFramework
     }
 
     int vboID;
+    Vector3[] verticies;
 
     public MultiBillboardRenderer(GameWindow window) : base (window) { }
 
@@ -46,10 +47,10 @@ namespace GameFramework
 	throw new InvalidOperationException("Texture must be set before resources are loaded");
       int size;
       GL.GenBuffers(1, out vboID);
-      GL.BindBuffer(BufferTarget.ArrayBuffer, handle.VboID);
-      GL.BufferData(BufferTarget.ArrayBuffer, (IntPtr)(verticies.Length * BlittableValueType.StrideOf(m.Verticies)), verticies, BufferUsageHint.StaticDraw);
+      GL.BindBuffer(BufferTarget.ArrayBuffer, vboID);
+      GL.BufferData(BufferTarget.ArrayBuffer, (IntPtr)(verticies.Length * BlittableValueType.StrideOf(verticies)), verticies, BufferUsageHint.StaticDraw);
       GL.GetBufferParameter(BufferTarget.ArrayBuffer, BufferParameterName.BufferSize, out size);
-      if (m.Verticies.Length * BlittableValueType.StrideOf(m.Verticies) != size)
+      if (verticies.Length * BlittableValueType.StrideOf(verticies) != size)
 	throw new ApplicationException("Vertex data not uploaded correctly");
     }
 
