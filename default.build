@@ -78,6 +78,7 @@
         <package name="glade-sharp-2.0" />
       </pkg-references>
       <resources>
+        <include name="glade/logo.png" />
         <include name="glade/main.glade" />
       </resources>
       <sources>

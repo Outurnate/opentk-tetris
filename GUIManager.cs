@@ -24,11 +24,24 @@
 using GameFramework;
 using Gtk;
 using Glade;
+using System;
+using System.Threading;
 
 namespace Tetris
 {
   class GUIManager
   {
+    [Widget]
+    Window mainWindow;
+    [Widget]
+    Button onePlayer;
+    [Widget]
+    Button twoPlayer;
+    [Widget]
+    Button threePlayer;
+    [Widget]
+    Button fourPlayer;
+
     [STAThread]
     static void Main(string[] args)
     {
@@ -37,29 +50,50 @@ namespace Tetris
 
     GUIManager()
     {
-      DoSetupGlade();
-      DoShowMainScreen();
-    }
-
-    void DoGame()
-    {
-      using (Game game = new Game())
-      {
-        game.Run(30.0, 60.0);
-      }
-    }
-
-    void DoSetupGlade()
-    {
       Application.Init();
-      Glade.XML gxml = new Glade.XML(null, "main.glade", "window1", null);
+      Glade.XML gxml = new Glade.XML(null, "main.glade", "mainWindow", null);
       gxml.Autoconnect(this);
+
+      onePlayer.Clicked   += onePlayerClick;
+      twoPlayer.Clicked   += twoPlayerClick;
+      threePlayer.Clicked += threePlayerClick;
+      fourPlayer.Clicked  += fourPlayerClick;
+
       Application.Run();
     }
 
-    void DoShowMainScreen()
+    void onePlayerClick(object o, EventArgs e)
     {
-      
+      StartGame(InterleavedFieldManager.NumPlayers.OnePlayer);
+    }
+
+    void twoPlayerClick(object o, EventArgs e)
+    {
+      StartGame(InterleavedFieldManager.NumPlayers.TwoPlayer);
+    }
+
+    void threePlayerClick(object o, EventArgs e)
+    {
+      StartGame(InterleavedFieldManager.NumPlayers.ThreePlayer);
+    }
+
+    void fourPlayerClick(object o, EventArgs e)
+    {
+      StartGame(InterleavedFieldManager.NumPlayers.FourPlayer);
+    }
+
+    void StartGame(InterleavedFieldManager.NumPlayers players)
+    {
+      mainWindow.HideAll();
+      Thread gameThread = new Thread(new ThreadStart(delegate()
+      {
+	using (Game game = new Game(players))
+	{
+	  game.Run(30.0, 60.0);
+	}
+	mainWindow.ShowAll();
+      }));
+      gameThread.Start();
     }
   }
 }

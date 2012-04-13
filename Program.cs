@@ -42,12 +42,12 @@ namespace Tetris
     Vector3 pos_field;
     InterleavedFieldManager manager;
 
-    public Game() : base(800, 600, GraphicsMode.Default, "opentk-tetris")
+    public Game(InterleavedFieldManager.NumPlayers players) : base(800, 600, GraphicsMode.Default, "opentk-tetris")
     {
       VSync = VSyncMode.On;
       pos_field = new Vector3(-5.0f, 0.0f, 0.0f);
       this.Components.Add(new ResourceCommonsLoader(this));
-      this.Components.Add(manager = new InterleavedFieldManager(this, InterleavedFieldManager.NumPlayers.OnePlayer) { Enabled = true, Visible = true });
+      this.Components.Add(manager = new InterleavedFieldManager(this, players) { Enabled = true, Visible = true });
     }
 
     protected override void OnLoad(EventArgs e)
