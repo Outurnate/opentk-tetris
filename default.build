@@ -79,7 +79,7 @@
       </pkg-references>
       <resources>
         <include name="glade/logo.png" />
-        <include name="glade/main.glade" />
+        <include name="glade/*.glade" />
       </resources>
       <sources>
         <include name="*.cs" />

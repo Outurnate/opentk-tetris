@@ -34,6 +34,8 @@ namespace Tetris
     [Widget]
     Window mainWindow;
     [Widget]
+    AboutDialog aboutDialog;
+    [Widget]
     Button onePlayer;
     [Widget]
     Button twoPlayer;
@@ -51,8 +53,13 @@ namespace Tetris
     GUIManager()
     {
       Application.Init();
-      Glade.XML gxml = new Glade.XML(null, "main.glade", "mainWindow", null);
-      gxml.Autoconnect(this);
+      Glade.XML[] gxml = new Glade.XML[]
+      {
+	new Glade.XML(null, "main.glade", "mainWindow", null),
+	new Glade.XML(null, "about.glade", "aboutDialog", null)
+      };
+      foreach(Glade.XML gxmlC in gxml)
+	gxmlC.Autoconnect(this);
 
       onePlayer.Clicked   += onePlayerClick;
       twoPlayer.Clicked   += twoPlayerClick;
