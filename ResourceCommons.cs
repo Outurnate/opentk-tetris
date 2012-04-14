@@ -34,6 +34,7 @@ using OpenTK.Graphics.OpenGL;
 using OpenTK.Audio;
 using OpenTK.Audio.OpenAL;
 using OpenTK.Input;
+using QuickFont;
 
 using Texture = System.Int32;
 
@@ -47,6 +48,7 @@ namespace Tetris
     const string TEXTURES_DIR = "textures";
     const string MODELS_DIR   = "models";
     const string SHADERS_DIR  = "shaders";
+    const string FONTS_DIR    = "fonts";
 
     public static Texture TetrionTexture;
     public static Texture Block;
@@ -56,6 +58,7 @@ namespace Tetris
     public static MeshRenderer Panel;
     public static int Simple_Shader;
     public static Bitmap PanelBase;
+    public static QFont LiberationSans;
 
     static int Simple_vs;
     static int Simple_fs;
@@ -95,6 +98,8 @@ namespace Tetris
       using (StreamReader vs = new StreamReader(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), SHADERS_DIR), "vs_simple.glsl")))
 	using (StreamReader fs = new StreamReader(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), SHADERS_DIR), "fs_simple.glsl")))
 	  LoadShader(vs.ReadToEnd(), fs.ReadToEnd(), out Simple_vs, out Simple_fs, out Simple_Shader);
+      LiberationSans = new QFont(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), FONTS_DIR), "LiberationSans.ttf"), 64);
+      LiberationSans.Options.Colour = new Color4(1.0f, 0.0f, 0.0f, 1.0f);
     }
 
     public static void Unload()

@@ -198,67 +198,70 @@ namespace Tetris
 
     protected override void DoUpdate(FrameEventArgs e)
     {
-      field.Clear();
-      dropTimer -= e.Time;
-      if (Window.Keyboard[CoordinatedInputManager.KeyMaps[player].softDrop])
-	dropTimer = 0;
-      if (Window.Keyboard[CoordinatedInputManager.KeyMaps[player].softDrop] && !prev_down)
-	dropTimer = dropSpeed;
-      if (dropTimer <= 0)
+      if (!field.IsGameOver)
       {
-	TryMove(0, -1, false, ref currentTetramino);
-        dropTimer += dropSpeed;
-      }
-      if (Window.Keyboard[CoordinatedInputManager.KeyMaps[player].rotate] && !prev_up)
-	TryMove( 0, 0, true,  ref currentTetramino);
-      if (Window.Keyboard[CoordinatedInputManager.KeyMaps[player].right] && !prev_right)
-      {
-        TryMove(-1, 0, false, ref currentTetramino);
-	rightDAR = initialDAR;
-      }
-      if (Window.Keyboard[CoordinatedInputManager.KeyMaps[player].right])
-      {
-	rightDAR -= e.Time;
-	if (rightDAR < 0)
+	field.Clear();
+	dropTimer -= e.Time;
+	if (Window.Keyboard[CoordinatedInputManager.KeyMaps[player].softDrop])
+	  dropTimer = 0;
+	if (Window.Keyboard[CoordinatedInputManager.KeyMaps[player].softDrop] && !prev_down)
+	  dropTimer = dropSpeed;
+	if (dropTimer <= 0)
 	{
-	  rightDAR += repeatDAR;
+	  TryMove(0, -1, false, ref currentTetramino);
+	  dropTimer += dropSpeed;
+	}
+	if (Window.Keyboard[CoordinatedInputManager.KeyMaps[player].rotate] && !prev_up)
+	  TryMove( 0, 0, true,  ref currentTetramino);
+	if (Window.Keyboard[CoordinatedInputManager.KeyMaps[player].right] && !prev_right)
+        {
 	  TryMove(-1, 0, false, ref currentTetramino);
+	  rightDAR = initialDAR;
 	}
-      }
-      if (Window.Keyboard[CoordinatedInputManager.KeyMaps[player].left] && !prev_left)
-      {
-        TryMove( 1, 0, false, ref currentTetramino);
-	leftDAR = initialDAR;
-      }
-      if (Window.Keyboard[CoordinatedInputManager.KeyMaps[player].left])
-      {
-	leftDAR -= e.Time;
-	if (leftDAR < 0)
+	if (Window.Keyboard[CoordinatedInputManager.KeyMaps[player].right])
+        {
+	  rightDAR -= e.Time;
+	  if (rightDAR < 0)
+	  {
+	    rightDAR += repeatDAR;
+	    TryMove(-1, 0, false, ref currentTetramino);
+	  }
+	}
+	if (Window.Keyboard[CoordinatedInputManager.KeyMaps[player].left] && !prev_left)
 	{
-	  leftDAR += repeatDAR;
 	  TryMove( 1, 0, false, ref currentTetramino);
+	  leftDAR = initialDAR;
 	}
+	if (Window.Keyboard[CoordinatedInputManager.KeyMaps[player].left])
+	{
+	  leftDAR -= e.Time;
+	  if (leftDAR < 0)
+	  {
+	    leftDAR += repeatDAR;
+	    TryMove( 1, 0, false, ref currentTetramino);
+	  }
+	}
+	bool[,] map = manager[currentTetramino];
+	for (int x = 0; x < map.GetLength(0); x++)
+	  if (currentTetramino.x + x >= 0 && currentTetramino.x + x <= 9)
+	    for (int y = 0; y < map.GetLength(1); y++)
+	      if (field[currentTetramino.x + x, currentTetramino.y + y, false] != default(FieldRenderer.Cell))
+	      {
+		field[currentTetramino.x + x, currentTetramino.y + y, false].inUse = map[x, y];
+		field[currentTetramino.x + x, currentTetramino.y + y, false].color = currentTetramino.color;
+	      }
+	if (deferredLock)
+	{
+	  lockTimer -= e.Time;
+	  if (lockTimer <= 0)
+	    LockTetramino();
+	}
+	CalculateClears();
+	prev_up = Window.Keyboard[CoordinatedInputManager.KeyMaps[player].rotate];
+	prev_left = Window.Keyboard[CoordinatedInputManager.KeyMaps[player].left];
+	prev_down = Window.Keyboard[CoordinatedInputManager.KeyMaps[player].softDrop];
+	prev_right = Window.Keyboard[CoordinatedInputManager.KeyMaps[player].right];
       }
-      bool[,] map = manager[currentTetramino];
-      for (int x = 0; x < map.GetLength(0); x++)
-	if (currentTetramino.x + x >= 0 && currentTetramino.x + x <= 9)
-	  for (int y = 0; y < map.GetLength(1); y++)
-	    if (field[currentTetramino.x + x, currentTetramino.y + y, false] != default(FieldRenderer.Cell))
-	    {
-	      field[currentTetramino.x + x, currentTetramino.y + y, false].inUse = map[x, y];
-	      field[currentTetramino.x + x, currentTetramino.y + y, false].color = currentTetramino.color;
-	    }
-      if (deferredLock)
-      {
-	lockTimer -= e.Time;
-	if (lockTimer <= 0)
-	  LockTetramino();
-      }
-      CalculateClears();
-      prev_up = Window.Keyboard[CoordinatedInputManager.KeyMaps[player].rotate];
-      prev_left = Window.Keyboard[CoordinatedInputManager.KeyMaps[player].left];
-      prev_down = Window.Keyboard[CoordinatedInputManager.KeyMaps[player].softDrop];
-      prev_right = Window.Keyboard[CoordinatedInputManager.KeyMaps[player].right];
     }
 
     protected override void DoDraw(FrameEventArgs e) { }

@@ -33,6 +33,7 @@ using OpenTK.Graphics.OpenGL;
 using OpenTK.Audio;
 using OpenTK.Audio.OpenAL;
 using OpenTK.Input;
+using QuickFont;
 
 using Texture = System.Int32;
 
@@ -115,6 +116,12 @@ namespace Tetris
       set;
     }
 
+    public bool IsGameOver
+    {
+      get;
+      set;
+    }
+
     public FieldRenderer(GameWindow window, Vector3 position) : base(window)
     {
       this.width = 10;
@@ -182,6 +189,7 @@ namespace Tetris
       DrawTetrion();
       GL.BindTexture(TextureTarget.Texture2D, ResourceCommons.Block);
       DrawBlock();
+      DrawOther();
     }
 
     internal void DrawScoreUI()
@@ -192,13 +200,15 @@ namespace Tetris
 
     internal void DrawTetrion()
     {
+      GL.PushMatrix();
       GL.Translate(Vector3.Add(position, tetrionBlock));
       ResourceCommons.Tetrion.Draw();
-      GL.Translate(-Vector3.Add(position, tetrionBlock));
+      GL.PopMatrix();
     }
 
     internal void DrawBlock()
     {
+      GL.PushMatrix();
       GL.Translate(Vector3.Add(position, tetrionBlock));
       for (int x = 0; x < width; x++)
         for (int y = 0; y < height; y++)
@@ -206,19 +216,35 @@ namespace Tetris
           if (committedCells[x, y].inUse)
 	  {
 	    Vector3 point = Vector3.Add(new Vector3((float)x, (float)y, -1f), position);
+	    GL.PushMatrix();
             GL.Translate(point);
 	    ResourceCommons.Blocks[committedCells[x, y].color].Draw();
-	    GL.Translate(-point);
+	    GL.PopMatrix();
 	  }
           if (shownCells[x, y].inUse)
 	  {
             Vector3 point = Vector3.Add(new Vector3((float)x, (float)y, -1f), position);
+	    GL.PushMatrix();
             GL.Translate(point);
 	    ResourceCommons.Blocks[shownCells[x, y].color].Draw();
-            GL.Translate(-point);
+	    GL.PopMatrix();
 	  }
 	}
-      GL.Translate(-Vector3.Add(position, tetrionBlock));
+      GL.PopMatrix();
+    }
+
+    internal void DrawOther()
+    {
+      if (IsGameOver)
+      {
+	GL.PushMatrix();
+	QFont.Begin();
+	GL.Translate(Vector3.Add(position, new Vector3(400f, 250f, 0f)));
+	ResourceCommons.LiberationSans.Print("Game Over", QFontAlignment.Centre);
+	QFont.End();
+	GL.Disable(EnableCap.Blend);
+	GL.PopMatrix();
+      }
     }
   }
 }
