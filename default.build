@@ -3,19 +3,12 @@
   <description>Tetris compiler.</description>
   <property name="debug" value="true" />
   <target name="clean" description="remove all generated files">
-    <delete file="bin/tetris.exe" failonerror="false" />
-    <delete file="bin/tetris.exe.pdb" failonerror="false" />
-    <delete file="bin/tetris.exe.mdb" failonerror="false" />
-    <delete file="bin/GameFramework.dll" failonerror="false" />
-    <delete file="bin/GameFramework.dll.pdb" failonerror="false" />
-    <delete file="bin/GameFramework.dll.mdb" failonerror="false" />
-    <delete file="bin/OpenTK.dll" failonerror="false" />
-    <delete file="bin/OpenTK.dll.pdb" failonerror="false" />
-    <delete file="bin/OpenTK.dll.mdb" failonerror="false" />
-    <delete file="bin/OpenTK.dll.config" failonerror="false" />
-    <delete dir="lib/opentk" failonerror="false" />
+    <delete dir="bin" failonerror="false" />
+    <delete dir="lib" failonerror="false" />
   </target>
   <target name="lib" description="downloads and builds all external libraries">
+    <mkdir dir="lib" />
+    <mkdir dir="bin" />
     <exec program="wget" commandline="https://github.com/mono/opentk/zipball/master -O lib/opentk.zip" />
     <unzip zipfile="lib/opentk.zip" todir="lib" />
     <delete file="lib/opentk.zip" />
@@ -56,6 +49,20 @@
       </references>
     </csc>
     <copy file="lib/opentk/Source/OpenTK/OpenTK.dll.config" todir="bin" />
+    <exec program="wget" commandline="http://www.opentk.com/files/QuickFont_1.0.1.zip -O lib/quickFont.zip" />
+    <unzip zipfile="lib/quickFont.zip" todir="lib" />
+    <delete file="lib/quickFont.zip" />
+    <csc target="library" output="bin/QuickFont.dll" debug="${debug}" unsafe="true">
+      <sources>
+        <include name="lib/QuickFont/QuickFont/*.cs" />
+        <include name="lib/QuickFont/QuickFont/Properties/*.cs" />
+        <include name="lib/QuickFont/QuickFont/Configuration/*.cs" />
+      </sources>
+      <references>
+        <include name="System.Drawing.dll" />
+        <include name="bin/OpenTK.dll" />
+      </references>
+    </csc>
   </target>
   <target name="build" description="compiles the source code">
     <csc target="library" output="bin/GameFramework.dll" debug="${debug}">
@@ -73,6 +80,7 @@
         <include name="System.Drawing.dll" />
 	<include name="bin/GameFramework.dll" />
         <include name="bin/OpenTK.dll" />
+	<include name="bin/QuickFont.dll" />
       </references>
       <pkg-references>
         <package name="glade-sharp-2.0" />
