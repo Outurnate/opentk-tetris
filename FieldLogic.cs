@@ -44,14 +44,17 @@ namespace Tetris
     RandomGenerator rand;
     FieldRenderer field;
     TetraminoManager manager;
-    CoordinatedInputManager inputManager;
     Tetramino currentTetramino;
     CoordinatedInputManager.PlayerNumber player;
 
     double dropSpeed = 1;
+    double initialDAR = .3;
+    double repeatDAR = .125;
 
     double dropTimer;
     double lockTimer;
+    double leftDAR;
+    double rightDAR;
 
     bool prev_right = false;
     bool prev_left = false;
@@ -60,14 +63,14 @@ namespace Tetris
 
     bool deferredLock = false;
 
-    public FieldLogic(GameWindow window, FieldRenderer field, CoordinatedInputManager inputManager, CoordinatedInputManager.PlayerNumber player) : base(window)
+    public FieldLogic(GameWindow window, FieldRenderer field, CoordinatedInputManager.PlayerNumber player) : base(window)
     {
       this.field = field;
       this.manager = new TetraminoManager();
       this.dropTimer = dropSpeed;
       this.rand = new RandomGenerator();
-      this.inputManager = inputManager;
       this.player = player;
+      this.leftDAR = this.rightDAR = this.initialDAR;
     }
 
     public void Start()
@@ -197,21 +200,45 @@ namespace Tetris
     {
       field.Clear();
       dropTimer -= e.Time;
-      if (Window.Keyboard[Key.S])
+      if (Window.Keyboard[CoordinatedInputManager.KeyMaps[player].softDrop])
 	dropTimer = 0;
-      if (Window.Keyboard[Key.S] && !prev_down)
+      if (Window.Keyboard[CoordinatedInputManager.KeyMaps[player].softDrop] && !prev_down)
 	dropTimer = dropSpeed;
       if (dropTimer <= 0)
       {
 	TryMove(0, -1, false, ref currentTetramino);
         dropTimer += dropSpeed;
       }
-      if (Window.Keyboard[Key.W] && !prev_up)
-	TryMove(0, 0, true, ref currentTetramino);
-      if (Window.Keyboard[Key.D] && !prev_right)
+      if (Window.Keyboard[CoordinatedInputManager.KeyMaps[player].rotate] && !prev_up)
+	TryMove( 0, 0, true,  ref currentTetramino);
+      if (Window.Keyboard[CoordinatedInputManager.KeyMaps[player].right] && !prev_right)
+      {
         TryMove(-1, 0, false, ref currentTetramino);
-      if (Window.Keyboard[Key.A] && !prev_left)
-        TryMove(1, 0, false, ref currentTetramino);
+	rightDAR = initialDAR;
+      }
+      if (Window.Keyboard[CoordinatedInputManager.KeyMaps[player].right])
+      {
+	rightDAR -= e.Time;
+	if (rightDAR < 0)
+	{
+	  rightDAR += repeatDAR;
+	  TryMove(-1, 0, false, ref currentTetramino);
+	}
+      }
+      if (Window.Keyboard[CoordinatedInputManager.KeyMaps[player].left] && !prev_left)
+      {
+        TryMove( 1, 0, false, ref currentTetramino);
+	leftDAR = initialDAR;
+      }
+      if (Window.Keyboard[CoordinatedInputManager.KeyMaps[player].left])
+      {
+	leftDAR -= e.Time;
+	if (leftDAR < 0)
+	{
+	  leftDAR += repeatDAR;
+	  TryMove( 1, 0, false, ref currentTetramino);
+	}
+      }
       bool[,] map = manager[currentTetramino];
       for (int x = 0; x < map.GetLength(0); x++)
 	if (currentTetramino.x + x >= 0 && currentTetramino.x + x <= 9)
@@ -228,10 +255,10 @@ namespace Tetris
 	  LockTetramino();
       }
       CalculateClears();
-      prev_up = Window.Keyboard[Key.W];
-      prev_left = Window.Keyboard[Key.A];
-      prev_down = Window.Keyboard[Key.S];
-      prev_right = Window.Keyboard[Key.D];
+      prev_up = Window.Keyboard[CoordinatedInputManager.KeyMaps[player].rotate];
+      prev_left = Window.Keyboard[CoordinatedInputManager.KeyMaps[player].left];
+      prev_down = Window.Keyboard[CoordinatedInputManager.KeyMaps[player].softDrop];
+      prev_right = Window.Keyboard[CoordinatedInputManager.KeyMaps[player].right];
     }
 
     protected override void DoDraw(FrameEventArgs e) { }
