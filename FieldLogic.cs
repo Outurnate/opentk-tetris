@@ -44,7 +44,9 @@ namespace Tetris
     RandomGenerator rand;
     FieldRenderer field;
     TetraminoManager manager;
+    CoordinatedInputManager inputManager;
     Tetramino currentTetramino;
+    CoordinatedInputManager.PlayerNumber player;
 
     double dropSpeed = 1;
 
@@ -58,12 +60,14 @@ namespace Tetris
 
     bool deferredLock = false;
 
-    public FieldLogic(GameWindow window, FieldRenderer field) : base(window)
+    public FieldLogic(GameWindow window, FieldRenderer field, CoordinatedInputManager inputManager, CoordinatedInputManager.PlayerNumber player) : base(window)
     {
       this.field = field;
       this.manager = new TetraminoManager();
-      dropTimer = dropSpeed;
-      rand = new RandomGenerator();
+      this.dropTimer = dropSpeed;
+      this.rand = new RandomGenerator();
+      this.inputManager = inputManager;
+      this.player = player;
     }
 
     public void Start()

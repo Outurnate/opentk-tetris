@@ -48,6 +48,8 @@ namespace Tetris
     NumPlayers players;
     FieldLogic[] logic;
     FieldRenderer[] renderer;
+    CoordinatedInputManager inputManager;
+
     readonly Vector3[][] positions = new Vector3[][]
     {
       new Vector3[] { new Vector3(0.0f, 0.0f, 0.0f) },
@@ -60,11 +62,12 @@ namespace Tetris
       : base(window)
     {
       this.players = players;
-      logic = new FieldLogic[(int)players];
-      renderer = new FieldRenderer[(int)players];
+      this.logic = new FieldLogic[(int)players];
+      this.renderer = new FieldRenderer[(int)players];
+      this.inputManager = new CoordinatedInputManager(this.Window, players);
       for (int i = 0; i < (int)players; i++)
       {
-	logic[i] = new FieldLogic(window, renderer[i] = new FieldRenderer(window, positions[i][(int)players - 1]) { Enabled = true, Visible = players == NumPlayers.OnePlayer }) { Enabled = true, Visible = false };
+	this.logic[i] = new FieldLogic(window, renderer[i] = new FieldRenderer(window, positions[i][(int)players - 1]) { Enabled = true, Visible = players == NumPlayers.OnePlayer }, inputManager, (CoordinatedInputManager.PlayerNumber)(i + 1)) { Enabled = true, Visible = false };
 	this.Components.Add(logic[i]);
 	this.Components.Add(renderer[i]);
       }
