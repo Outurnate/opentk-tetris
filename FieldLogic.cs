@@ -83,6 +83,7 @@ namespace Tetris
     {
       RandomGenerator.TetraminoData d = rand.Generate();
       currentTetramino = manager.SpawnDictionary[(TetraminoType)d.newTetramino];
+      field.IsGameOver = !VerifyNoOverlap(ref currentTetramino);
       field.NextTetramino = (TetraminoType)d.nextTetramino;
       field.UpdateUI = true;
     }
@@ -192,10 +193,6 @@ namespace Tetris
 	field.Score += ScoreFunction.Calculate(rows, ref field.Level, ref field.Lines, ref dropSpeed);
     }
 
-    protected override void DoUnLoad() { }
-
-    protected override void DoLoad() { }
-
     protected override void DoUpdate(FrameEventArgs e)
     {
       if (!field.IsGameOver)
@@ -265,5 +262,9 @@ namespace Tetris
     }
 
     protected override void DoDraw(FrameEventArgs e) { }
+
+    protected override void DoUnLoad() { }
+
+    protected override void DoLoad() { }
   }
 }
