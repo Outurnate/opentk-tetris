@@ -34,7 +34,7 @@ namespace Tetris
     [Widget]
     Window mainWindow;
     [Widget]
-    AboutDialog aboutDialog;
+    AboutDialog aboutdialog;
     [Widget]
     Button onePlayer;
     [Widget]
@@ -43,6 +43,8 @@ namespace Tetris
     Button threePlayer;
     [Widget]
     Button fourPlayer;
+    [Widget]
+    Button about;
 
     [STAThread]
     static void Main(string[] args)
@@ -56,15 +58,17 @@ namespace Tetris
       Glade.XML[] gxml = new Glade.XML[]
       {
 	new Glade.XML(null, "main.glade", "mainWindow", null),
-	new Glade.XML(null, "about.glade", "aboutDialog", null)
+	new Glade.XML(null, "about.glade", "aboutdialog", null)
       };
       foreach(Glade.XML gxmlC in gxml)
 	gxmlC.Autoconnect(this);
 
-      onePlayer.Clicked   += onePlayerClick;
-      twoPlayer.Clicked   += twoPlayerClick;
-      threePlayer.Clicked += threePlayerClick;
-      fourPlayer.Clicked  += fourPlayerClick;
+      onePlayer.Clicked      += onePlayerClick;
+      twoPlayer.Clicked      += twoPlayerClick;
+      threePlayer.Clicked    += threePlayerClick;
+      fourPlayer.Clicked     += fourPlayerClick;
+      about.Clicked          += aboutClick;
+      mainWindow.DeleteEvent += deleteMain;
 
       Application.Run();
     }
@@ -89,18 +93,25 @@ namespace Tetris
       StartGame(InterleavedFieldManager.NumPlayers.FourPlayer);
     }
 
+    void aboutClick(object o, EventArgs e)
+    {
+      aboutdialog.Run();
+      aboutdialog.Hide();
+    }
+
+    void deleteMain(object o, DeleteEventArgs e)
+    {
+      Application.Quit();
+    }
+
     void StartGame(InterleavedFieldManager.NumPlayers players)
     {
       mainWindow.HideAll();
-      Thread gameThread = new Thread(new ThreadStart(delegate()
+      using (Game game = new Game(players))
       {
-	using (Game game = new Game(players))
-	{
-	  game.Run(30.0, 60.0);
-	}
-	mainWindow.ShowAll();
-      }));
-      gameThread.Start();
+	game.Run(30.0, 60.0);
+      }
+      mainWindow.ShowAll();
     }
   }
 }
