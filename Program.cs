@@ -89,6 +89,7 @@ namespace Tetris
       GL.Enable(EnableCap.Texture2D);
       GL.Enable(EnableCap.DepthTest);
       GL.Enable(EnableCap.CullFace);
+      GL.Enable(EnableCap.Blend);
 
       GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 

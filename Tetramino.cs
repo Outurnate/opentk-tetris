@@ -48,6 +48,7 @@ namespace Tetris
     public TetraminoRotation rotation;
     public int x;
     public int y;
+    public bool ghost;
   }
 
   class TetraminoIgnoreColorPosition : EqualityComparer<Tetramino>
@@ -91,7 +92,8 @@ namespace Tetris
 	  color = TetraminoColor.Cyan,
 	  rotation = TetraminoRotation.Left,
 	  x = 3,
-	  y = 18
+	  y = 18,
+	  ghost = false
 	}
       },
       {
@@ -102,7 +104,8 @@ namespace Tetris
 	  color = TetraminoColor.Yellow,
 	  rotation = TetraminoRotation.Up,
 	  x = 4,
-	  y = 18
+	  y = 18,
+	  ghost = false
 	}
       },
       {
@@ -113,7 +116,8 @@ namespace Tetris
 	  color = TetraminoColor.Purple,
 	  rotation = TetraminoRotation.Right,
 	  x = 4,
-	  y = 17
+	  y = 17,
+	  ghost = false
 	}
       },
       {
@@ -124,7 +128,8 @@ namespace Tetris
 	  color = TetraminoColor.Green,
 	  rotation = TetraminoRotation.Right,
 	  x = 4,
-	  y = 17
+	  y = 17,
+	  ghost = false
 	}
       },
       {
@@ -135,7 +140,8 @@ namespace Tetris
 	  color = TetraminoColor.Red,
 	  rotation = TetraminoRotation.Right,
 	  x = 4,
-	  y = 17
+	  y = 17,
+	  ghost = false
 	}
       },
       {
@@ -146,7 +152,8 @@ namespace Tetris
 	  color = TetraminoColor.Orange,
 	  rotation = TetraminoRotation.Right,
 	  x = 4,
-	  y = 17
+	  y = 17,
+	  ghost = false
 	}
       },
       {
@@ -157,7 +164,8 @@ namespace Tetris
 	  color = TetraminoColor.Blue,
 	  rotation = TetraminoRotation.Right,
 	  x = 4,
-	  y = 17
+	  y = 17,
+	  ghost = false
 	}
       }
     };

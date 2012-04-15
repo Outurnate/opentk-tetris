@@ -246,6 +246,7 @@ namespace Tetris
 	      {
 		field[currentTetramino.x + x, currentTetramino.y + y, false].inUse = map[x, y];
 		field[currentTetramino.x + x, currentTetramino.y + y, false].color = currentTetramino.color;
+		field[currentTetramino.x + x, currentTetramino.y + y, false].ghost = false;
 	      }
 	if (deferredLock)
 	{

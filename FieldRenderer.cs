@@ -45,6 +45,7 @@ namespace Tetris
     {
       public bool inUse = false;
       public TetraminoColor color = TetraminoColor.Cyan;
+      public bool ghost = false;
     }
 
     const string UI_FORMAT = "000000";
@@ -154,6 +155,7 @@ namespace Tetris
 	  {
 	    committedCells[x, y].inUse = shownCells[x, y].inUse;
 	    committedCells[x, y].color = shownCells[x, y].color;
+	    committedCells[x, y].ghost = shownCells[x, y].ghost;
 	  }
     }
 
@@ -189,6 +191,8 @@ namespace Tetris
       DrawTetrion();
       GL.BindTexture(TextureTarget.Texture2D, ResourceCommons.Block);
       DrawBlock();
+      GL.BindTexture(TextureTarget.Texture2D, ResourceCommons.BlockGhost);
+      DrawGhostBlock();
       DrawOther();
     }
 
@@ -221,15 +225,32 @@ namespace Tetris
 	    ResourceCommons.Blocks[committedCells[x, y].color].Draw();
 	    GL.PopMatrix();
 	  }
-          if (shownCells[x, y].inUse)
+          if (shownCells[x, y].inUse && !shownCells[x, y].ghost)
 	  {
-            Vector3 point = Vector3.Add(new Vector3((float)x, (float)y, -1f), position);
+	    Vector3 point = Vector3.Add(new Vector3((float)x, (float)y, -1f), position);
 	    GL.PushMatrix();
-            GL.Translate(point);
+	    GL.Translate(point);
 	    ResourceCommons.Blocks[shownCells[x, y].color].Draw();
 	    GL.PopMatrix();
 	  }
 	}
+      GL.PopMatrix();
+    }
+
+    internal void DrawGhostBlock()
+    {
+      GL.PushMatrix();
+      GL.Translate(Vector3.Add(position, tetrionBlock));
+      for (int x = 0; x < width; x++)
+        for (int y = 0; y < height; y++)
+          if (shownCells[x, y].inUse && shownCells[x, y].ghost)
+	  {
+	    Vector3 point = Vector3.Add(new Vector3((float)x, (float)y, -1f), position);
+	    GL.PushMatrix();
+	    GL.Translate(point);
+	    ResourceCommons.Blocks[shownCells[x, y].color].Draw();
+	    GL.PopMatrix();
+	  }
       GL.PopMatrix();
     }
 
@@ -242,7 +263,6 @@ namespace Tetris
 	GL.Translate(Vector3.Add(position, new Vector3(400f, 250f, 0f)));
 	ResourceCommons.LiberationSans.Print("Game Over", QFontAlignment.Centre);
 	QFont.End();
-	GL.Disable(EnableCap.Blend);
 	GL.PopMatrix();
       }
     }

@@ -94,8 +94,11 @@ namespace Tetris
 	  renderer[i].DrawTetrion();
 	GL.BindTexture(TextureTarget.Texture2D, ResourceCommons.Block);
 	for (int i = 0; i < (int)players; i++)
-	{
 	  renderer[i].DrawBlock();
+	GL.BindTexture(TextureTarget.Texture2D, ResourceCommons.BlockGhost);
+	for (int i = 0; i < (int)players; i++)
+	{
+	  renderer[i].DrawGhostBlock();
 	  renderer[i].DrawOther();
 	}
       }
