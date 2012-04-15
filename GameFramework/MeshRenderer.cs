@@ -123,9 +123,6 @@ namespace GameFramework
       GL.NormalPointer(NormalPointerType.Float, BlittableValueType.StrideOf(verticies), i_NORMAL);
       GL.ColorPointer(4, ColorPointerType.UnsignedByte, BlittableValueType.StrideOf(verticies), i_COLOR);
       GL.DrawElements(mode, handle.NumElements, DrawElementsType.UnsignedShort, IntPtr.Zero);
-      GL.DisableClientState(ArrayCap.ColorArray);
-      GL.DisableClientState(ArrayCap.VertexArray);
-      GL.DisableClientState(ArrayCap.TextureCoordArray);
     }
 
     public void Free()
