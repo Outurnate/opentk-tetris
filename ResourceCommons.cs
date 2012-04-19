@@ -55,6 +55,7 @@ namespace Tetris
     public static Texture BlockGhost;
     public static Dictionary<TetraminoColor, MeshRenderer> Blocks = new Dictionary<TetraminoColor, MeshRenderer>();
     public static Dictionary<TetraminoType, Bitmap> BlockOverlays = new Dictionary<TetraminoType, Bitmap>();
+    public static Dictionary<TetraminoType, Bitmap> BlockOverlaysSmall = new Dictionary<TetraminoType, Bitmap>();
     public static MeshRenderer Tetrion;
     public static MeshRenderer Panel;
     public static int Simple_Shader;
@@ -75,6 +76,13 @@ namespace Tetris
       BlockOverlays.Add(TetraminoType.S, new Bitmap(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "S.png")));
       BlockOverlays.Add(TetraminoType.Z, new Bitmap(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "Z.png")));
       BlockOverlays.Add(TetraminoType.T, new Bitmap(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "T.png")));
+      BlockOverlaysSmall.Add(TetraminoType.I, new Bitmap(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "Is.png")));
+      BlockOverlaysSmall.Add(TetraminoType.O, new Bitmap(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "Os.png")));
+      BlockOverlaysSmall.Add(TetraminoType.J, new Bitmap(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "Js.png")));
+      BlockOverlaysSmall.Add(TetraminoType.L, new Bitmap(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "Ls.png")));
+      BlockOverlaysSmall.Add(TetraminoType.S, new Bitmap(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "Ss.png")));
+      BlockOverlaysSmall.Add(TetraminoType.Z, new Bitmap(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "Zs.png")));
+      BlockOverlaysSmall.Add(TetraminoType.T, new Bitmap(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "Ts.png")));
       LoadTexture(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "tetrion.png"), out TetrionTexture);
       LoadTexture(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "block.png"), out Block);
       LoadTexture(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "blockGhost.png"), out BlockGhost);

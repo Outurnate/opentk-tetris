@@ -25,7 +25,6 @@ using GameFramework;
 using Gtk;
 using Glade;
 using System;
-using System.Threading;
 
 namespace Tetris
 {
