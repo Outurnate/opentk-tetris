@@ -1,5 +1,8 @@
 varying vec2 texture_coordinate;
 
+uniform vec3 lightPosition = vec3(1.0,  0.0, -1.0);
+uniform vec4 lightDiffuse  = vec4(1.0,  1.0,  1.0,  1.0);
+
 void main()
 {
   vec3 normal, lightDir;
@@ -12,10 +15,10 @@ void main()
   
   // Normals
   normal = normalize(gl_NormalMatrix * gl_Normal);
-  lightDir = normalize(vec3(gl_LightSource[0].position));
+  lightDir = normalize(vec3(lightPosition));
   NdotL = max(dot(normal, lightDir), 0.0);
   
   // Colors
-  diffuse = gl_FrontMaterial.diffuse * gl_LightSource[0].diffuse;
+  diffuse = gl_FrontMaterial.diffuse * lightDiffuse;
   gl_FrontColor = NdotL * diffuse;
 }
