@@ -25,6 +25,7 @@ using GameFramework;
 using Gtk;
 using Glade;
 using System;
+using System.Threading;
 
 namespace Tetris
 {
@@ -105,12 +106,14 @@ namespace Tetris
 
     void StartGame(InterleavedFieldManager.NumPlayers players)
     {
-      mainWindow.HideAll();
-      using (Game game = new Game(players))
+      Thread thread = new Thread(new ThreadStart(delegate()
       {
-	game.Run(30.0, 60.0);
-      }
-      mainWindow.ShowAll();
+	using (Game game = new Game(players))
+	{
+	  game.Run(30.0, 60.0);
+	}
+      }));
+      thread.Start();
     }
   }
 }
