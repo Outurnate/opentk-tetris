@@ -90,7 +90,8 @@ namespace Tetris
       GL.Enable(EnableCap.DepthTest);
       GL.Enable(EnableCap.CullFace);
       GL.Enable(EnableCap.Blend);
-      //GL.BlendFunc(BlendingFactorSrc.SrcColor, BlendingFactorDest.DestColor);
+      GL.BlendEquation(BlendEquationMode.FuncAdd);
+      GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
 
       GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
