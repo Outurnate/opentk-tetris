@@ -97,7 +97,7 @@ namespace Tetris
 
       GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Fill);
 
-      Matrix4 modelview = Matrix4.LookAt(new Vector3(-5.0f, 0.0f, -30.0f), pos_field, Vector3.UnitY);
+      Matrix4 modelview = Matrix4.LookAt(new Vector3(-5.0f, 0.0f, -30.0f*2), pos_field, Vector3.UnitY);
       GL.MatrixMode(MatrixMode.Modelview);
       GL.LoadMatrix(ref modelview);
 

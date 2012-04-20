@@ -51,10 +51,10 @@ namespace Tetris
 
     readonly Vector3[][] positions = new Vector3[][]
     {
-      new Vector3[] { new Vector3(0.0f, 0.0f, 0.0f) },
-      new Vector3[] { new Vector3(0.0f, 0.0f, 0.0f), new Vector3(0.0f, 0.0f, 0.0f) },
-      new Vector3[] { new Vector3(0.0f, 0.0f, 0.0f), new Vector3(0.0f, 0.0f, 0.0f), new Vector3(0.0f, 0.0f, 0.0f) },
-      new Vector3[] { new Vector3(0.0f, 0.0f, 0.0f), new Vector3(0.0f, 0.0f, 0.0f), new Vector3(0.0f, 0.0f, 0.0f), new Vector3(0.0f, 0.0f, 0.0f) }
+      new Vector3[] { new Vector3(  0.0f, 0.0f, 0.0f) },
+      new Vector3[] { new Vector3(-10.0f, 0.0f, 0.0f), new Vector3(10.0f, 0.0f, 0.0f) },
+      new Vector3[] { new Vector3(  0.0f, 0.0f, 0.0f), new Vector3( 0.0f, 0.0f, 0.0f), new Vector3(0.0f, 0.0f, 0.0f) },
+      new Vector3[] { new Vector3(  0.0f, 0.0f, 0.0f), new Vector3( 0.0f, 0.0f, 0.0f), new Vector3(0.0f, 0.0f, 0.0f), new Vector3(0.0f, 0.0f, 0.0f) }
     };
 
     public InterleavedFieldManager(GameWindow window, NumPlayers players)
@@ -65,7 +65,7 @@ namespace Tetris
       this.renderer = new FieldRenderer[(int)players];
       for (int i = 0; i < (int)players; i++)
       {
-	this.logic[i] = new FieldLogic(window, renderer[i] = new FieldRenderer(window, positions[i][(int)players - 1]) { Enabled = true, Visible = players == NumPlayers.OnePlayer }, (CoordinatedInputManager.PlayerNumber)(i + 1)) { Enabled = true, Visible = false };
+	this.logic[i] = new FieldLogic(window, renderer[i] = new FieldRenderer(window, positions[(int)players - 1][i]) { Enabled = true, Visible = players == NumPlayers.OnePlayer }, (CoordinatedInputManager.PlayerNumber)(i + 1)) { Enabled = true, Visible = false };
 	this.Components.Add(logic[i]);
 	this.Components.Add(renderer[i]);
       }
