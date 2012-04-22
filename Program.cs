@@ -40,12 +40,14 @@ namespace Tetris
   class Game : GameComponentWindow
   {
     Vector3 pos_field;
+    Vector3 pos_eye;
     InterleavedFieldManager manager;
 
     public Game(InterleavedFieldManager.NumPlayers players) : base(800, 600, GraphicsMode.Default, "opentk-tetris")
     {
       VSync = VSyncMode.On;
       pos_field = new Vector3(-5.0f, 0.0f, 0.0f);
+      pos_eye = new Vector3(-5.0f, 0.0f, -30.0f * (players == InterleavedFieldManager.NumPlayers.OnePlayer ? 1 : 2));
       this.Components.Add(new ResourceCommonsLoader(this));
       this.Components.Add(manager = new InterleavedFieldManager(this, players) { Enabled = true, Visible = true });
     }
@@ -56,7 +58,7 @@ namespace Tetris
 
       GL.ShadeModel(ShadingModel.Smooth);
 
-      GL.ClearColor(0.1f, 0.2f, 0.5f, 0.0f);
+      GL.ClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
       manager.StartGame();
     }
@@ -97,7 +99,7 @@ namespace Tetris
 
       GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Fill);
 
-      Matrix4 modelview = Matrix4.LookAt(new Vector3(-5.0f, 0.0f, -30.0f*2), pos_field, Vector3.UnitY);
+      Matrix4 modelview = Matrix4.LookAt(pos_eye, pos_field, Vector3.UnitY);
       GL.MatrixMode(MatrixMode.Modelview);
       GL.LoadMatrix(ref modelview);
 
