@@ -51,10 +51,10 @@ namespace Tetris
 
     readonly Vector3[][] positions = new Vector3[][]
     {
-      new Vector3[] { new Vector3(  0.0f, 0.0f, 0.0f) },
-      new Vector3[] { new Vector3(-10.0f, 0.0f, 0.0f), new Vector3(10.0f, 0.0f, 0.0f) },
-      new Vector3[] { new Vector3(  0.0f, 0.0f, 0.0f), new Vector3( 0.0f, 0.0f, 0.0f), new Vector3(0.0f, 0.0f, 0.0f) },
-      new Vector3[] { new Vector3(  0.0f, 0.0f, 0.0f), new Vector3( 0.0f, 0.0f, 0.0f), new Vector3(0.0f, 0.0f, 0.0f), new Vector3(0.0f, 0.0f, 0.0f) }
+      new Vector3[] { new Vector3(  0.0f,  0.0f, 0.0f) },
+      new Vector3[] { new Vector3(-11.0f,  0.0f, 0.0f), new Vector3(11.0f,  0.0f, 0.0f) },
+      new Vector3[] { new Vector3(-11.0f, 11.0f, 0.0f), new Vector3(11.0f, 11.0f, 0.0f), new Vector3(  0.0f, -11.0f, 0.0f) },
+      new Vector3[] { new Vector3(-11.0f, 11.0f, 0.0f), new Vector3(11.0f, 11.0f, 0.0f), new Vector3(-11.0f, -11.0f, 0.0f), new Vector3(11.0f, -11.0f, 0.0f) }
     };
 
     public InterleavedFieldManager(GameWindow window, NumPlayers players)

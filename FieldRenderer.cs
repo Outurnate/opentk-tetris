@@ -199,7 +199,10 @@ namespace Tetris
     internal void DrawScoreUI()
     {
       GL.BindTexture(TextureTarget.Texture2D, scoreUI);
+      GL.PushMatrix();
+      GL.Translate(Vector3.Add(position, tetrionBlock));
       ResourceCommons.Panel.Draw();
+      GL.PopMatrix();
     }
 
     internal void DrawTetrion()
@@ -212,8 +215,6 @@ namespace Tetris
 
     internal void DrawBlock()
     {
-      GL.PushMatrix();
-      GL.Translate(Vector3.Add(position, tetrionBlock));
       for (int x = 0; x < width; x++)
         for (int y = 0; y < height; y++)
 	{
@@ -234,13 +235,11 @@ namespace Tetris
 	    GL.PopMatrix();
 	  }
 	}
-      GL.PopMatrix();
     }
 
     internal void DrawGhostBlock()
     {
       GL.PushMatrix();
-      GL.Translate(Vector3.Add(position, tetrionBlock));
       for (int x = 0; x < width; x++)
         for (int y = 0; y < height; y++)
           if (shownCells[x, y].inUse && shownCells[x, y].ghost)
