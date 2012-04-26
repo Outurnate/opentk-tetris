@@ -54,11 +54,13 @@ namespace Tetris
     public static Texture Block;
     public static Texture BlockGhost;
     public static Dictionary<TetraminoColor, MeshRenderer> Blocks             = new Dictionary<TetraminoColor, MeshRenderer>();
-    public static Dictionary<TetraminoType, Bitmap>       BlockOverlays      = new Dictionary<TetraminoType, Bitmap>();
-    public static Dictionary<TetraminoType, Bitmap>       BlockOverlaysSmall = new Dictionary<TetraminoType, Bitmap>();
+    public static Dictionary<TetraminoType, Bitmap>        BlockOverlays      = new Dictionary<TetraminoType, Bitmap>();
+    public static Dictionary<TetraminoType, Bitmap>        BlockOverlaysSmall = new Dictionary<TetraminoType, Bitmap>();
     public static MeshRenderer Tetrion;
     public static MeshRenderer Panel;
     public static int Simple_Shader;
+    public static int LightPositionUniform;
+    public static int LightDiffuseUniform;
     public static Bitmap PanelBase;
     public static QFont LiberationSans;
 
@@ -109,6 +111,8 @@ namespace Tetris
       using (StreamReader vs = new StreamReader(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), SHADERS_DIR), "vs_simple.glsl")))
 	using (StreamReader fs = new StreamReader(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), SHADERS_DIR), "fs_simple.glsl")))
 	  LoadShader(vs.ReadToEnd(), fs.ReadToEnd(), out Simple_vs, out Simple_fs, out Simple_Shader);
+      LightPositionUniform = GL.GetUniformLocation(Simple_Shader, "lightPosition");
+      LightDiffuseUniform = GL.GetUniformLocation(Simple_Shader, "lightDiffuse");
       LiberationSans = new QFont(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), FONTS_DIR), "LiberationSans.ttf"), 64);
       LiberationSans.Options.Colour = new Color4(1.0f, 0.0f, 0.0f, 1.0f);
     }
@@ -148,7 +152,6 @@ namespace Tetris
       GL.AttachShader(program, fragmentObject);
       GL.AttachShader(program, vertexObject);
       GL.LinkProgram(program);
-      //GL.UseProgram(program);
     }
 
     public static void LoadTexture(string filename, out Texture id)

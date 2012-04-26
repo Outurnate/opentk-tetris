@@ -42,6 +42,7 @@ namespace Tetris
     Vector3 pos_field;
     Vector3 pos_eye;
     InterleavedFieldManager manager;
+    Random random = new Random();
 
     public Game(InterleavedFieldManager.NumPlayers players) : base(800, 600, GraphicsMode.Default, "opentk-tetris")
     {
@@ -102,6 +103,12 @@ namespace Tetris
       Matrix4 modelview = Matrix4.LookAt(pos_eye, pos_field, Vector3.UnitY);
       GL.MatrixMode(MatrixMode.Modelview);
       GL.LoadMatrix(ref modelview);
+
+      Vector3 lightPos = new Vector3((float)random.NextDouble() * (random.Next(0, 2) == 1 ? 1 : -1), (float)random.NextDouble() * (random.Next(0, 2) == 1 ? 1 : -1), (float)random.NextDouble() * (random.Next(0, 2) == 1 ? 1 : -1));
+      Vector4 lightDiff  = new Vector4(1.0f,  1.0f,  1.0f,  1.0f);
+      GL.UseProgram(ResourceCommons.Simple_Shader);
+      GL.Uniform3(ResourceCommons.LightPositionUniform, ref lightPos);
+      GL.Uniform4(ResourceCommons.LightDiffuseUniform, ref lightDiff);
 
       base.OnRenderFrame(e);
 
