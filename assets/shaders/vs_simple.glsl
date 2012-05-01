@@ -14,4 +14,5 @@ void main() {
   position_out = interpPosition.xyz;
   texture_coordinate = vec2(gl_MultiTexCoord0);
   normal_out = gl_Normal;
+  gl_FrontColor = gl_Color;
 }
