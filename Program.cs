@@ -93,6 +93,7 @@ namespace Tetris
       GL.Enable(EnableCap.DepthTest);
       GL.Enable(EnableCap.CullFace);
       GL.Enable(EnableCap.Blend);
+      //GL.Enable(EnableCap.FramebufferSrgb);
       GL.BlendEquation(BlendEquationMode.FuncAdd);
       GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
 
@@ -109,8 +110,10 @@ namespace Tetris
       GL.UseProgram(ResourceCommons.Simple_Shader);
       GL.Uniform3(ResourceCommons.LightPositionUniform, ref lightPos);
       GL.Uniform4(ResourceCommons.LightDiffuseUniform, ref lightDiff);
+      GL.Uniform1(ResourceCommons.SamplerUniform, 0);
 
       base.OnRenderFrame(e);
+      //GL.Disable(EnableCap.FramebufferSrgb);
 
       base.SwapBuffers();
     }

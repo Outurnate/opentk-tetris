@@ -50,9 +50,12 @@ namespace Tetris
     const string SHADERS_DIR  = "shaders";
     const string FONTS_DIR    = "fonts";
 
-    public static Texture TetrionTexture;
-    public static Texture Block;
-    public static Texture BlockGhost;
+    public static int TetrionTexture;
+    public static int Block;
+    public static int BlockGhost;
+    public static int TetrionTextureSampler;
+    public static int BlockSampler;
+    public static int BlockGhostSampler;
     public static Dictionary<TetraminoColor, MeshRenderer> Blocks             = new Dictionary<TetraminoColor, MeshRenderer>();
     public static Dictionary<TetraminoType, Bitmap>        BlockOverlays      = new Dictionary<TetraminoType, Bitmap>();
     public static Dictionary<TetraminoType, Bitmap>        BlockOverlaysSmall = new Dictionary<TetraminoType, Bitmap>();
@@ -61,6 +64,7 @@ namespace Tetris
     public static int Simple_Shader;
     public static int LightPositionUniform;
     public static int LightDiffuseUniform;
+    public static int SamplerUniform;
     public static Bitmap PanelBase;
     public static QFont LiberationSans;
 
@@ -86,9 +90,9 @@ namespace Tetris
       BlockOverlaysSmall.Add(TetraminoType.Z,    new Bitmap(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "Zs.png")));
       BlockOverlaysSmall.Add(TetraminoType.T,    new Bitmap(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "Ts.png")));
       BlockOverlaysSmall.Add(TetraminoType.Null, new Bitmap(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "Ns.png")));
-      LoadTexture(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "tetrion.png"), out TetrionTexture);
-      LoadTexture(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "block.png"), out Block);
-      LoadTexture(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "blockGhost.png"), out BlockGhost);
+      LoadTexture(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "tetrion.png"), out TetrionTexture, out TetrionTextureSampler);
+      LoadTexture(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "block.png"), out Block, out BlockSampler);
+      LoadTexture(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "blockGhost.png"), out BlockGhost, out BlockGhostSampler);
       PanelBase = new Bitmap(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "panel.png"));
       using (Stream tmp = File.Open(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), MODELS_DIR), "blockCyan.xml"), FileMode.Open))
 	Blocks.Add(TetraminoColor.Cyan, new MeshRenderer((Mesh)modelSerializer.Deserialize(tmp)));
@@ -113,6 +117,7 @@ namespace Tetris
 	  LoadShader(vs.ReadToEnd(), fs.ReadToEnd(), out Simple_vs, out Simple_fs, out Simple_Shader);
       LightPositionUniform = GL.GetUniformLocation(Simple_Shader, "lightPosition");
       LightDiffuseUniform = GL.GetUniformLocation(Simple_Shader, "lightDiffuse");
+      SamplerUniform = GL.GetUniformLocation(Simple_Shader, "color_texture");
       LiberationSans = new QFont(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), FONTS_DIR), "LiberationSans.ttf"), 64);
       LiberationSans.Options.Colour = new Color4(1.0f, 0.0f, 0.0f, 1.0f);
     }
@@ -154,22 +159,30 @@ namespace Tetris
       GL.LinkProgram(program);
     }
 
-    public static void LoadTexture(string filename, out Texture id)
+    public static void LoadTexture(string filename, out Texture id, out int samplerId)
     {
       if (String.IsNullOrEmpty(filename))
         throw new ArgumentException(filename);
-      LoadTexture(new Bitmap(filename), out id);
+      LoadTexture(new Bitmap(filename), out id, out samplerId);
     }
 
-    public static void LoadTexture(Bitmap bmp, out Texture id)
+    public static void LoadTexture(Bitmap bmp, out Texture id, out int samplerId)
     {
+      // Store Texture ID
       id = GL.GenTexture();
+      // Bind Texture
       GL.BindTexture(TextureTarget.Texture2D, id);
+      // Load Bitmap
       BitmapData bmp_data = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
       GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, bmp_data.Width, bmp_data.Height, 0, GLPixelFormat.Bgra, PixelType.UnsignedByte, bmp_data.Scan0);
       bmp.UnlockBits(bmp_data);
-      GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Linear);
-      GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Linear);
+      // Create a Sampler for the Texture
+      GL.GenSamplers(1, out samplerId);
+      // Set the texture access and bondries information for the Sampler
+      GL.SamplerParameter(samplerId, SamplerParameter.TextureMagFilter, (int)TextureMagFilter.Linear);
+      GL.SamplerParameter(samplerId, SamplerParameter.TextureMinFilter, (int)TextureMinFilter.Linear);
+      GL.SamplerParameter(samplerId, SamplerParameter.TextureWrapS, (int)TextureWrapMode.ClampToEdge);
+      GL.SamplerParameter(samplerId, SamplerParameter.TextureWrapT, (int)TextureWrapMode.ClampToEdge);
     }
 
     public static void UpdateTexture(Bitmap bmp, Texture id, int x, int y, int w, int h)

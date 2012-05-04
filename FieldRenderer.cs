@@ -56,7 +56,8 @@ namespace Tetris
     Cell[,] committedCells;
     int width;
     int height;
-    Texture scoreUI;
+    int scoreUI;
+    int scoreUISampler;
     Bitmap scoreUIBase;
     Rectangle scoreRect = new Rectangle(134, 256, 144, 32);
     Rectangle levelRect = new Rectangle(134, 320, 144, 32);
@@ -161,7 +162,7 @@ namespace Tetris
 
     protected override void DoLoad()
     {
-      ResourceCommons.LoadTexture(scoreUIBase = ResourceCommons.PanelBase, out scoreUI);
+      ResourceCommons.LoadTexture(scoreUIBase = ResourceCommons.PanelBase, out scoreUI, out scoreUISampler);
     }
 
     protected override void DoUnLoad()
@@ -187,11 +188,17 @@ namespace Tetris
     protected override void DoDraw(FrameEventArgs e)
     {
       DrawScoreUI();
+      GL.ActiveTexture(TextureUnit.Texture0);
       GL.BindTexture(TextureTarget.Texture2D, ResourceCommons.TetrionTexture);
+      GL.BindSampler(0, ResourceCommons.TetrionTextureSampler);
       DrawTetrion();
+      GL.ActiveTexture(TextureUnit.Texture0);
       GL.BindTexture(TextureTarget.Texture2D, ResourceCommons.Block);
+      GL.BindSampler(0, ResourceCommons.BlockSampler);
       DrawBlock();
+      GL.ActiveTexture(TextureUnit.Texture0);
       GL.BindTexture(TextureTarget.Texture2D, ResourceCommons.BlockGhost);
+      GL.BindSampler(0, ResourceCommons.BlockGhostSampler);
       DrawGhostBlock();
       DrawOther();
     }

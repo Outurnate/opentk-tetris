@@ -89,13 +89,19 @@ namespace Tetris
       {
 	for (int i = 0; i < (int)players; i++)
 	  renderer[i].DrawScoreUI();
+	GL.ActiveTexture(TextureUnit.Texture0);
 	GL.BindTexture(TextureTarget.Texture2D, ResourceCommons.TetrionTexture);
+	GL.BindSampler(0, ResourceCommons.TetrionTextureSampler);
 	for (int i = 0; i < (int)players; i++)
 	  renderer[i].DrawTetrion();
+	GL.ActiveTexture(TextureUnit.Texture0);
 	GL.BindTexture(TextureTarget.Texture2D, ResourceCommons.Block);
+	GL.BindSampler(0, ResourceCommons.BlockSampler);
 	for (int i = 0; i < (int)players; i++)
 	  renderer[i].DrawBlock();
+	GL.ActiveTexture(TextureUnit.Texture0);
 	GL.BindTexture(TextureTarget.Texture2D, ResourceCommons.BlockGhost);
+	GL.BindSampler(0, ResourceCommons.BlockGhostSampler);
 	for (int i = 0; i < (int)players; i++)
 	{
 	  renderer[i].DrawGhostBlock();

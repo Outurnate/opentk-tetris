@@ -22,6 +22,7 @@ void main()
  
   // Colors
   diffuse = gl_Color * lightDiffuse;
-// Frag Color = ( texture Based Color Calc + Ambient );
-  gl_FragColor = (texture2D(color_texture, texture_coordinate) * NdotL * diffuse) + (gl_Color * 0.1f);
+  
+  // Frag Color = ( texture Based Color Calc + Ambient );
+  gl_FragColor = sqrt((texture2D(color_texture, texture_coordinate) * NdotL * diffuse) + (gl_Color * 0.1f));
 }
