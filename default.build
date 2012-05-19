@@ -6,6 +6,9 @@
     <delete dir="bin" failonerror="false" />
     <delete dir="lib" failonerror="false" />
   </target>
+  <target name="povray" description="runs povray to regenerate icons, logos, and textures (only required if .pov files were modified)">
+    <exec program="raytrace/render.sh" workingdir="raytrace" />
+  </target>
   <target name="lib" description="downloads and builds all external libraries">
     <mkdir dir="lib" />
     <mkdir dir="bin" />
@@ -86,7 +89,7 @@
         <package name="glade-sharp-2.0" />
       </pkg-references>
       <resources>
-        <include name="glade/logo.png" />
+        <include name="resources/*.png" />
         <include name="glade/*.glade" />
       </resources>
       <sources>

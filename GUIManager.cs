@@ -25,6 +25,8 @@ using GameFramework;
 using Gtk;
 using Glade;
 using System;
+using System.IO;
+using System.Reflection;
 using System.Threading;
 
 namespace Tetris
@@ -45,6 +47,8 @@ namespace Tetris
     Button fourPlayer;
     [Widget]
     Button about;
+    [Widget]
+    Image logo;
 
     [STAThread]
     static void Main(string[] args)
@@ -62,6 +66,9 @@ namespace Tetris
       };
       foreach(Glade.XML gxmlC in gxml)
 	gxmlC.Autoconnect(this);
+      Stream logoStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("logo.png");
+      logo.Pixbuf = new Gdk.Pixbuf(logoStream);
+      logoStream.Close();
 
       onePlayer.Clicked      += onePlayerClick;
       twoPlayer.Clicked      += twoPlayerClick;
