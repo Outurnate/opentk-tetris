@@ -76,7 +76,7 @@
       </sources>
     </csc>
   </target>
-  <target name="build" description="compiles the source code">
+  <target name="build" description="compiles the source code" win32icon="resources/icon.ico">
     <csc target="library" output="bin/GameFramework.dll" debug="${debug}">
       <references>
         <include name="System.Drawing.dll" />
@@ -100,6 +100,7 @@
       </pkg-references>
       <resources>
         <include name="resources/*.png" />
+        <include name="resources/*.ico" />
         <include name="glade/*.glade" />
       </resources>
       <sources>
