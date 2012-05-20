@@ -199,8 +199,10 @@ namespace Tetris
       GL.ActiveTexture(TextureUnit.Texture0);
       GL.BindTexture(TextureTarget.Texture2D, ResourceCommons.BlockGhost);
       GL.BindSampler(0, ResourceCommons.BlockGhostSampler);
+      GL.Enable(EnableCap.Blend);
       DrawGhostBlock();
       DrawOther();
+      GL.Disable(EnableCap.Blend);
     }
 
     internal void DrawScoreUI()

@@ -102,11 +102,13 @@ namespace Tetris
 	GL.ActiveTexture(TextureUnit.Texture0);
 	GL.BindTexture(TextureTarget.Texture2D, ResourceCommons.BlockGhost);
 	GL.BindSampler(0, ResourceCommons.BlockGhostSampler);
+	GL.Enable(EnableCap.Blend);
 	for (int i = 0; i < (int)players; i++)
 	{
 	  renderer[i].DrawGhostBlock();
 	  renderer[i].DrawOther();
 	}
+	GL.Disable(EnableCap.Blend);
       }
     }
   }

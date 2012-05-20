@@ -92,7 +92,6 @@ namespace Tetris
       GL.Enable(EnableCap.Texture2D);
       GL.Enable(EnableCap.DepthTest);
       GL.Enable(EnableCap.CullFace);
-      GL.Enable(EnableCap.Blend);
       //GL.Enable(EnableCap.FramebufferSrgb);
       GL.BlendEquation(BlendEquationMode.FuncAdd);
       GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
