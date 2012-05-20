@@ -44,11 +44,12 @@ namespace Tetris
 {
   static class ResourceCommons
   {
-    const string RESOURCE_DIR = "assets";
-    const string TEXTURES_DIR = "textures";
-    const string MODELS_DIR   = "models";
-    const string SHADERS_DIR  = "shaders";
-    const string FONTS_DIR    = "fonts";
+    public const string RESOURCE_DIR = "assets";
+    public const string TEXTURES_DIR = "textures";
+    public const string MODELS_DIR   = "models";
+    public const string SHADERS_DIR  = "shaders";
+    public const string FONTS_DIR    = "fonts";
+    public const string START_DIR    = ".";
 
     public static int TetrionTexture;
     public static int Block;
@@ -75,50 +76,50 @@ namespace Tetris
 
     public static void Load()
     {
-      BlockOverlays.Add(TetraminoType.I, new Bitmap(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "I.png")));
-      BlockOverlays.Add(TetraminoType.O, new Bitmap(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "O.png")));
-      BlockOverlays.Add(TetraminoType.J, new Bitmap(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "J.png")));
-      BlockOverlays.Add(TetraminoType.L, new Bitmap(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "L.png")));
-      BlockOverlays.Add(TetraminoType.S, new Bitmap(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "S.png")));
-      BlockOverlays.Add(TetraminoType.Z, new Bitmap(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "Z.png")));
-      BlockOverlays.Add(TetraminoType.T, new Bitmap(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "T.png")));
-      BlockOverlaysSmall.Add(TetraminoType.I,    new Bitmap(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "Is.png")));
-      BlockOverlaysSmall.Add(TetraminoType.O,    new Bitmap(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "Os.png")));
-      BlockOverlaysSmall.Add(TetraminoType.J,    new Bitmap(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "Js.png")));
-      BlockOverlaysSmall.Add(TetraminoType.L,    new Bitmap(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "Ls.png")));
-      BlockOverlaysSmall.Add(TetraminoType.S,    new Bitmap(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "Ss.png")));
-      BlockOverlaysSmall.Add(TetraminoType.Z,    new Bitmap(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "Zs.png")));
-      BlockOverlaysSmall.Add(TetraminoType.T,    new Bitmap(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "Ts.png")));
-      BlockOverlaysSmall.Add(TetraminoType.Null, new Bitmap(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "Ns.png")));
-      LoadTexture(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "tetrion.png"), out TetrionTexture, out TetrionTextureSampler);
-      LoadTexture(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "block.png"), out Block, out BlockSampler);
-      LoadTexture(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "blockGhost.png"), out BlockGhost, out BlockGhostSampler);
-      PanelBase = new Bitmap(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), TEXTURES_DIR), "panel.png"));
-      using (Stream tmp = File.Open(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), MODELS_DIR), "blockCyan.xml"), FileMode.Open))
+      BlockOverlays.Add(TetraminoType.I, new Bitmap(Path.Combine(Path.Combine(Path.Combine(START_DIR, RESOURCE_DIR), TEXTURES_DIR), "I.png")));
+      BlockOverlays.Add(TetraminoType.O, new Bitmap(Path.Combine(Path.Combine(Path.Combine(START_DIR, RESOURCE_DIR), TEXTURES_DIR), "O.png")));
+      BlockOverlays.Add(TetraminoType.J, new Bitmap(Path.Combine(Path.Combine(Path.Combine(START_DIR, RESOURCE_DIR), TEXTURES_DIR), "J.png")));
+      BlockOverlays.Add(TetraminoType.L, new Bitmap(Path.Combine(Path.Combine(Path.Combine(START_DIR, RESOURCE_DIR), TEXTURES_DIR), "L.png")));
+      BlockOverlays.Add(TetraminoType.S, new Bitmap(Path.Combine(Path.Combine(Path.Combine(START_DIR, RESOURCE_DIR), TEXTURES_DIR), "S.png")));
+      BlockOverlays.Add(TetraminoType.Z, new Bitmap(Path.Combine(Path.Combine(Path.Combine(START_DIR, RESOURCE_DIR), TEXTURES_DIR), "Z.png")));
+      BlockOverlays.Add(TetraminoType.T, new Bitmap(Path.Combine(Path.Combine(Path.Combine(START_DIR, RESOURCE_DIR), TEXTURES_DIR), "T.png")));
+      BlockOverlaysSmall.Add(TetraminoType.I,    new Bitmap(Path.Combine(Path.Combine(Path.Combine(START_DIR, RESOURCE_DIR), TEXTURES_DIR), "Is.png")));
+      BlockOverlaysSmall.Add(TetraminoType.O,    new Bitmap(Path.Combine(Path.Combine(Path.Combine(START_DIR, RESOURCE_DIR), TEXTURES_DIR), "Os.png")));
+      BlockOverlaysSmall.Add(TetraminoType.J,    new Bitmap(Path.Combine(Path.Combine(Path.Combine(START_DIR, RESOURCE_DIR), TEXTURES_DIR), "Js.png")));
+      BlockOverlaysSmall.Add(TetraminoType.L,    new Bitmap(Path.Combine(Path.Combine(Path.Combine(START_DIR, RESOURCE_DIR), TEXTURES_DIR), "Ls.png")));
+      BlockOverlaysSmall.Add(TetraminoType.S,    new Bitmap(Path.Combine(Path.Combine(Path.Combine(START_DIR, RESOURCE_DIR), TEXTURES_DIR), "Ss.png")));
+      BlockOverlaysSmall.Add(TetraminoType.Z,    new Bitmap(Path.Combine(Path.Combine(Path.Combine(START_DIR, RESOURCE_DIR), TEXTURES_DIR), "Zs.png")));
+      BlockOverlaysSmall.Add(TetraminoType.T,    new Bitmap(Path.Combine(Path.Combine(Path.Combine(START_DIR, RESOURCE_DIR), TEXTURES_DIR), "Ts.png")));
+      BlockOverlaysSmall.Add(TetraminoType.Null, new Bitmap(Path.Combine(Path.Combine(Path.Combine(START_DIR, RESOURCE_DIR), TEXTURES_DIR), "Ns.png")));
+      LoadTexture(Path.Combine(Path.Combine(Path.Combine(START_DIR, RESOURCE_DIR), TEXTURES_DIR), "tetrion.png"), out TetrionTexture, out TetrionTextureSampler);
+      LoadTexture(Path.Combine(Path.Combine(Path.Combine(START_DIR, RESOURCE_DIR), TEXTURES_DIR), "block.png"), out Block, out BlockSampler);
+      LoadTexture(Path.Combine(Path.Combine(Path.Combine(START_DIR, RESOURCE_DIR), TEXTURES_DIR), "blockGhost.png"), out BlockGhost, out BlockGhostSampler);
+      PanelBase = new Bitmap(Path.Combine(Path.Combine(Path.Combine(START_DIR, RESOURCE_DIR), TEXTURES_DIR), "panel.png"));
+      using (Stream tmp = File.Open(Path.Combine(Path.Combine(Path.Combine(START_DIR, RESOURCE_DIR), MODELS_DIR), "blockCyan.xml"), FileMode.Open))
 	Blocks.Add(TetraminoColor.Cyan, new MeshRenderer((Mesh)modelSerializer.Deserialize(tmp)));
-      using (Stream tmp = File.Open(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), MODELS_DIR), "blockYellow.xml"), FileMode.Open))
+      using (Stream tmp = File.Open(Path.Combine(Path.Combine(Path.Combine(START_DIR, RESOURCE_DIR), MODELS_DIR), "blockYellow.xml"), FileMode.Open))
 	Blocks.Add(TetraminoColor.Yellow, new MeshRenderer((Mesh)modelSerializer.Deserialize(tmp)));
-      using (Stream tmp = File.Open(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), MODELS_DIR), "blockPurple.xml"), FileMode.Open))
+      using (Stream tmp = File.Open(Path.Combine(Path.Combine(Path.Combine(START_DIR, RESOURCE_DIR), MODELS_DIR), "blockPurple.xml"), FileMode.Open))
 	Blocks.Add(TetraminoColor.Purple, new MeshRenderer((Mesh)modelSerializer.Deserialize(tmp)));
-      using (Stream tmp = File.Open(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), MODELS_DIR), "blockGreen.xml"), FileMode.Open))
+      using (Stream tmp = File.Open(Path.Combine(Path.Combine(Path.Combine(START_DIR, RESOURCE_DIR), MODELS_DIR), "blockGreen.xml"), FileMode.Open))
 	Blocks.Add(TetraminoColor.Green, new MeshRenderer((Mesh)modelSerializer.Deserialize(tmp)));
-      using (Stream tmp = File.Open(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), MODELS_DIR), "blockRed.xml"), FileMode.Open))
+      using (Stream tmp = File.Open(Path.Combine(Path.Combine(Path.Combine(START_DIR, RESOURCE_DIR), MODELS_DIR), "blockRed.xml"), FileMode.Open))
 	Blocks.Add(TetraminoColor.Red, new MeshRenderer((Mesh)modelSerializer.Deserialize(tmp)));
-      using (Stream tmp = File.Open(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), MODELS_DIR), "blockBlue.xml"), FileMode.Open))
+      using (Stream tmp = File.Open(Path.Combine(Path.Combine(Path.Combine(START_DIR, RESOURCE_DIR), MODELS_DIR), "blockBlue.xml"), FileMode.Open))
 	Blocks.Add(TetraminoColor.Blue, new MeshRenderer((Mesh)modelSerializer.Deserialize(tmp)));
-      using (Stream tmp = File.Open(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), MODELS_DIR), "blockOrange.xml"), FileMode.Open))
+      using (Stream tmp = File.Open(Path.Combine(Path.Combine(Path.Combine(START_DIR, RESOURCE_DIR), MODELS_DIR), "blockOrange.xml"), FileMode.Open))
 	Blocks.Add(TetraminoColor.Orange, new MeshRenderer((Mesh)modelSerializer.Deserialize(tmp)));
-      using (Stream tmp = File.Open(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), MODELS_DIR), "tetrion.xml"), FileMode.Open))
+      using (Stream tmp = File.Open(Path.Combine(Path.Combine(Path.Combine(START_DIR, RESOURCE_DIR), MODELS_DIR), "tetrion.xml"), FileMode.Open))
 	Tetrion = new MeshRenderer((Mesh)modelSerializer.Deserialize(tmp));
-      using (Stream tmp = File.Open(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), MODELS_DIR), "panel.xml"), FileMode.Open))
+      using (Stream tmp = File.Open(Path.Combine(Path.Combine(Path.Combine(START_DIR, RESOURCE_DIR), MODELS_DIR), "panel.xml"), FileMode.Open))
 	Panel = new MeshRenderer((Mesh)modelSerializer.Deserialize(tmp));
-      using (StreamReader vs = new StreamReader(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), SHADERS_DIR), "vs_simple.glsl")))
-	using (StreamReader fs = new StreamReader(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), SHADERS_DIR), "fs_simple.glsl")))
+      using (StreamReader vs = new StreamReader(Path.Combine(Path.Combine(Path.Combine(START_DIR, RESOURCE_DIR), SHADERS_DIR), "vs_simple.glsl")))
+	using (StreamReader fs = new StreamReader(Path.Combine(Path.Combine(Path.Combine(START_DIR, RESOURCE_DIR), SHADERS_DIR), "fs_simple.glsl")))
 	  LoadShader(vs.ReadToEnd(), fs.ReadToEnd(), out Simple_vs, out Simple_fs, out Simple_Shader);
       LightPositionUniform = GL.GetUniformLocation(Simple_Shader, "lightPosition");
       LightDiffuseUniform = GL.GetUniformLocation(Simple_Shader, "lightDiffuse");
       SamplerUniform = GL.GetUniformLocation(Simple_Shader, "color_texture");
-      LiberationSans = new QFont(Path.Combine(Path.Combine(Path.Combine(".", RESOURCE_DIR), FONTS_DIR), "LiberationSans.ttf"), 64);
+      LiberationSans = new QFont(Path.Combine(Path.Combine(Path.Combine(START_DIR, RESOURCE_DIR), FONTS_DIR), "LiberationSans.ttf"), 64);
       LiberationSans.Options.Colour = new Color4(1.0f, 0.0f, 0.0f, 1.0f);
     }
 

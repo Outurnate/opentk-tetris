@@ -53,6 +53,7 @@ namespace Tetris
     [STAThread]
     static void Main(string[] args)
     {
+      HighscoreManager.Init();
       new GUIManager();
     }
 
@@ -109,6 +110,7 @@ namespace Tetris
     void deleteMain(object o, DeleteEventArgs e)
     {
       Application.Quit();
+      HighscoreManager.Close();
     }
 
     void StartGame(InterleavedFieldManager.NumPlayers players)

@@ -55,7 +55,7 @@
     <exec program="wget" commandline="http://www.opentk.com/files/QuickFont_1.0.1.zip -O lib/quickFont.zip" />
     <unzip zipfile="lib/quickFont.zip" todir="lib" />
     <delete file="lib/quickFont.zip" />
-    <csc target="library" output="bin/QuickFont.dll" debug="${debug}" unsafe="true">
+    <csc target="library" output="bin/QuickFont.dll" debug="${debug}">
       <sources>
         <include name="lib/QuickFont/QuickFont/*.cs" />
         <include name="lib/QuickFont/QuickFont/Properties/*.cs" />
@@ -65,6 +65,15 @@
         <include name="System.Drawing.dll" />
         <include name="bin/OpenTK.dll" />
       </references>
+    </csc>
+    <exec program="wget" commandline="https://github.com/praeclarum/sqlite-net/zipball/master -O lib/sqlite-net.zip" />
+    <unzip zipfile="lib/sqlite-net.zip" todir="lib" />
+    <delete file="lib/sqlite-net.zip" />
+    <exec program="bash" commandline='-c "mv ./lib/praeclarum-sqlite-net-* ./lib/sqlite-net"' />
+    <csc target="library" output="bin/SQLite.dll" debug="${debug}">
+      <sources>
+        <include name="lib/sqlite-net/src/SQLite.cs" />
+      </sources>
     </csc>
   </target>
   <target name="build" description="compiles the source code">
@@ -84,6 +93,7 @@
 	<include name="bin/GameFramework.dll" />
         <include name="bin/OpenTK.dll" />
 	<include name="bin/QuickFont.dll" />
+	<include name="bin/SQLite.dll" />
       </references>
       <pkg-references>
         <package name="glade-sharp-2.0" />
