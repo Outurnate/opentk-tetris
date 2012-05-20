@@ -28,28 +28,28 @@
   <Mode>Triangles</Mode>
   <Material>
     <Ambient>
-      <A>255</A>
-      <R>77</R>
-      <G>77</G>
-      <B>77</B>
+      <float>0.301960784</float>
+      <float>0.301960784</float>
+      <float>0.301960784</float>
+      <float>1</float>
     </Ambient>
     <Diffuse>
-      <A>255</A>
-      <R>255</R>
-      <G>255</G>
-      <B>255</B>
+      <float>1</float>
+      <float>1</float>
+      <float>1</float>
+      <float>1</float>
     </Diffuse>
     <Specular>
-      <A>255</A>
-      <R>255</R>
-      <G>255</G>
-      <B>255</B>
+      <float>1</float>
+      <float>1</float>
+      <float>1</float>
+      <float>1</float>
     </Specular>
     <Emission>
-      <A>255</A>
-      <R>0</R>
-      <G>0</G>
-      <B>0</B>
+      <float>0</float>
+      <float>0</float>
+      <float>0</float>
+      <float>1</float>
     </Emission>
   </Material>
   <Verticies>
@@ -68,7 +68,6 @@
         <Y>0.0</Y>
         <Z>-1.0</Z>
       </Normal>
-      <Color>4294967295</Color>
     </VertexPositionColorCoordNormal>
     <VertexPositionColorCoordNormal>
       <Position>
@@ -85,7 +84,6 @@
         <Y>0.0</Y>
         <Z>-1.0</Z>
       </Normal>
-      <Color>4294967295</Color>
     </VertexPositionColorCoordNormal>
     <VertexPositionColorCoordNormal>
       <Position>
@@ -102,7 +100,6 @@
         <Y>0.0</Y>
         <Z>-1.0</Z>
       </Normal>
-      <Color>4294967295</Color>
     </VertexPositionColorCoordNormal>
     <VertexPositionColorCoordNormal>
       <Position>
@@ -119,7 +116,6 @@
         <Y>0.0</Y>
         <Z>-1.0</Z>
       </Normal>
-      <Color>4294967295</Color>
     </VertexPositionColorCoordNormal>
   </Verticies>
   <Indicies>

@@ -43,12 +43,12 @@ namespace GameFramework
     public Vector3 Position;
     public Vector2 TexCoord;
     public Vector3 Normal;
-    public uint Color;
+    internal uint Color;
 
-    public VertexPositionColorCoordNormal(float x, float y, float z, float u, float v, Color color, float nx, float ny, float nz)
+    public VertexPositionColorCoordNormal(float x, float y, float z, float u, float v, float nx, float ny, float nz)
     {
       Position = new Vector3(x, y, z);
-      Color = MeshRenderer.ToRgba(color);
+      Color = 0;
       TexCoord = new Vector2(u, v);
       Normal = new Vector3(nx, ny, nz);
     }
@@ -56,10 +56,10 @@ namespace GameFramework
 
   public struct Material
   {
-    public Color Diffuse;
-    public Color Emission;
-    public Color Ambient;
-    public Color Specular;
+    public float[] Diffuse;
+    public float[] Emission;
+    public float[] Ambient;
+    public float[] Specular;
     public float Shininess;
   }
 
@@ -87,6 +87,10 @@ namespace GameFramework
 
     public MeshRenderer(Mesh m)
     {
+      for (int i = 0; i < m.Verticies.Length; i++)
+      {
+	m.Verticies[i].Color = ToRgba((byte)(m.Material.Diffuse[0] * byte.MaxValue), (byte)(m.Material.Diffuse[1] * byte.MaxValue), (byte)(m.Material.Diffuse[2] * byte.MaxValue), (byte)(m.Material.Diffuse[3] * byte.MaxValue));
+      }
       this.verticies = m.Verticies;
       this.material = m.Material;
       handle = new VBO();
@@ -112,10 +116,10 @@ namespace GameFramework
       GL.EnableClientState(ArrayCap.ColorArray);
       GL.EnableClientState(ArrayCap.VertexArray);
       GL.EnableClientState(ArrayCap.TextureCoordArray);
-      GL.Material(MaterialFace.Front, MaterialParameter.Ambient, ColorToFloat(material.Ambient));
-      GL.Material(MaterialFace.Front, MaterialParameter.Diffuse, ColorToFloat(material.Diffuse));
-      GL.Material(MaterialFace.Front, MaterialParameter.Specular, ColorToFloat(material.Specular));
-      GL.Material(MaterialFace.Front, MaterialParameter.Emission, ColorToFloat(material.Emission));
+      GL.Material(MaterialFace.Front, MaterialParameter.Ambient, material.Ambient);
+      GL.Material(MaterialFace.Front, MaterialParameter.Diffuse, material.Diffuse);
+      GL.Material(MaterialFace.Front, MaterialParameter.Specular, material.Specular);
+      GL.Material(MaterialFace.Front, MaterialParameter.Emission, material.Emission);
       GL.BindBuffer(BufferTarget.ArrayBuffer, handle.VboID);
       GL.BindBuffer(BufferTarget.ElementArrayBuffer, handle.EboID);
       GL.VertexPointer(3, VertexPointerType.Float, BlittableValueType.StrideOf(verticies), i_POSITION);
@@ -136,9 +140,9 @@ namespace GameFramework
       return new float[] { c.R / byte.MaxValue, c.G / byte.MaxValue, c.B / byte.MaxValue, c.A / byte.MaxValue };
     }
 
-    internal static uint ToRgba(Color color)
+    internal static uint ToRgba(byte r, byte g, byte b, byte a)
     {
-      return (uint)color.A << 24 | (uint)color.B << 16 | (uint)color.G << 8 | (uint)color.R;
+      return (uint)a << 24 | (uint)b << 16 | (uint)g << 8 | (uint)r;
     }
   }
 }
