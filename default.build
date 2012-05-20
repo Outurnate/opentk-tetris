@@ -77,6 +77,21 @@
     </csc>
   </target>
   <target name="build" description="compiles the source code" win32icon="resources/icon.ico">
+    <asminfo output="AssemblyInfo.cs" language="CSharp">
+      <imports>
+        <import namespace="System" />
+        <import namespace="System.Reflection" />
+        <import namespace="System.Runtime.InteropServices" />
+      </imports>
+      <attributes>
+        <attribute type="ComVisibleAttribute" value="false" />
+        <attribute type="CLSCompliantAttribute" value="true" />
+        <attribute type="AssemblyVersionAttribute" value="0.0.1.0" />
+        <attribute type="AssemblyTitleAttribute" value="OpenTK-Tetris" />
+        <attribute type="AssemblyDescriptionAttribute" value="Yet another tetris implementation" />
+        <attribute type="AssemblyCopyrightAttribute" value="Copyright (C) 2012  Joseph Dillon" />
+      </attributes>
+    </asminfo>
     <csc target="library" output="bin/GameFramework.dll" debug="${debug}">
       <references>
         <include name="System.Drawing.dll" />
